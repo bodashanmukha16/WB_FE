@@ -1,49 +1,51 @@
-import { useState } from "react";
-import LogoImage from '../assets/logo.png'
+import { useEffect, useState } from "react";
+import LogoImage from "../assets/logo.png";
 import { Await, useNavigate } from "react-router-dom";
 import { loginUser } from "../services/authService";
 export default function LoginCard() {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
-    password: ""
+    password: "",
   });
-  const [error, setError] = useState("")
-  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = async (e)=>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("")
+    setError("");
     try {
-        setLoading(true)
-        const data = await loginUser(formData);
-         localStorage.setItem("token", data.token);
+      setLoading(true);
+      const data = await loginUser(formData);
+      localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
       navigate("/dash");
-    } catch (e){
-        setError("Invalid username or password",e)
-        setLoading(false)
+    } catch (e) {
+      setError("Invalid username or password", e);
+      setLoading(false);
     }
   };
 
+  useEffect(() => {
+    const prev_id = localStorage.getItem("token");
+    if (prev_id) {
+      navigate("/dash");
+    }
+  }, []);
+  //Redirect if already Logged in
+
   return (
     <div className="login-card">
-
       {/* LEFT SIDE */}
       <div className="left-panel">
         <div className="circle"></div>
-        <img
-          src={LogoImage}
-          alt="illustration"
-          className="illustration"
-        />
+        <img src={LogoImage} alt="illustration" className="illustration" />
         {/* <p>
           Centralized academic portal for students.
           Access everything in one place.
@@ -52,13 +54,11 @@ export default function LoginCard() {
 
       {/* RIGHT SIDE */}
       <div className="right-panel">
-
         <div className="welcome-badge">Welcome back</div>
 
         <h2>Login your account</h2>
 
         <form onSubmit={handleSubmit}>
-
           <div className="input-group">
             <label>Username</label>
             <input
@@ -81,17 +81,15 @@ export default function LoginCard() {
 
           {error && <p style={{ color: "red" }}>{error}</p>}
 
-      <button type="submit" disabled={loading}>
-        {loading ? "Logging in..." : "Login"}
-      </button>
+          <button type="submit" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
+          </button>
 
           <div className="links">
             <p>Forgot Password?</p>
           </div>
-
         </form>
       </div>
-
     </div>
   );
 }
