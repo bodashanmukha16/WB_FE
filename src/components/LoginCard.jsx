@@ -37,7 +37,7 @@ export default function LoginCard() {
     if (prev_id) {
       navigate("/dash");
     }
-  }, []);
+  }, [navigate])
   //Redirect if already Logged in
 
   return (
