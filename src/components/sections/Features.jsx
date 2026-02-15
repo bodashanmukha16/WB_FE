@@ -20,7 +20,7 @@ export default function Features() {
           {features.map((feature) => (
             <div
               key={feature.id}
-              className={`group bg-white p-8 rounded-2xl border-2 border-gray-100 ${feature.hoverBorder} hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2`}
+              className={`group bg-white p-8 rounded-2xl border-2 border-gray-100 ${feature.hoverBorder} hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2`} style={{cursor:"pointer"}}
             >
               <div
                 className={`w-16 h-16 bg-gradient-to-br ${feature.gradientFrom} ${feature.gradientTo} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}

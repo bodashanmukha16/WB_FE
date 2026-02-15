@@ -66,6 +66,7 @@ export default function LoginCard() {
               name="username"
               value={formData.username}
               onChange={handleChange}
+              required
             />
           </div>
 
@@ -76,6 +77,7 @@ export default function LoginCard() {
               name="password"
               value={formData.password}
               onChange={handleChange}
+              required
             />
           </div>
 
