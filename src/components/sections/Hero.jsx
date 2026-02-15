@@ -1,18 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 function Hero() {
-  
-  const [showTop, setShowTop] = useState(false);
   const name = JSON.parse(localStorage.getItem('user'))
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowTop(window.scrollY > 300);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-    
-  }, []);
 
   return (
     <div className="font-['Inter'] bg-gray-50 reveal">
@@ -87,16 +76,6 @@ function Hero() {
           </div>
         </div>
       </section>
-
-  {/* BACK TO TOP */}
-      {showTop && (
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300"
-        >
-          <i className="fas fa-arrow-up"></i>
-        </button>
-      )}
 
     </div>
   )
