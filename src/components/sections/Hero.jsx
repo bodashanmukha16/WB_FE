@@ -15,7 +15,7 @@ function Hero() {
   }, []);
 
   return (
-    <div className="font-['Inter'] bg-gray-50">
+    <div className="font-['Inter'] bg-gray-50 reveal">
 
       {/* HERO SECTION */}
       <section
@@ -42,16 +42,13 @@ function Hero() {
               </h1>
 
               <p className="text-xl text-gray-600 mb-8 leading-relaxed animate-fade-in-up">
-                Unlock your potential with cutting-edge educational technology.
-                Access world-class courses and personalized learning paths.
+                 Your academic journey continues today. Track your progress,
+  explore new courses, and achieve your goals.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in-up">
                 <button className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg text-lg font-semibold hover:shadow-xl transform hover:scale-105 transition-all duration-300">
-                  <i className="fas fa-rocket mr-2"></i>Start Learning Now
-                </button>
-                <button className="px-8 py-4 bg-white text-gray-700 rounded-lg text-lg font-semibold hover:shadow-xl border-2 border-gray-200 transform hover:scale-105 transition-all duration-300">
-                  <i className="fas fa-play-circle mr-2"></i>Watch Demo
+                  <i className="fas fa-rocket mr-2"></i>Go To My Dashboard
                 </button>
               </div>
             </div>

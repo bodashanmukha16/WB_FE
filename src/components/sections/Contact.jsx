@@ -1,6 +1,6 @@
 export default function Contact() {
   return (
-    <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600">
+    <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600 reveal">
         <div className="container mx-auto px-6 text-center">
             <h2 className="text-4xl lg:text-5xl font-['Poppins'] font-bold text-white mb-6">
                 Ready to Start Your Learning Journey?

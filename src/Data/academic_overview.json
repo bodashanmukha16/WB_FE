@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "title": "Materials for All Regulations",
+    "description": "Access well-organized academic materials for every regulation and branch. Get notes, lab manuals, and previous question papers semester-wise and branch-wise.",
+    "icon": "fa-book",
+    "gradientFrom": "from-blue-500",
+    "gradientTo": "to-blue-600",
+    "hoverBorder": "hover:border-blue-500"
+  },
+  {
+    "id": 2,
+    "title": "Online Compilers",
+    "description": "Write, compile, and execute programs directly from your browser. Code anytime using mobile or desktop without installing any software.",
+    "icon": "fa-laptop-code",
+    "gradientFrom": "from-purple-500",
+    "gradientTo": "to-purple-600",
+    "hoverBorder": "hover:border-purple-500"
+  },
+  {
+    "id": 3,
+    "title": "Programming Softwares",
+    "description": "Download essential IDEs, compilers, and development tools required for academic coding and lab practice.",
+    "icon": "fa-download",
+    "gradientFrom": "from-green-500",
+    "gradientTo": "to-green-600",
+    "hoverBorder": "hover:border-green-500"
+  },
+  {
+    "id": 4,
+    "title": "Attendance Tracking",
+    "description": "Monitor your attendance percentage subject-wise and stay updated with shortage alerts.",
+    "icon": "fa-calendar-check",
+    "gradientFrom": "from-orange-500",
+    "gradientTo": "to-orange-600",
+    "hoverBorder": "hover:border-orange-500"
+  },
+  {
+    "id": 5,
+    "title": "Results & Performance",
+    "description": "View internal marks, semester results, and CGPA analysis in one centralized dashboard.",
+    "icon": "fa-chart-line",
+    "gradientFrom": "from-pink-500",
+    "gradientTo": "to-pink-600",
+    "hoverBorder": "hover:border-pink-500"
+  },
+  {
+    "id": 6,
+    "title": "Announcements & Updates",
+    "description": "Stay informed with important academic notifications, exam schedules, and department updates.",
+    "icon": "fa-bullhorn",
+    "gradientFrom": "from-indigo-500",
+    "gradientTo": "to-indigo-600",
+    "hoverBorder": "hover:border-indigo-500"
+  }
+]

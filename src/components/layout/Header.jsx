@@ -32,7 +32,7 @@ export default function Header() {
           </div>
 
           <button
-            className="md:hidden text-gray-700"
+            className="md:hidden text-gray-700 hamberger_icon"
             onClick={() => setMobileOpen(!mobileOpen)}
           >
             <i className="fas fa-bars text-2xl"></i>
