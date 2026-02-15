@@ -16,9 +16,7 @@ export default function Testimonials() {
             <p>"Best academic dashboard I’ve used."</p>
             <h4>- Ravi Kumar</h4>
           </div>
-          <div className="bg-red-500 text-white p-10">
-  TEST
-</div>
+          
         </div>
       </div>
     </section>
