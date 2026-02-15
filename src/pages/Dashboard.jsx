@@ -1,8 +1,8 @@
 import React from 'react'
-
+import DashboardHome from './Dashboard/DashboardHome'
 function Dashboard() {
   return (
-    <div>Dashboard</div>
+    <DashboardHome></DashboardHome>
   )
 }
 
