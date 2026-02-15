@@ -6,7 +6,7 @@ import Features from "../../components/sections/Features";
 import Courses from "../../components/sections/Courses";
 import Testimonials from "../../components/sections/Testimonials";
 import Contact from "../../components/sections/Contact";
-import "./Dashboard.css";
+// import "./Dashboard.css";
 
 export default function DashboardHome() {
 
