@@ -26,7 +26,6 @@ export default function DashboardHome() {
       <Hero />
       <Features />
       <Courses />
-      <Testimonials />
       <Contact />
       <Footer />
 

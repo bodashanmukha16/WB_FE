@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 
 function Hero() {
-  const [mobileOpen, setMobileOpen] = useState(false);
+  
   const [showTop, setShowTop] = useState(false);
-
+  const name = JSON.parse(localStorage.getItem('user'))
   useEffect(() => {
     const handleScroll = () => {
       setShowTop(window.scrollY > 300);
@@ -11,59 +11,11 @@ function Hero() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+    
   }, []);
 
   return (
     <div className="font-['Inter'] bg-gray-50">
-
-      {/* NAVBAR */}
-      <nav
-        className="fixed w-full top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm transition-all duration-300"
-        id="navbar"
-      >
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-
-            {/* Logo */}
-            <div className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                <i className="fas fa-graduation-cap text-white text-xl"></i>
-              </div>
-              <span className="text-2xl font-['Poppins'] font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                EduTech
-              </span>
-            </div>
-
-            {/* Desktop Menu */}
-            <div className="hidden md:flex items-center space-x-8">
-              <a href="#home" className="nav-link text-gray-700 hover:text-blue-600 font-medium">Home</a>
-              <a href="#features" className="nav-link text-gray-700 hover:text-blue-600 font-medium">Features</a>
-              <a href="#courses" className="nav-link text-gray-700 hover:text-blue-600 font-medium">Courses</a>
-              <a href="#testimonials" className="nav-link text-gray-700 hover:text-blue-600 font-medium">Testimonials</a>
-              <a href="#contact" className="nav-link text-gray-700 hover:text-blue-600 font-medium">Contact</a>
-            </div>
-
-            {/* Mobile Button */}
-            <button
-              className="md:hidden text-gray-700"
-              onClick={() => setMobileOpen(!mobileOpen)}
-            >
-              <i className="fas fa-bars text-2xl"></i>
-            </button>
-          </div>
-
-          {/* Mobile Menu */}
-          {mobileOpen && (
-            <div className="md:hidden mt-4 pb-4 space-y-3">
-              <a href="#home" className="block text-gray-700">Home</a>
-              <a href="#features" className="block text-gray-700">Features</a>
-              <a href="#courses" className="block text-gray-700">Courses</a>
-              <a href="#testimonials" className="block text-gray-700">Testimonials</a>
-              <a href="#contact" className="block text-gray-700">Contact</a>
-            </div>
-          )}
-        </div>
-      </nav>
 
       {/* HERO SECTION */}
       <section
@@ -77,14 +29,16 @@ function Hero() {
             <div className="flex-1 text-center lg:text-left">
               <div className="inline-block px-4 py-2 bg-blue-100 text-blue-600 rounded-full text-sm font-semibold mb-6 animate-fade-in-up">
                 <i className="fas fa-star mr-2"></i>
-                Welcome to the Future of Learning
+                Hi there!!!!!
               </div>
 
               <h1 className="text-5xl lg:text-6xl font-['Poppins'] font-bold text-gray-900 mb-6 leading-tight animate-fade-in-up">
-                Transform Your{" "}
+                Welcom Back{" "}
+                { name &&
                 <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  Learning Journey
+                  {name.name}
                 </span>
+                }
               </h1>
 
               <p className="text-xl text-gray-600 mb-8 leading-relaxed animate-fade-in-up">

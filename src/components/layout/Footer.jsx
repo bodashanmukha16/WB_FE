@@ -9,7 +9,7 @@ export default function Footer() {
           {/* ===== COLUMN 1 ===== */}
           <div>
             <h3 className="text-2xl font-bold text-white mb-4">
-              EduTech
+              WorkBench
             </h3>
             <p className="text-gray-400 leading-relaxed">
               Empowering students worldwide with cutting-edge educational technology.
