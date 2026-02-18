@@ -16,7 +16,8 @@
     "icon": "fa-laptop-code",
     "gradientFrom": "from-purple-500",
     "gradientTo": "to-purple-600",
-    "hoverBorder": "hover:border-purple-500"
+    "hoverBorder": "hover:border-purple-500",
+    "click_then":"/compilers"
   },
   {
     "id": 3,

@@ -1,0 +1,37 @@
+[
+  { "id": 1, "name": "C Compiler", "language": "C", "category": "Core", "icon": "fa-code", "color": "from-blue-500 to-blue-700", "url": "https://onecompiler.com/c" },
+  { "id": 2, "name": "C++ Compiler", "language": "C++", "category": "Core", "icon": "fa-code", "color": "from-indigo-500 to-indigo-700", "url": "https://onecompiler.com/cpp" },
+  { "id": 3, "name": "Java Compiler", "language": "Java", "category": "Core", "icon": "fa-coffee", "color": "from-red-500 to-red-700", "url": "https://onecompiler.com/java" },
+  { "id": 4, "name": "Python Compiler", "language": "Python", "category": "Core", "icon": "fa-python", "color": "from-yellow-400 to-yellow-600", "url": "https://onecompiler.com/python" },
+  { "id": 5, "name": "JavaScript Compiler", "language": "JavaScript", "category": "Web", "icon": "fa-js", "color": "from-yellow-300 to-yellow-500", "url": "https://onecompiler.com/javascript" },
+
+  { "id": 6, "name": "TypeScript Compiler", "language": "TypeScript", "category": "Web", "icon": "fa-code", "color": "from-blue-400 to-blue-600", "url": "https://onecompiler.com/typescript" },
+  { "id": 7, "name": "PHP Compiler", "language": "PHP", "category": "Web", "icon": "fa-php", "color": "from-purple-400 to-purple-600", "url": "https://onecompiler.com/php" },
+  { "id": 8, "name": "Go Compiler", "language": "Go", "category": "Core", "icon": "fa-code", "color": "from-cyan-400 to-cyan-600", "url": "https://onecompiler.com/go" },
+  { "id": 9, "name": "Rust Compiler", "language": "Rust", "category": "System", "icon": "fa-cogs", "color": "from-orange-500 to-orange-700", "url": "https://onecompiler.com/rust" },
+  { "id": 10, "name": "Kotlin Compiler", "language": "Kotlin", "category": "App Development", "icon": "fa-mobile", "color": "from-purple-500 to-pink-500", "url": "https://onecompiler.com/kotlin" },
+
+  { "id": 11, "name": "Swift Compiler", "language": "Swift", "category": "App Development", "icon": "fa-mobile-alt", "color": "from-orange-400 to-red-500", "url": "https://onecompiler.com/swift" },
+  { "id": 12, "name": "C# Compiler", "language": "C#", "category": "Core", "icon": "fa-hashtag", "color": "from-green-500 to-green-700", "url": "https://onecompiler.com/csharp" },
+  { "id": 13, "name": "R Compiler", "language": "R", "category": "Data Science", "icon": "fa-chart-line", "color": "from-blue-400 to-indigo-600", "url": "https://onecompiler.com/r" },
+  { "id": 14, "name": "MATLAB Compiler", "language": "MATLAB", "category": "Data Science", "icon": "fa-calculator", "color": "from-orange-500 to-yellow-500", "url": "https://onecompiler.com/octave" },
+  { "id": 15, "name": "Scala Compiler", "language": "Scala", "category": "Core", "icon": "fa-code", "color": "from-red-600 to-red-800", "url": "https://onecompiler.com/scala" },
+
+  { "id": 16, "name": "Dart Compiler", "language": "Dart", "category": "App Development", "icon": "fa-code", "color": "from-blue-300 to-blue-500", "url": "https://onecompiler.com/dart" },
+  { "id": 17, "name": "Ruby Compiler", "language": "Ruby", "category": "Web", "icon": "fa-gem", "color": "from-red-400 to-pink-600", "url": "https://onecompiler.com/ruby" },
+  { "id": 18, "name": "Bash Compiler", "language": "Bash", "category": "System", "icon": "fa-terminal", "color": "from-gray-600 to-gray-800", "url": "https://onecompiler.com/bash" },
+  { "id": 19, "name": "Assembly Compiler", "language": "Assembly", "category": "System", "icon": "fa-microchip", "color": "from-gray-700 to-black", "url": "https://onecompiler.com/assembly" },
+  { "id": 20, "name": "SQL Compiler", "language": "SQL", "category": "Database", "icon": "fa-database", "color": "from-blue-500 to-indigo-600", "url": "https://onecompiler.com/mysql" },
+
+  { "id": 21, "name": "MySQL Compiler", "language": "MySQL", "category": "Database", "icon": "fa-database", "color": "from-orange-400 to-blue-600", "url": "https://onecompiler.com/mysql" },
+  { "id": 22, "name": "PostgreSQL Compiler", "language": "PostgreSQL", "category": "Database", "icon": "fa-database", "color": "from-blue-700 to-indigo-800", "url": "https://onecompiler.com/postgresql" },
+  { "id": 23, "name": "MongoDB Playground", "language": "MongoDB", "category": "Database", "icon": "fa-leaf", "color": "from-green-500 to-green-700", "url": "https://www.mongodb.com/try/playground" },
+  { "id": 24, "name": "HTML Editor", "language": "HTML", "category": "Web", "icon": "fa-html5", "color": "from-orange-500 to-red-500", "url": "https://onecompiler.com/html" },
+  { "id": 25, "name": "CSS Editor", "language": "CSS", "category": "Web", "icon": "fa-css3-alt", "color": "from-blue-400 to-blue-700", "url": "https://onecompiler.com/html" },
+
+  { "id": 26, "name": "React Playground", "language": "React", "category": "Web", "icon": "fa-react", "color": "from-cyan-400 to-blue-500", "url": "https://codesandbox.io/" },
+  { "id": 27, "name": "Angular Playground", "language": "Angular", "category": "Web", "icon": "fa-angular", "color": "from-red-600 to-red-800", "url": "https://stackblitz.com/" },
+  { "id": 28, "name": "Vue Playground", "language": "Vue", "category": "Web", "icon": "fa-vuejs", "color": "from-green-400 to-green-600", "url": "https://stackblitz.com/" },
+  { "id": 29, "name": "Node.js Playground", "language": "Node.js", "category": "Web", "icon": "fa-node-js", "color": "from-green-500 to-green-800", "url": "https://onecompiler.com/nodejs" },
+  { "id": 30, "name": "Groovy Compiler", "language": "Groovy", "category": "Core", "icon": "fa-code", "color": "from-green-400 to-green-600", "url": "https://onecompiler.com/groovy" }
+]

@@ -12,7 +12,7 @@ export default function Header() {
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
 
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 home-btn-click" onClick={()=>{navigate("/dash")}}>
             <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
               <i className="fas fa-graduation-cap text-white text-xl"></i>
             </div>

@@ -192,3 +192,7 @@ button:hover {
     width: 150px;
   }
 }
+.home-btn-click
+{
+    cursor: pointer;
+}
