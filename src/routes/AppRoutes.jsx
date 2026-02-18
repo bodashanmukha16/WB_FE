@@ -4,6 +4,7 @@ import LoginPage from '../pages/LoginPage'
 import Dashboard from '../pages/Dashboard'
 import ProtectedRoute from './ProtectedRoute'
 import DashboardHome from '../pages/Dashboard/DashboardHome'
+import MaterialsHome from '../pages/Materials/MaterialsHome'
 
 function AppRoutes() {
   return (
@@ -11,6 +12,7 @@ function AppRoutes() {
         <Routes>
             <Route path="/" element={<LoginPage></LoginPage>}></Route>
             <Route path='/dash' element={<ProtectedRoute><DashboardHome></DashboardHome></ProtectedRoute>}></Route>
+            <Route path='/materials' element={<ProtectedRoute><MaterialsHome></MaterialsHome></ProtectedRoute>}></Route>
             <Route path="*" element={<h1>404 - Page Not Found</h1>} />
         </Routes>
     </div>

@@ -6,7 +6,8 @@
     "icon": "fa-book",
     "gradientFrom": "from-blue-500",
     "gradientTo": "to-blue-600",
-    "hoverBorder": "hover:border-blue-500"
+    "hoverBorder": "hover:border-blue-500",
+    "click_then":"/materials"
   },
   {
     "id": 2,

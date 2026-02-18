@@ -1,5 +1,7 @@
 import features from "../../Data/academic_overview.json";
+import { useNavigate } from "react-router-dom";
 export default function Features() {
+    const navigate = useNavigate();
   return (
     <section id="features" className="py-20 bg-white reveal">
       <div className="container mx-auto px-6">
@@ -21,6 +23,7 @@ export default function Features() {
             <div
               key={feature.id}
               className={`group bg-white p-8 rounded-2xl border-2 border-gray-100 ${feature.hoverBorder} hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2`} style={{cursor:"pointer"}}
+              onClick={()=>{navigate(`${feature.click_then}`)}}
             >
               <div
                 className={`w-16 h-16 bg-gradient-to-br ${feature.gradientFrom} ${feature.gradientTo} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
