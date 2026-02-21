@@ -1,4 +1,4 @@
-name: Deploy to Render and Wait
+name: Deploy Application to Render
 
 on:
   push:
