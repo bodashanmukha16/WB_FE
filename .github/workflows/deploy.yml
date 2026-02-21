@@ -1,9 +1,9 @@
-name: Deploy to Render
+name: Deploy to Render and Wait
 
 on:
   push:
     branches:
-      - master   # change if using another branch
+      - master
 
 jobs:
   deploy:
@@ -13,3 +13,32 @@ jobs:
       - name: Trigger Render Deploy
         run: |
           curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
+
+      - name: Wait for Render Deployment
+        run: |
+          echo "Waiting for Render deployment..."
+
+          for i in {1..30}
+          do
+            STATUS=$(curl -s \
+              -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+              https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }} \
+              | jq -r '.service.deployStatus')
+
+            echo "Current status: $STATUS"
+
+            if [ "$STATUS" == "live" ]; then
+              echo "Deployment successful 🚀"
+              exit 0
+            fi
+
+            if [ "$STATUS" == "build_failed" ] || [ "$STATUS" == "deploy_failed" ]; then
+              echo "Deployment failed ❌"
+              exit 1
+            fi
+
+            sleep 20
+          done
+
+          echo "Deployment timed out ❌"
+          exit 1
