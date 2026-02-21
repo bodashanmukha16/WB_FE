@@ -1,8 +1,30 @@
+import { useState } from "react";
 import Footer from "../../components/layout/Footer";
 import Header from "../../components/layout/Header";
 import compilers from "../../Data/compilers.json";
 
 export default function Compiler() {
+  const [updatedResult, setUpdated] = useState(compilers)
+  const [updatedValue, setValue] = useState("")
+
+  const newResult = (e)=>{
+     const value = e.target.value;
+     setValue(value);
+
+    if (value.trim() === "") {
+    setUpdated(compilers)
+    return;
+  }
+    const items1 = compilers.filter(item=>
+      item.name.toLowerCase().includes(value.toLowerCase()) ||
+      item.language.toLowerCase().includes(value.toLowerCase())
+      
+    )
+
+    setUpdated(items1)
+  }
+
+  
   return (
     <>
       <Header></Header>
@@ -15,11 +37,11 @@ export default function Compiler() {
           <div class="w-full max-w-sm min-w-[200px] mb-4">
             <input
               class="w-full bg-transparent placeholder:text-slate-900 text-slate-700 text-sm border border-slate-800 rounded-md pl-3 pr-28 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-              placeholder="Search Your compiler" 
+              placeholder="Search Your compiler" onChange={newResult} value={updatedValue}
             />
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {compilers.map((compiler) => (
+            {updatedResult.map((compiler) => (
               <div
                 key={compiler.id}
                 className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
