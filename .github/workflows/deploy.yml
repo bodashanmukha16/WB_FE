@@ -18,7 +18,7 @@ jobs:
         run: |
           curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
 
-      # 🔥 Wait for Deployment to Become LIVE
+      # 🔥 Wait for Deployment
       - name: Wait for Render Deployment
         id: wait_deploy
         run: |
@@ -35,39 +35,37 @@ jobs:
             echo "Current status: $STATUS"
 
             if [ "$STATUS" == "live" ]; then
-              echo "Deployment successful 🚀"
               END=$(date +%s)
               echo "DEPLOY_TIME=$((END-START))" >> $GITHUB_ENV
               exit 0
             fi
 
             if [ "$STATUS" == "build_failed" ] || [ "$STATUS" == "deploy_failed" ]; then
-              echo "Deployment failed ❌"
               exit 1
             fi
 
             sleep 20
           done
 
-          echo "Deployment timed out ❌"
           exit 1
 
       # ✅ SUCCESS EMAIL
-      - name: Send Success Email (Ultra Professional)
+      - name: Send Success Email
         if: success()
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
           server_port: 587
+          secure: false
           username: "workbench.portal@gmail.com"
           password: ${{ secrets.SMTP_PASSWORD }}
           subject: "🚀 WB_FE Deployment Successful"
           to: ${{ github.event.head_commit.author.email }}
           from: "workbench.portal@gmail.com"
-          content_type: text/html
-          body: |
+          html_body: |
             <div style="font-family: Arial, sans-serif; background:#f3f4f6; padding:30px;">
               <div style="max-width:650px; margin:auto; background:#ffffff; border-radius:10px; padding:25px;">
+                
                 <div style="text-align:center; margin-bottom:20px;">
                   <img src="https://img.freepik.com/free-vector/digital-book-logo-vector-template_361591-3092.jpg" width="150"/>
                 </div>
@@ -91,33 +89,33 @@ jobs:
                      🌍 View Live Site
                   </a>
                 </div>
+
               </div>
             </div>
 
       # ❌ FAILURE EMAIL
-      - name: Send Failure Email (Ultra Professional)
+      - name: Send Failure Email
         if: failure()
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
           server_port: 587
+          secure: false
           username: "workbench.portal@gmail.com"
           password: ${{ secrets.SMTP_PASSWORD }}
           subject: "❌ WB_FE Deployment Failed"
           to: ${{ github.event.head_commit.author.email }}
           from: "workbench.portal@gmail.com"
-          content_type: text/html
-          body: |
+          html_body: |
             <div style="font-family: Arial, sans-serif; background:#f3f4f6; padding:30px;">
               <div style="max-width:650px; margin:auto; background:#ffffff; border-radius:10px; padding:25px;">
+
                 <div style="text-align:center; margin-bottom:20px;">
-                  <img src="https://your-company-logo-url.com/logo.png" width="150"/>
+                  <img src="https://img.freepik.com/free-vector/digital-book-logo-vector-template_361591-3092.jpg" width="150"/>
                 </div>
 
                 <h2 style="color:#dc2626; text-align:center;">❌ Deployment Failed</h2>
                 <p>Hello ${{ github.event.head_commit.author.name }},</p>
-
-                <p>Your deployment has failed.</p>
 
                 <table style="width:100%;">
                   <tr><td><strong>Branch:</strong></td><td>${{ github.ref_name }}</td></tr>
@@ -133,5 +131,6 @@ jobs:
                      🔎 View Logs
                   </a>
                 </div>
+
               </div>
             </div>
