@@ -22,7 +22,7 @@ function Hero() {
               </div>
 
               <h1 className="text-5xl lg:text-6xl font-['Poppins'] font-bold text-gray-900 mb-6 leading-tight animate-fade-in-up">
-                Welcom Back{" "}
+                Welcome Back{" "}
                 { name &&
                 <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   {name.name}
