@@ -36,7 +36,7 @@ function Hero() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in-up">
-                <button className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg text-lg font-semibold hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                <button onClick={() => document.getElementById("features").scrollIntoView({ behavior: "smooth" })} className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg text-lg font-semibold hover:shadow-xl transform hover:scale-105 transition-all duration-300">
                   <i className="fas fa-rocket mr-2"></i>Go To My Dashboard
                 </button>
               </div>

@@ -5,6 +5,7 @@ import { Navigate, useNavigate } from 'react-router-dom'
 
 function MaterialsHome() {
      const navigate = useNavigate()
+     const user = JSON.parse(localStorage.getItem('user'))
   return (
     <div>
         <Header></Header>
@@ -110,7 +111,7 @@ function MaterialsHome() {
         return (
           <div
             key={year}
-            onClick={() => navigate(`/materials/year/${year}`)}
+            onClick={() => navigate(`/materials/${user.branch}/${year}`)}
             className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-3 cursor-pointer"
           >
 
