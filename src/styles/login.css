@@ -9,7 +9,7 @@ body {
   margin: 0;
   font-family: "Segoe UI", sans-serif;
 }
-
+button{cursor: pointer;}
 /* BACKGROUND */
 .login-background {
   min-height: 100vh;
@@ -109,7 +109,7 @@ body {
 }
 
 /* BUTTON */
-button {
+.login_btn, .logout_btn {
   margin-top: 20px;
   padding: 12px 40px;
   border: none;
@@ -121,7 +121,10 @@ button {
   transition: 0.3s;
 }
 
-button:hover {
+.login_btn:hover {
+  transform: scale(1.05);
+}
+.logout_btn:hover {
   transform: scale(1.05);
 }
 
