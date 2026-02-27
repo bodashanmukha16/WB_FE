@@ -88,7 +88,7 @@ export default function LoginCard() {
           </button>
 
           <div className="links">
-            <p>Forgot Password?</p>
+            <p onClick={()=>{navigate('/forgot-password')}}>Forgot Password?</p>
           </div>
         </form>
       </div>
