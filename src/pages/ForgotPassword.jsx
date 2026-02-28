@@ -11,7 +11,7 @@ export default function ForgotPassword() {
     e.preventDefault();
     try {
       setLoading(true);
-      await axios.post("http://localhost:5000/api/auth/forgot-password", { email });
+      await axios.post("https://wb-be-q2u6.onrender.com/api/auth/forgot-password", { email });
       setSuccess(true);
     } catch (err) {
       alert("Something went wrong",err);

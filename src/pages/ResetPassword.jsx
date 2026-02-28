@@ -42,7 +42,7 @@ export default function ResetPassword() {
 
     try {
       setLoading(true);
-      await axios.post(`http://localhost:5000/api/auth/reset-password/${token}`, {
+      await axios.post(`https://wb-be-q2u6.onrender.com/api/auth/reset-password/${token}`, {
         newPassword: password,
       });
       setSuccess(true);
