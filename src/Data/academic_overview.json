@@ -26,7 +26,8 @@
     "icon": "fa-download",
     "gradientFrom": "from-green-500",
     "gradientTo": "to-green-600",
-    "hoverBorder": "hover:border-green-500"
+    "hoverBorder": "hover:border-green-500",
+     "click_then":"/softwares"
   },
   {
     "id": 4,
@@ -53,6 +54,7 @@
     "icon": "fa-bullhorn",
     "gradientFrom": "from-indigo-500",
     "gradientTo": "to-indigo-600",
-    "hoverBorder": "hover:border-indigo-500"
+    "hoverBorder": "hover:border-indigo-500",
+     "click_then":"/notifications"
   }
 ]

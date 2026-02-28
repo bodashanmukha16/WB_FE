@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "title": "Mid Semester Examination Schedule Released",
+    "category": "Examinations",
+    "date": "2026-03-02",
+    "description": "The mid semester examinations for all B.Tech programs will commence from 18th March 2026.",
+    "attachment": "/pdfs/mid-sem-schedule.pdf",
+    "isNew": true
+  },
+  {
+    "id": 2,
+    "title": "Campus Recruitment Drive - Infosys",
+    "category": "Placements",
+    "date": "2026-02-28",
+    "description": "Infosys recruitment drive for 2026 batch students on 10th March 2026.",
+    "attachment": "/pdfs/infosys-drive.pdf",
+    "isNew": true
+  },
+  {
+    "id": 3,
+    "title": "Annual Cultural Fest 2026",
+    "category": "Events",
+    "date": "2026-02-20",
+    "description": "Annual cultural fest registrations are now open. Event dates: 25th–27th March 2026.",
+    "attachment": "",
+    "isNew": false
+  },
+  {
+    "id": 4,
+    "title": "End Semester Results Published",
+    "category": "Results",
+    "date": "2026-02-15",
+    "description": "End semester results for MBA and MCA programs are now available.",
+    "attachment": "/results",
+    "isNew": false
+  }
+]

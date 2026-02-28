@@ -6,10 +6,10 @@ import DashboardHome from '../pages/Dashboard/DashboardHome'
 import MaterialsHome from '../pages/Materials/MaterialsHome'
 import Compiler from '../pages/Compilers/Compiler'
 import YearTemplate from '../pages/YearTemplate/YearTemplate'
-
+import Softwares from '../pages/Compilers/Softwares'
 import ForgotPassword from '../pages/ForgotPassword'
 import ResetPassword from '../pages/ResetPassword'
-
+import Notifications from '../components/sections/Notifications'
 import ProtectedRoute from './ProtectedRoute'
 
 function AppRoutes() {
@@ -46,6 +46,17 @@ function AppRoutes() {
         </ProtectedRoute>
       } />
 
+ <Route path="/softwares" element={
+        <ProtectedRoute>
+          <Softwares />
+        </ProtectedRoute>
+      } />
+
+       <Route path="/notifications" element={
+        <ProtectedRoute>
+          <Notifications />
+        </ProtectedRoute>
+      } />
       <Route path="*" element={<h1>404 - Page Not Found</h1>} />
 
     </Routes>

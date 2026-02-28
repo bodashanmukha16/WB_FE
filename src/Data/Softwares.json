@@ -1,0 +1,902 @@
+[
+  {
+    "id": 1,
+    "name": "Dev-C++",
+    "language": "C",
+    "category": "Core",
+    "icon": "fa-code",
+    "color": "from-blue-500 to-blue-700",
+    "url": "https://sourceforge.net/projects/orwelldevcpp/"
+  },
+  {
+    "id": 2,
+    "name": "Code::Blocks",
+    "language": "C++",
+    "category": "Core",
+    "icon": "fa-code",
+    "color": "from-indigo-500 to-indigo-700",
+    "url": "https://www.codeblocks.org/downloads/"
+  },
+  {
+    "id": 3,
+    "name": "OpenJDK",
+    "language": "Java",
+    "category": "Core",
+    "icon": "fa-coffee",
+    "color": "from-red-500 to-red-700",
+    "url": "https://adoptium.net/"
+  },
+  {
+    "id": 4,
+    "name": "Python",
+    "language": "Python",
+    "category": "Core",
+    "icon": "fa-python",
+    "color": "from-yellow-400 to-yellow-600",
+    "url": "https://www.python.org/downloads/"
+  },
+  {
+    "id": 5,
+    "name": "Node.js",
+    "language": "JavaScript",
+    "category": "Web",
+    "icon": "fa-node-js",
+    "color": "from-green-500 to-green-800",
+    "url": "https://nodejs.org/en/download"
+  },
+  {
+    "id": 6,
+    "name": "TypeScript (via Node)",
+    "language": "TypeScript",
+    "category": "Web",
+    "icon": "fa-code",
+    "color": "from-blue-400 to-blue-600",
+    "url": "https://nodejs.org/en/download"
+  },
+  {
+    "id": 7,
+    "name": "PHP",
+    "language": "PHP",
+    "category": "Web",
+    "icon": "fa-php",
+    "color": "from-purple-400 to-purple-600",
+    "url": "https://windows.php.net/download/"
+  },
+  {
+    "id": 8,
+    "name": "Go",
+    "language": "Go",
+    "category": "Core",
+    "icon": "fa-code",
+    "color": "from-cyan-400 to-cyan-600",
+    "url": "https://go.dev/dl/"
+  },
+  {
+    "id": 9,
+    "name": "Rust",
+    "language": "Rust",
+    "category": "System",
+    "icon": "fa-cogs",
+    "color": "from-orange-500 to-orange-700",
+    "url": "https://www.rust-lang.org/tools/install"
+  },
+  {
+    "id": 10,
+    "name": "Kotlin",
+    "language": "Kotlin",
+    "category": "App Development",
+    "icon": "fa-mobile",
+    "color": "from-purple-500 to-pink-500",
+    "url": "https://kotlinlang.org/docs/command-line.html"
+  },
+  {
+    "id": 11,
+    "name": "Swift",
+    "language": "Swift",
+    "category": "App Development",
+    "icon": "fa-mobile-alt",
+    "color": "from-orange-400 to-red-500",
+    "url": "https://www.swift.org/download/"
+  },
+  {
+    "id": 12,
+    "name": ".NET SDK",
+    "language": "C#",
+    "category": "Core",
+    "icon": "fa-hashtag",
+    "color": "from-green-500 to-green-700",
+    "url": "https://dotnet.microsoft.com/download"
+  },
+  {
+    "id": 13,
+    "name": "R",
+    "language": "R",
+    "category": "Data Science",
+    "icon": "fa-chart-line",
+    "color": "from-blue-400 to-indigo-600",
+    "url": "https://cran.r-project.org/"
+  },
+  {
+    "id": 14,
+    "name": "GNU Octave",
+    "language": "MATLAB Alternative",
+    "category": "Data Science",
+    "icon": "fa-calculator",
+    "color": "from-orange-500 to-yellow-500",
+    "url": "https://www.gnu.org/software/octave/download"
+  },
+  {
+    "id": 15,
+    "name": "Scala",
+    "language": "Scala",
+    "category": "Core",
+    "icon": "fa-code",
+    "color": "from-red-600 to-red-800",
+    "url": "https://www.scala-lang.org/download/"
+  },
+  {
+    "id": 16,
+    "name": "Groovy",
+    "language": "Groovy",
+    "category": "Core",
+    "icon": "fa-code",
+    "color": "from-green-400 to-green-600",
+    "url": "https://groovy.apache.org/download.html"
+  },
+  {
+    "id": 17,
+    "name": "Haskell (GHC)",
+    "language": "Haskell",
+    "category": "Core",
+    "icon": "fa-code",
+    "color": "from-purple-600 to-indigo-700",
+    "url": "https://www.haskell.org/ghc/"
+  },
+  {
+    "id": 18,
+    "name": "Elixir",
+    "language": "Elixir",
+    "category": "Web",
+    "icon": "fa-bolt",
+    "color": "from-purple-500 to-pink-600",
+    "url": "https://elixir-lang.org/install.html"
+  },
+  {
+    "id": 19,
+    "name": "Clojure",
+    "language": "Clojure",
+    "category": "Core",
+    "icon": "fa-leaf",
+    "color": "from-green-500 to-green-700",
+    "url": "https://clojure.org/guides/install_clojure"
+  },
+  {
+    "id": 20,
+    "name": "Assembly (NASM)",
+    "language": "Assembly",
+    "category": "System",
+    "icon": "fa-microchip",
+    "color": "from-gray-700 to-black",
+    "url": "https://www.nasm.us/"
+  },
+  {
+    "id": 21,
+    "name": "Bash (Git Bash)",
+    "language": "Bash",
+    "category": "System",
+    "icon": "fa-terminal",
+    "color": "from-gray-600 to-gray-800",
+    "url": "https://git-scm.com/downloads"
+  },
+  {
+    "id": 22,
+    "name": "PowerShell",
+    "language": "PowerShell",
+    "category": "System",
+    "icon": "fa-terminal",
+    "color": "from-blue-600 to-blue-800",
+    "url": "https://github.com/PowerShell/PowerShell"
+  },
+  {
+    "id": 23,
+    "name": "Julia",
+    "language": "Julia",
+    "category": "Data Science",
+    "icon": "fa-chart-line",
+    "color": "from-purple-500 to-red-500",
+    "url": "https://julialang.org/downloads/"
+  },
+  {
+    "id": 24,
+    "name": "Perl",
+    "language": "Perl",
+    "category": "Core",
+    "icon": "fa-code",
+    "color": "from-blue-500 to-indigo-600",
+    "url": "https://strawberryperl.com/"
+  },
+  {
+    "id": 25,
+    "name": "Lua",
+    "language": "Lua",
+    "category": "Core",
+    "icon": "fa-code",
+    "color": "from-blue-400 to-blue-600",
+    "url": "https://www.lua.org/download.html"
+  },
+  {
+    "id": 26,
+    "name": "Fortran",
+    "language": "Fortran",
+    "category": "Core",
+    "icon": "fa-code",
+    "color": "from-gray-500 to-gray-700",
+    "url": "https://gcc.gnu.org/fortran/"
+  },
+  {
+    "id": 27,
+    "name": "COBOL (GnuCOBOL)",
+    "language": "COBOL",
+    "category": "Core",
+    "icon": "fa-code",
+    "color": "from-gray-600 to-gray-800",
+    "url": "https://gnucobol.sourceforge.io/"
+  },
+  {
+    "id": 28,
+    "name": "D Language",
+    "language": "D",
+    "category": "System",
+    "icon": "fa-code",
+    "color": "from-red-500 to-red-700",
+    "url": "https://dlang.org/download.html"
+  },
+  {
+    "id": 29,
+    "name": "Nim",
+    "language": "Nim",
+    "category": "Core",
+    "icon": "fa-code",
+    "color": "from-yellow-500 to-orange-600",
+    "url": "https://nim-lang.org/install.html"
+  },
+  {
+    "id": 30,
+    "name": "Zig",
+    "language": "Zig",
+    "category": "System",
+    "icon": "fa-code",
+    "color": "from-orange-400 to-orange-600",
+    "url": "https://ziglang.org/download/"
+  },
+  {
+    "id": 31,
+    "name": "Crystal",
+    "language": "Crystal",
+    "category": "Web",
+    "icon": "fa-gem",
+    "color": "from-blue-400 to-indigo-500",
+    "url": "https://crystal-lang.org/install/"
+  },
+  {
+    "id": 32,
+    "name": "FreePascal",
+    "language": "Pascal",
+    "category": "Core",
+    "icon": "fa-code",
+    "color": "from-green-400 to-green-600",
+    "url": "https://www.freepascal.org/download.html"
+  },
+  {
+    "id": 33,
+    "name": "Elm",
+    "language": "Elm",
+    "category": "Web",
+    "icon": "fa-code",
+    "color": "from-teal-400 to-teal-600",
+    "url": "https://guide.elm-lang.org/install/elm.html"
+  },
+  {
+    "id": 34,
+    "name": "V Language",
+    "language": "V",
+    "category": "System",
+    "icon": "fa-code",
+    "color": "from-blue-500 to-blue-700",
+    "url": "https://vlang.io/"
+  },
+  {
+    "id": 35,
+    "name": "OCaml",
+    "language": "OCaml",
+    "category": "Core",
+    "icon": "fa-code",
+    "color": "from-orange-500 to-orange-700",
+    "url": "https://ocaml.org/install"
+  },
+  {
+    "id": 36,
+    "name": "Racket",
+    "language": "Racket",
+    "category": "Core",
+    "icon": "fa-code",
+    "color": "from-red-400 to-red-600",
+    "url": "https://racket-lang.org/download/"
+  },
+  {
+    "id": 37,
+    "name": "Haxe",
+    "language": "Haxe",
+    "category": "Game Dev",
+    "icon": "fa-gamepad",
+    "color": "from-orange-500 to-red-500",
+    "url": "https://haxe.org/download/"
+  },
+  {
+    "id": 38,
+    "name": "Godot Engine",
+    "language": "GDScript",
+    "category": "Game Dev",
+    "icon": "fa-gamepad",
+    "color": "from-blue-500 to-blue-700",
+    "url": "https://godotengine.org/download"
+  },
+  {
+    "id": 39,
+    "name": "Scratch Offline Editor",
+    "language": "Scratch",
+    "category": "Education",
+    "icon": "fa-child",
+    "color": "from-orange-400 to-orange-600",
+    "url": "https://scratch.mit.edu/download"
+  },
+  {
+    "id": 40,
+    "name": "Ballerina",
+    "language": "Ballerina",
+    "category": "Cloud",
+    "icon": "fa-cloud",
+    "color": "from-purple-400 to-purple-600",
+    "url": "https://ballerina.io/downloads/"
+  },
+  {
+    "id": 41,
+    "name": "Chapel",
+    "language": "Chapel",
+    "category": "HPC",
+    "icon": "fa-server",
+    "color": "from-gray-500 to-gray-700",
+    "url": "https://chapel-lang.org/download.html"
+  },
+  {
+    "id": 42,
+    "name": "Groovy SDK",
+    "language": "Groovy",
+    "category": "Core",
+    "icon": "fa-code",
+    "color": "from-green-400 to-green-600",
+    "url": "https://sdkman.io/"
+  },
+  {
+    "id": 43,
+    "name": "Solidity",
+    "language": "Solidity",
+    "category": "Blockchain",
+    "icon": "fa-link",
+    "color": "from-gray-600 to-gray-800",
+    "url": "https://docs.soliditylang.org/en/latest/installing-solidity.html"
+  },
+  {
+    "id": 44,
+    "name": "Carbon",
+    "language": "Carbon",
+    "category": "System",
+    "icon": "fa-code",
+    "color": "from-gray-700 to-black",
+    "url": "https://github.com/carbon-language/carbon-lang"
+  },
+  {
+    "id": 45,
+    "name": "Ada",
+    "language": "Ada",
+    "category": "System",
+    "icon": "fa-code",
+    "color": "from-blue-600 to-blue-800",
+    "url": "https://www.adacore.com/download"
+  },
+  {
+    "id": 46,
+    "name": "Objective-C (Xcode)",
+    "language": "Objective-C",
+    "category": "App Development",
+    "icon": "fa-apple",
+    "color": "from-gray-700 to-black",
+    "url": "https://developer.apple.com/xcode/"
+  },
+  {
+    "id": 47,
+    "name": "Android Studio",
+    "language": "Kotlin",
+    "category": "App Development",
+    "icon": "fa-android",
+    "color": "from-green-500 to-green-700",
+    "url": "https://developer.android.com/studio"
+  },
+  {
+    "id": 48,
+    "name": "IntelliJ IDEA Community",
+    "language": "Java",
+    "category": "Core",
+    "icon": "fa-coffee",
+    "color": "from-red-500 to-red-700",
+    "url": "https://www.jetbrains.com/idea/download/"
+  },
+  {
+    "id": 49,
+    "name": "PyCharm Community",
+    "language": "Python",
+    "category": "Core",
+    "icon": "fa-python",
+    "color": "from-yellow-400 to-yellow-600",
+    "url": "https://www.jetbrains.com/pycharm/download/"
+  },
+  {
+    "id": 50,
+    "name": "Visual Studio Code",
+    "language": "Multi-language",
+    "category": "Web",
+    "icon": "fa-code",
+    "color": "from-blue-500 to-blue-700",
+    "url": "https://code.visualstudio.com/download"
+  },
+  {
+    "id": 51,
+    "name": "Dev-C++ Tool",
+    "language": "C",
+    "category": "Core",
+    "icon": "fa-code",
+    "color": "from-blue-500 to-blue-700",
+    "url": "https://sourceforge.net/projects/orwelldevcpp/"
+  },
+  {
+    "id": 52,
+    "name": "Code::Blocks Tool",
+    "language": "C++",
+    "category": "Core",
+    "icon": "fa-code",
+    "color": "from-indigo-500 to-indigo-700",
+    "url": "https://www.codeblocks.org/downloads/"
+  },
+  {
+    "id": 53,
+    "name": "OpenJDK Tool",
+    "language": "Java",
+    "category": "Core",
+    "icon": "fa-coffee",
+    "color": "from-red-500 to-red-700",
+    "url": "https://adoptium.net/"
+  },
+  {
+    "id": 54,
+    "name": "Python Tool",
+    "language": "Python",
+    "category": "Core",
+    "icon": "fa-python",
+    "color": "from-yellow-400 to-yellow-600",
+    "url": "https://www.python.org/downloads/"
+  },
+  {
+    "id": 55,
+    "name": "Node.js Tool",
+    "language": "JavaScript",
+    "category": "Web",
+    "icon": "fa-node-js",
+    "color": "from-green-500 to-green-800",
+    "url": "https://nodejs.org/en/download"
+  },
+  {
+    "id": 56,
+    "name": "TypeScript (via Node) Tool",
+    "language": "TypeScript",
+    "category": "Web",
+    "icon": "fa-code",
+    "color": "from-blue-400 to-blue-600",
+    "url": "https://nodejs.org/en/download"
+  },
+  {
+    "id": 57,
+    "name": "PHP Tool",
+    "language": "PHP",
+    "category": "Web",
+    "icon": "fa-php",
+    "color": "from-purple-400 to-purple-600",
+    "url": "https://windows.php.net/download/"
+  },
+  {
+    "id": 58,
+    "name": "Go Tool",
+    "language": "Go",
+    "category": "Core",
+    "icon": "fa-code",
+    "color": "from-cyan-400 to-cyan-600",
+    "url": "https://go.dev/dl/"
+  },
+  {
+    "id": 59,
+    "name": "Rust Tool",
+    "language": "Rust",
+    "category": "System",
+    "icon": "fa-cogs",
+    "color": "from-orange-500 to-orange-700",
+    "url": "https://www.rust-lang.org/tools/install"
+  },
+  {
+    "id": 60,
+    "name": "Kotlin Tool",
+    "language": "Kotlin",
+    "category": "App Development",
+    "icon": "fa-mobile",
+    "color": "from-purple-500 to-pink-500",
+    "url": "https://kotlinlang.org/docs/command-line.html"
+  },
+  {
+    "id": 61,
+    "name": "Swift Tool",
+    "language": "Swift",
+    "category": "App Development",
+    "icon": "fa-mobile-alt",
+    "color": "from-orange-400 to-red-500",
+    "url": "https://www.swift.org/download/"
+  },
+  {
+    "id": 62,
+    "name": ".NET SDK Tool",
+    "language": "C#",
+    "category": "Core",
+    "icon": "fa-hashtag",
+    "color": "from-green-500 to-green-700",
+    "url": "https://dotnet.microsoft.com/download"
+  },
+  {
+    "id": 63,
+    "name": "R Tool",
+    "language": "R",
+    "category": "Data Science",
+    "icon": "fa-chart-line",
+    "color": "from-blue-400 to-indigo-600",
+    "url": "https://cran.r-project.org/"
+  },
+  {
+    "id": 64,
+    "name": "GNU Octave Tool",
+    "language": "MATLAB Alternative",
+    "category": "Data Science",
+    "icon": "fa-calculator",
+    "color": "from-orange-500 to-yellow-500",
+    "url": "https://www.gnu.org/software/octave/download"
+  },
+  {
+    "id": 65,
+    "name": "Scala Tool",
+    "language": "Scala",
+    "category": "Core",
+    "icon": "fa-code",
+    "color": "from-red-600 to-red-800",
+    "url": "https://www.scala-lang.org/download/"
+  },
+  {
+    "id": 66,
+    "name": "Groovy Tool",
+    "language": "Groovy",
+    "category": "Core",
+    "icon": "fa-code",
+    "color": "from-green-400 to-green-600",
+    "url": "https://groovy.apache.org/download.html"
+  },
+  {
+    "id": 67,
+    "name": "Haskell (GHC) Tool",
+    "language": "Haskell",
+    "category": "Core",
+    "icon": "fa-code",
+    "color": "from-purple-600 to-indigo-700",
+    "url": "https://www.haskell.org/ghc/"
+  },
+  {
+    "id": 68,
+    "name": "Elixir Tool",
+    "language": "Elixir",
+    "category": "Web",
+    "icon": "fa-bolt",
+    "color": "from-purple-500 to-pink-600",
+    "url": "https://elixir-lang.org/install.html"
+  },
+  {
+    "id": 69,
+    "name": "Clojure Tool",
+    "language": "Clojure",
+    "category": "Core",
+    "icon": "fa-leaf",
+    "color": "from-green-500 to-green-700",
+    "url": "https://clojure.org/guides/install_clojure"
+  },
+  {
+    "id": 70,
+    "name": "Assembly (NASM) Tool",
+    "language": "Assembly",
+    "category": "System",
+    "icon": "fa-microchip",
+    "color": "from-gray-700 to-black",
+    "url": "https://www.nasm.us/"
+  },
+  {
+    "id": 71,
+    "name": "Bash (Git Bash) Tool",
+    "language": "Bash",
+    "category": "System",
+    "icon": "fa-terminal",
+    "color": "from-gray-600 to-gray-800",
+    "url": "https://git-scm.com/downloads"
+  },
+  {
+    "id": 72,
+    "name": "PowerShell Tool",
+    "language": "PowerShell",
+    "category": "System",
+    "icon": "fa-terminal",
+    "color": "from-blue-600 to-blue-800",
+    "url": "https://github.com/PowerShell/PowerShell"
+  },
+  {
+    "id": 73,
+    "name": "Julia Tool",
+    "language": "Julia",
+    "category": "Data Science",
+    "icon": "fa-chart-line",
+    "color": "from-purple-500 to-red-500",
+    "url": "https://julialang.org/downloads/"
+  },
+  {
+    "id": 74,
+    "name": "Perl Tool",
+    "language": "Perl",
+    "category": "Core",
+    "icon": "fa-code",
+    "color": "from-blue-500 to-indigo-600",
+    "url": "https://strawberryperl.com/"
+  },
+  {
+    "id": 75,
+    "name": "Lua Tool",
+    "language": "Lua",
+    "category": "Core",
+    "icon": "fa-code",
+    "color": "from-blue-400 to-blue-600",
+    "url": "https://www.lua.org/download.html"
+  },
+  {
+    "id": 76,
+    "name": "Fortran Tool",
+    "language": "Fortran",
+    "category": "Core",
+    "icon": "fa-code",
+    "color": "from-gray-500 to-gray-700",
+    "url": "https://gcc.gnu.org/fortran/"
+  },
+  {
+    "id": 77,
+    "name": "COBOL (GnuCOBOL) Tool",
+    "language": "COBOL",
+    "category": "Core",
+    "icon": "fa-code",
+    "color": "from-gray-600 to-gray-800",
+    "url": "https://gnucobol.sourceforge.io/"
+  },
+  {
+    "id": 78,
+    "name": "D Language Tool",
+    "language": "D",
+    "category": "System",
+    "icon": "fa-code",
+    "color": "from-red-500 to-red-700",
+    "url": "https://dlang.org/download.html"
+  },
+  {
+    "id": 79,
+    "name": "Nim Tool",
+    "language": "Nim",
+    "category": "Core",
+    "icon": "fa-code",
+    "color": "from-yellow-500 to-orange-600",
+    "url": "https://nim-lang.org/install.html"
+  },
+  {
+    "id": 80,
+    "name": "Zig Tool",
+    "language": "Zig",
+    "category": "System",
+    "icon": "fa-code",
+    "color": "from-orange-400 to-orange-600",
+    "url": "https://ziglang.org/download/"
+  },
+  {
+    "id": 81,
+    "name": "Crystal Tool",
+    "language": "Crystal",
+    "category": "Web",
+    "icon": "fa-gem",
+    "color": "from-blue-400 to-indigo-500",
+    "url": "https://crystal-lang.org/install/"
+  },
+  {
+    "id": 82,
+    "name": "FreePascal Tool",
+    "language": "Pascal",
+    "category": "Core",
+    "icon": "fa-code",
+    "color": "from-green-400 to-green-600",
+    "url": "https://www.freepascal.org/download.html"
+  },
+  {
+    "id": 83,
+    "name": "Elm Tool",
+    "language": "Elm",
+    "category": "Web",
+    "icon": "fa-code",
+    "color": "from-teal-400 to-teal-600",
+    "url": "https://guide.elm-lang.org/install/elm.html"
+  },
+  {
+    "id": 84,
+    "name": "V Language Tool",
+    "language": "V",
+    "category": "System",
+    "icon": "fa-code",
+    "color": "from-blue-500 to-blue-700",
+    "url": "https://vlang.io/"
+  },
+  {
+    "id": 85,
+    "name": "OCaml Tool",
+    "language": "OCaml",
+    "category": "Core",
+    "icon": "fa-code",
+    "color": "from-orange-500 to-orange-700",
+    "url": "https://ocaml.org/install"
+  },
+  {
+    "id": 86,
+    "name": "Racket Tool",
+    "language": "Racket",
+    "category": "Core",
+    "icon": "fa-code",
+    "color": "from-red-400 to-red-600",
+    "url": "https://racket-lang.org/download/"
+  },
+  {
+    "id": 87,
+    "name": "Haxe Tool",
+    "language": "Haxe",
+    "category": "Game Dev",
+    "icon": "fa-gamepad",
+    "color": "from-orange-500 to-red-500",
+    "url": "https://haxe.org/download/"
+  },
+  {
+    "id": 88,
+    "name": "Godot Engine Tool",
+    "language": "GDScript",
+    "category": "Game Dev",
+    "icon": "fa-gamepad",
+    "color": "from-blue-500 to-blue-700",
+    "url": "https://godotengine.org/download"
+  },
+  {
+    "id": 89,
+    "name": "Scratch Offline Editor Tool",
+    "language": "Scratch",
+    "category": "Education",
+    "icon": "fa-child",
+    "color": "from-orange-400 to-orange-600",
+    "url": "https://scratch.mit.edu/download"
+  },
+  {
+    "id": 90,
+    "name": "Ballerina Tool",
+    "language": "Ballerina",
+    "category": "Cloud",
+    "icon": "fa-cloud",
+    "color": "from-purple-400 to-purple-600",
+    "url": "https://ballerina.io/downloads/"
+  },
+  {
+    "id": 91,
+    "name": "Chapel Tool",
+    "language": "Chapel",
+    "category": "HPC",
+    "icon": "fa-server",
+    "color": "from-gray-500 to-gray-700",
+    "url": "https://chapel-lang.org/download.html"
+  },
+  {
+    "id": 92,
+    "name": "Groovy SDK Tool",
+    "language": "Groovy",
+    "category": "Core",
+    "icon": "fa-code",
+    "color": "from-green-400 to-green-600",
+    "url": "https://sdkman.io/"
+  },
+  {
+    "id": 93,
+    "name": "Solidity Tool",
+    "language": "Solidity",
+    "category": "Blockchain",
+    "icon": "fa-link",
+    "color": "from-gray-600 to-gray-800",
+    "url": "https://docs.soliditylang.org/en/latest/installing-solidity.html"
+  },
+  {
+    "id": 94,
+    "name": "Carbon Tool",
+    "language": "Carbon",
+    "category": "System",
+    "icon": "fa-code",
+    "color": "from-gray-700 to-black",
+    "url": "https://github.com/carbon-language/carbon-lang"
+  },
+  {
+    "id": 95,
+    "name": "Ada Tool",
+    "language": "Ada",
+    "category": "System",
+    "icon": "fa-code",
+    "color": "from-blue-600 to-blue-800",
+    "url": "https://www.adacore.com/download"
+  },
+  {
+    "id": 96,
+    "name": "Objective-C (Xcode) Tool",
+    "language": "Objective-C",
+    "category": "App Development",
+    "icon": "fa-apple",
+    "color": "from-gray-700 to-black",
+    "url": "https://developer.apple.com/xcode/"
+  },
+  {
+    "id": 97,
+    "name": "Android Studio Tool",
+    "language": "Kotlin",
+    "category": "App Development",
+    "icon": "fa-android",
+    "color": "from-green-500 to-green-700",
+    "url": "https://developer.android.com/studio"
+  },
+  {
+    "id": 98,
+    "name": "IntelliJ IDEA Community Tool",
+    "language": "Java",
+    "category": "Core",
+    "icon": "fa-coffee",
+    "color": "from-red-500 to-red-700",
+    "url": "https://www.jetbrains.com/idea/download/"
+  },
+  {
+    "id": 99,
+    "name": "PyCharm Community Tool",
+    "language": "Python",
+    "category": "Core",
+    "icon": "fa-python",
+    "color": "from-yellow-400 to-yellow-600",
+    "url": "https://www.jetbrains.com/pycharm/download/"
+  },
+  {
+    "id": 100,
+    "name": "Visual Studio Code Tool",
+    "language": "Multi-language",
+    "category": "Web",
+    "icon": "fa-code",
+    "color": "from-blue-500 to-blue-700",
+    "url": "https://code.visualstudio.com/download"
+  }
+]
