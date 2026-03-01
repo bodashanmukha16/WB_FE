@@ -1,0 +1,269 @@
+[
+  {
+    "19A15101": {
+      "subject_name": "Linear Algebra And Calculus",
+      "units": [
+        { "unit_name": "Unit I - Matrices", "syllabus": "Rank, Echelon form, Inverse, Linear equations.", "notes_drive_link": "" },
+        { "unit_name": "Unit II - Eigen Values", "syllabus": "Eigen values, Eigen vectors, Cayley Hamilton theorem.", "notes_drive_link": "" },
+        { "unit_name": "Unit III - Differential Calculus", "syllabus": "Mean value theorems, Partial derivatives, Taylor series.", "notes_drive_link": "" },
+        { "unit_name": "Unit IV - Multiple Integrals", "syllabus": "Double & Triple integrals, Change of order.", "notes_drive_link": "" },
+        { "unit_name": "Unit V - Vector Calculus", "syllabus": "Gradient, Divergence, Curl, Line & Surface integrals.", "notes_drive_link": "" }
+      ],
+      "textbooks": [
+        { "title": "Higher Engineering Mathematics", "author": "B.S. Grewal", "link": "" },
+        { "title": "Advanced Engineering Mathematics", "author": "Erwin Kreyszig", "link": "" }
+      ],
+      "reference_books": [],
+      "previous_papers": ""
+    }
+  },
+
+  {
+    "19A15201": {
+      "subject_name": "Applied Physics",
+      "units": [
+        { "unit_name": "Unit I - Quantum Mechanics", "syllabus": "Wave nature, Schrodinger equation.", "notes_drive_link": "" },
+        { "unit_name": "Unit II - Semiconductors", "syllabus": "Intrinsic & Extrinsic semiconductors, PN junction.", "notes_drive_link": "" },
+        { "unit_name": "Unit III - Lasers", "syllabus": "Laser principle, Types & applications.", "notes_drive_link": "" },
+        { "unit_name": "Unit IV - Fiber Optics", "syllabus": "Optical fiber structure, Numerical aperture.", "notes_drive_link": "" },
+        { "unit_name": "Unit V - Dielectrics & Magnetics", "syllabus": "Polarization, Magnetic materials.", "notes_drive_link": "" }
+      ],
+      "textbooks": [
+        { "title": "Engineering Physics", "author": "K. Thyagarajan", "link": "" }
+      ],
+      "reference_books": [],
+      "previous_papers": ""
+    }
+  },
+
+  {
+    "19A10501": {
+      "subject_name": "Problem Solving & Programming",
+      "units": [
+        { "unit_name": "Unit I - Programming Basics", "syllabus": "Algorithms, Flowcharts, C basics.", "notes_drive_link": "" },
+        { "unit_name": "Unit II - Control Structures", "syllabus": "If, Switch, Loops.", "notes_drive_link": "" },
+        { "unit_name": "Unit III - Functions & Arrays", "syllabus": "Functions, Recursion, Arrays.", "notes_drive_link": "" },
+        { "unit_name": "Unit IV - Pointers & Strings", "syllabus": "Pointers, String handling.", "notes_drive_link": "" },
+        { "unit_name": "Unit V - Structures & Files", "syllabus": "Structures, File handling.", "notes_drive_link": "" }
+      ],
+      "textbooks": [
+        { "title": "Programming in ANSI C", "author": "E. Balagurusamy", "link": "" }
+      ],
+      "reference_books": [],
+      "previous_papers": ""
+    }
+  },
+
+  {
+    "19A15501": {
+      "subject_name": "Communicative English I",
+      "units": [
+        { "unit_name": "Unit I - Vocabulary", "syllabus": "Word formation, Synonyms.", "notes_drive_link": "" },
+        { "unit_name": "Unit II - Grammar", "syllabus": "Tenses, Articles, Prepositions.", "notes_drive_link": "" },
+        { "unit_name": "Unit III - Reading Skills", "syllabus": "Comprehension, Skimming.", "notes_drive_link": "" },
+        { "unit_name": "Unit IV - Writing Skills", "syllabus": "Paragraph & Letter writing.", "notes_drive_link": "" },
+        { "unit_name": "Unit V - Communication Skills", "syllabus": "Presentation & GD.", "notes_drive_link": "" }
+      ],
+      "textbooks": [
+        { "title": "Technical Communication", "author": "Meenakshi Raman", "link": "" }
+      ],
+      "reference_books": [],
+      "previous_papers": ""
+    }
+  },
+
+  {
+    "19A10504": {
+      "subject_name": "Computer Science & Engineering Workshop",
+      "units": [],
+      "textbooks": [],
+      "reference_books": [],
+      "previous_papers": ""
+    }
+  },
+
+  {
+    "19A15202": {
+      "subject_name": "Applied Physics Lab",
+      "units": [],
+      "textbooks": [],
+      "reference_books": [],
+      "previous_papers": ""
+    }
+  },
+
+  {
+    "19A10506": {
+      "subject_name": "Problem Solving & Programming Lab",
+      "units": [],
+      "textbooks": [],
+      "reference_books": [],
+      "previous_papers": ""
+    }
+  },
+
+  {
+    "19A15502": {
+      "subject_name": "Communicative English Lab-1",
+      "units": [],
+      "textbooks": [],
+      "reference_books": [],
+      "previous_papers": ""
+    }
+  },
+  {
+    "19A10502": {
+      "subject_name": "Python Programming",
+      "units": [
+        { "unit_name": "Unit I - Introduction to Python", "syllabus": "Basics, Data types, Operators.", "notes_drive_link": "" },
+        { "unit_name": "Unit II - Control Structures", "syllabus": "Conditional statements, Loops.", "notes_drive_link": "" },
+        { "unit_name": "Unit III - Functions & Modules", "syllabus": "Functions, Recursion, Modules.", "notes_drive_link": "" },
+        { "unit_name": "Unit IV - Data Structures", "syllabus": "Lists, Tuples, Dictionaries, Sets.", "notes_drive_link": "" },
+        { "unit_name": "Unit V - File Handling & OOP", "syllabus": "File operations, Classes & Objects.", "notes_drive_link": "" }
+      ],
+      "textbooks": [
+        { "title": "Python Programming", "author": "Reema Thareja", "link": "" }
+      ],
+      "reference_books": [],
+      "previous_papers": ""
+    }
+  },
+
+  {
+    "19A15103": {
+      "subject_name": "Probability And Statistics",
+      "units": [
+        { "unit_name": "Unit I - Probability", "syllabus": "Random variables, Probability distributions.", "notes_drive_link": "" },
+        { "unit_name": "Unit II - Discrete Distributions", "syllabus": "Binomial, Poisson distributions.", "notes_drive_link": "" },
+        { "unit_name": "Unit III - Continuous Distributions", "syllabus": "Normal distribution, Exponential distribution.", "notes_drive_link": "" },
+        { "unit_name": "Unit IV - Sampling Theory", "syllabus": "Sampling distributions, Estimation.", "notes_drive_link": "" },
+        { "unit_name": "Unit V - Hypothesis Testing", "syllabus": "Z-test, t-test, Chi-square test.", "notes_drive_link": "" }
+      ],
+      "textbooks": [
+        { "title": "Probability & Statistics for Engineers", "author": "S.C. Gupta", "link": "" }
+      ],
+      "reference_books": [],
+      "previous_papers": ""
+    }
+  },
+
+  {
+    "19A15303": {
+      "subject_name": "Chemistry",
+      "units": [
+        { "unit_name": "Unit I - Water Technology", "syllabus": "Hardness of water, Treatment methods.", "notes_drive_link": "" },
+        { "unit_name": "Unit II - Corrosion", "syllabus": "Types of corrosion, Prevention methods.", "notes_drive_link": "" },
+        { "unit_name": "Unit III - Polymers", "syllabus": "Polymerization techniques, Plastics.", "notes_drive_link": "" },
+        { "unit_name": "Unit IV - Energy Sources", "syllabus": "Fuels, Batteries, Solar cells.", "notes_drive_link": "" },
+        { "unit_name": "Unit V - Nanomaterials", "syllabus": "Synthesis and applications.", "notes_drive_link": "" }
+      ],
+      "textbooks": [
+        { "title": "Engineering Chemistry", "author": "P.C. Jain & Monica Jain", "link": "" }
+      ],
+      "reference_books": [],
+      "previous_papers": ""
+    }
+  },
+
+  {
+    "19A10503": {
+      "subject_name": "Data Structures",
+      "units": [
+        { "unit_name": "Unit I - Introduction", "syllabus": "Time complexity, Arrays, Structures.", "notes_drive_link": "" },
+        { "unit_name": "Unit II - Linked Lists", "syllabus": "Singly, Doubly, Circular lists.", "notes_drive_link": "" },
+        { "unit_name": "Unit III - Stacks & Queues", "syllabus": "Stack operations, Queue types.", "notes_drive_link": "" },
+        { "unit_name": "Unit IV - Trees", "syllabus": "Binary trees, BST, Traversals.", "notes_drive_link": "" },
+        { "unit_name": "Unit V - Graphs", "syllabus": "Graph representation, BFS, DFS.", "notes_drive_link": "" }
+      ],
+      "textbooks": [
+        { "title": "Data Structures Using C", "author": "Reema Thareja", "link": "" }
+      ],
+      "reference_books": [],
+      "previous_papers": ""
+    }
+  },
+
+  {
+    "19A10303": {
+      "subject_name": "Engineering Workshop",
+      "units": [],
+      "textbooks": [],
+      "reference_books": [],
+      "previous_papers": ""
+    }
+  },
+
+  {
+    "19A10304": {
+      "subject_name": "Engineering Graphics",
+      "units": [
+        { "unit_name": "Unit I - Introduction", "syllabus": "Drawing instruments, Scales.", "notes_drive_link": "" },
+        { "unit_name": "Unit II - Projections", "syllabus": "Orthographic projections.", "notes_drive_link": "" },
+        { "unit_name": "Unit III - Sections", "syllabus": "Sectional views.", "notes_drive_link": "" },
+        { "unit_name": "Unit IV - Isometric Views", "syllabus": "Isometric projections.", "notes_drive_link": "" },
+        { "unit_name": "Unit V - CAD Basics", "syllabus": "Introduction to AutoCAD.", "notes_drive_link": "" }
+      ],
+      "textbooks": [
+        { "title": "Engineering Drawing", "author": "N.D. Bhatt", "link": "" }
+      ],
+      "reference_books": [],
+      "previous_papers": ""
+    }
+  },
+
+  {
+    "19A10804": {
+      "subject_name": "Environmental Science",
+      "units": [
+        { "unit_name": "Unit I - Ecosystem", "syllabus": "Structure and function.", "notes_drive_link": "" },
+        { "unit_name": "Unit II - Natural Resources", "syllabus": "Water, Forest, Energy resources.", "notes_drive_link": "" },
+        { "unit_name": "Unit III - Biodiversity", "syllabus": "Conservation methods.", "notes_drive_link": "" },
+        { "unit_name": "Unit IV - Pollution", "syllabus": "Air, Water, Soil pollution.", "notes_drive_link": "" },
+        { "unit_name": "Unit V - Social Issues", "syllabus": "Environmental laws.", "notes_drive_link": "" }
+      ],
+      "textbooks": [],
+      "reference_books": [],
+      "previous_papers": ""
+    }
+  },
+
+  {
+    "19A10508": {
+      "subject_name": "Statistical Programming Lab",
+      "units": [],
+      "textbooks": [],
+      "reference_books": [],
+      "previous_papers": ""
+    }
+  },
+
+  {
+    "19A10505": {
+      "subject_name": "Python Programming Lab",
+      "units": [],
+      "textbooks": [],
+      "reference_books": [],
+      "previous_papers": ""
+    }
+  },
+
+  {
+    "19A15304": {
+      "subject_name": "Chemistry Lab",
+      "units": [],
+      "textbooks": [],
+      "reference_books": [],
+      "previous_papers": ""
+    }
+  },
+
+  {
+    "19A10507": {
+      "subject_name": "Data Structures Lab",
+      "units": [],
+      "textbooks": [],
+      "reference_books": [],
+      "previous_papers": ""
+    }
+  }
+]

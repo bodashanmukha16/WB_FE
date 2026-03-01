@@ -6,6 +6,7 @@ import DashboardHome from '../pages/Dashboard/DashboardHome'
 import MaterialsHome from '../pages/Materials/MaterialsHome'
 import Compiler from '../pages/Compilers/Compiler'
 import YearTemplate from '../pages/YearTemplate/YearTemplate'
+import SemTemplate from '../pages/SemTemplate/SemTemplate'
 import Softwares from '../pages/Compilers/Softwares'
 import ForgotPassword from '../pages/ForgotPassword'
 import ResetPassword from '../pages/ResetPassword'
@@ -39,7 +40,11 @@ function AppRoutes() {
           <YearTemplate />
         </ProtectedRoute>
       } />
-
+<Route path="/materials/:regulation/:branch/:year/:sem" element={
+        <ProtectedRoute>
+          <SemTemplate />
+        </ProtectedRoute>
+      } />
       <Route path="/compilers" element={
         <ProtectedRoute>
           <Compiler />

@@ -1,17 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
-import { Navigate, useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+import subjectList from '../../Data/subject_list.json'
+import SubjectMapping from '../../Data/subjects_mapping.json'
+import { useParams } from "react-router-dom";
 
-function MaterialsHome() {
-  const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user"));
+function SemTemplate() {
+  // const navigate = useNavigate()
+  const { regulation, branch, year, sem } = useParams();
+  const fullURL = `${regulation}/${branch}/${year}/${sem}`
+  let FullSubjectData = []
+  const SubjectMappingResult = SubjectMapping.find(obj => obj[fullURL])[fullURL].subjects_included;
+//   console.log(SubjectMappingResult)
+  SubjectMappingResult.forEach(element => {
+    let subject = subjectList.find(obj => obj[element])[element]
+    subject&&FullSubjectData.push(subject)
+  });
+  console.log(FullSubjectData)
   return (
     <div>
       <Header></Header>
-
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
-        {/* ================= BANNER SECTION ================= */}
         <section className="pt-32 pb-24 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-500 relative overflow-hidden">
           <div className="container mx-auto px-6 text-center relative z-10">
             <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
@@ -37,51 +47,32 @@ function MaterialsHome() {
           </div>
 
           {/* Background Overlay Shape */}
-          <div className="absolute -bottom-10 left-0 w-full h-32 bg-white rounded-t-[60px]"></div>
+          <div className="absolute -bottom-10 left-0 w-full h-22 bg-white rounded-t-[60px]"></div>
         </section>
-
         {/* ATTRACTIVE SECOND SECTION */}
         <section className="py-16 bg-white">
           <div className="container mx-auto px-6 text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              Everything Organized For You
+              Below is Your Current Semester Subjects
             </h2>
-
-            <p className="text-gray-600 max-w-3xl mx-auto text-lg">
-              No more searching multiple websites. WorkBench provides all
-              academic resources in a clean, structured format. Select your
-              year, choose your semester, and access materials instantly.
-            </p>
-
-            <div className="grid md:grid-cols-3 gap-10 mt-12">
-              <div className="p-6 rounded-2xl bg-blue-50 hover:shadow-lg transition">
+             <div className="grid md:grid-cols-4 gap-10 mt-12" >
+            {SubjectMappingResult && SubjectMappingResult.map((sub,ind)=>(
+              <div className="p-6 rounded-2xl bg-blue-50 hover:shadow-lg transition" key={ind}>
                 <div className="text-4xl mb-4">📘</div>
-                <h3 className="font-semibold text-xl mb-2">Semester Wise</h3>
+                <h3 className="font-semibold text-xl mb-2">{sub}</h3>
                 <p className="text-gray-600">
                   All materials organized clearly semester by semester.
                 </p>
               </div>
-
-              <div className="p-6 rounded-2xl bg-purple-50 hover:shadow-lg transition">
-                <div className="text-4xl mb-4">📂</div>
-                <h3 className="font-semibold text-xl mb-2">All Subjects</h3>
-                <p className="text-gray-600">
-                  Notes, previous papers, lab manuals & more.
-                </p>
-              </div>
-
-              <div className="p-6 rounded-2xl bg-pink-50 hover:shadow-lg transition">
-                <div className="text-4xl mb-4">⚡</div>
-                <h3 className="font-semibold text-xl mb-2">Instant Access</h3>
-                <p className="text-gray-600">
-                  Download materials quickly without confusion.
-                </p>
-              </div>
+            
+            ))
+            }
             </div>
           </div>
         </section>
 
         {/* YEAR CARDS SECTION */}
+
         <section
           id="years"
           className="py-20 bg-gradient-to-br from-gray-50 to-blue-50"
@@ -89,19 +80,18 @@ function MaterialsHome() {
           <div className="container mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-                Choose Your{" "}
+                Get Your{" "}
                 <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  Academic Year
+                  Linear Algebra and Calculus
                 </span>
               </h2>
 
               <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                Select your year and access structured semester materials
-                instantly.
+                Get your Subject materials instantly from below.
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-9">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-9">
               {[1, 2, 3, 4].map((year, index) => {
                 const colors = [
                   "from-blue-500 to-purple-500",
@@ -110,14 +100,9 @@ function MaterialsHome() {
                   "from-indigo-500 to-pink-500",
                 ];
 
-                const badges = ["Foundation", "Core", "Advanced", "Final Year"];
-
                 return (
                   <div
                     key={year}
-                    onClick={() =>
-                      navigate(`/materials/${user.branch}/${year}`)
-                    }
                     className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-3 cursor-pointer"
                   >
                     {/* Top Gradient Banner */}
@@ -128,10 +113,6 @@ function MaterialsHome() {
                         <span className="text-white text-7xl font-bold opacity-80">
                           {year}
                         </span>
-                      </div>
-
-                      <div className="absolute top-4 right-4 bg-white px-3 py-1 rounded-full text-sm font-semibold text-gray-800">
-                        {badges[index]}
                       </div>
                     </div>
 
@@ -176,4 +157,4 @@ function MaterialsHome() {
   );
 }
 
-export default MaterialsHome;
+export default SemTemplate;

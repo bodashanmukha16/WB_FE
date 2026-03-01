@@ -2,16 +2,18 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
-
+import regulations from '../../Data/Regulations.json'
 export default function YearTemplate() {
   const navigate = useNavigate();
   const { branch, year } = useParams();
   const [loaded, setLoaded] = useState(false);
-
+  const [currentRegulation, setcurrentRegulation] = useState(regulations[0])
+  
   useEffect(() => {
     // Set loaded to true once the component mounts
+    console.log(currentRegulation)
     setLoaded(true);
-  }, []); // Empty dependency array ensures it runs once on mount
+  }, [currentRegulation]); // Empty dependency array ensures it runs once on mount
 
   const semesters = [
     { id: 1, label: `${year}-1`, title: "Semester 1" },
@@ -21,6 +23,7 @@ export default function YearTemplate() {
   return (
     <>
     <Header></Header>
+    
     <div className="mt-18 min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 overflow-hidden relative">
       {/* 🔥 Animated Background Blobs */}
       {" "}
@@ -29,7 +32,7 @@ export default function YearTemplate() {
             <h2 className="text-4xl lg:text-5xl font-['Poppins'] font-bold text-white mb-6">
                 Welcome to the WorkBench Meterials Page
             </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto text-center">
                 Go To below to access your Semesters
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -38,6 +41,7 @@ export default function YearTemplate() {
                 </button>
             </div>
         </div>
+        
     </section>
       {/* ================= HERO SECTION ================= */}
       <section
@@ -58,6 +62,27 @@ export default function YearTemplate() {
         </p>
       </section>
 
+
+      {/* Regulation Selection */}
+       <p className="text-xl text-gray-600/90 mb-8 max-w-2xl mx-auto text-center">
+                Select Your Regulation
+            </p>
+        <div className="flex flex-wrap gap-4 mb-10 justify-center">
+          {regulations.map((cat, index) => (
+            <button
+              key={index}
+              onClick={() => setcurrentRegulation(cat)}
+              className={`px-5 py-2 rounded-full border transition ${
+                currentRegulation === cat
+                  ? "bg-blue-600 text-white border-blue-600"
+                  : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
       {/* ================= SEMESTER CARDS ================= */}
       <section className="pb-24 px-6 relative z-10">
         <div className="container mx-auto">
@@ -66,7 +91,7 @@ export default function YearTemplate() {
               <div
                 key={sem.id}
                 onClick={() =>
-                  navigate(`/materials/${branch}/${year}/${sem.label}`)
+                  navigate(`/materials/${currentRegulation}/${branch}/${year}/${sem.label}`)
                 }
                 className={`backdrop-blur-xl bg-white/30 border border-white/40 
                 rounded-3xl p-8 shadow-xl cursor-pointer
