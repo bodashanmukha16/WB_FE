@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
 // import { useNavigate } from "react-router-dom";
@@ -61,7 +61,9 @@ function SemTemplate() {
                 <div className="text-4xl mb-4">📘</div>
                 <h3 className="font-semibold text-xl mb-2">{sub}</h3>
                 <p className="text-gray-600">
-                  All materials organized clearly semester by semester.
+                  {
+                    FullSubjectData[ind].subject_name
+                  }
                 </p>
               </div>
             
