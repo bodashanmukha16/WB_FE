@@ -13,8 +13,8 @@
         { "title": "Higher Engineering Mathematics", "author": "B.S. Grewal", "link": "" },
         { "title": "Advanced Engineering Mathematics", "author": "Erwin Kreyszig", "link": "" }
       ],
-      "reference_books": [],
-      "previous_papers": ""
+     
+      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -31,8 +31,8 @@
       "textbooks": [
         { "title": "Engineering Physics", "author": "K. Thyagarajan", "link": "" }
       ],
-      "reference_books": [],
-      "previous_papers": ""
+     
+      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -49,8 +49,8 @@
       "textbooks": [
         { "title": "Programming in ANSI C", "author": "E. Balagurusamy", "link": "" }
       ],
-      "reference_books": [],
-      "previous_papers": ""
+     
+      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -67,8 +67,8 @@
       "textbooks": [
         { "title": "Technical Communication", "author": "Meenakshi Raman", "link": "" }
       ],
-      "reference_books": [],
-      "previous_papers": ""
+     
+      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -77,8 +77,8 @@
       "subject_name": "Computer Science & Engineering Workshop",
       "units": [],
       "textbooks": [],
-      "reference_books": [],
-      "previous_papers": ""
+     
+      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -87,8 +87,8 @@
       "subject_name": "Applied Physics Lab",
       "units": [],
       "textbooks": [],
-      "reference_books": [],
-      "previous_papers": ""
+     
+      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -97,8 +97,8 @@
       "subject_name": "Problem Solving & Programming Lab",
       "units": [],
       "textbooks": [],
-      "reference_books": [],
-      "previous_papers": ""
+     
+      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -107,8 +107,8 @@
       "subject_name": "Communicative English Lab-1",
       "units": [],
       "textbooks": [],
-      "reference_books": [],
-      "previous_papers": ""
+     
+      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
     }
   },
   {
@@ -124,8 +124,8 @@
       "textbooks": [
         { "title": "Python Programming", "author": "Reema Thareja", "link": "" }
       ],
-      "reference_books": [],
-      "previous_papers": ""
+     
+      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -142,8 +142,8 @@
       "textbooks": [
         { "title": "Probability & Statistics for Engineers", "author": "S.C. Gupta", "link": "" }
       ],
-      "reference_books": [],
-      "previous_papers": ""
+     
+      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -160,8 +160,8 @@
       "textbooks": [
         { "title": "Engineering Chemistry", "author": "P.C. Jain & Monica Jain", "link": "" }
       ],
-      "reference_books": [],
-      "previous_papers": ""
+     
+      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -178,8 +178,8 @@
       "textbooks": [
         { "title": "Data Structures Using C", "author": "Reema Thareja", "link": "" }
       ],
-      "reference_books": [],
-      "previous_papers": ""
+     
+      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -188,8 +188,8 @@
       "subject_name": "Engineering Workshop",
       "units": [],
       "textbooks": [],
-      "reference_books": [],
-      "previous_papers": ""
+     
+      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -206,8 +206,8 @@
       "textbooks": [
         { "title": "Engineering Drawing", "author": "N.D. Bhatt", "link": "" }
       ],
-      "reference_books": [],
-      "previous_papers": ""
+     
+      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -222,8 +222,8 @@
         { "unit_name": "Unit V - Social Issues", "syllabus": "Environmental laws.", "notes_drive_link": "" }
       ],
       "textbooks": [],
-      "reference_books": [],
-      "previous_papers": ""
+     
+      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -232,8 +232,8 @@
       "subject_name": "Statistical Programming Lab",
       "units": [],
       "textbooks": [],
-      "reference_books": [],
-      "previous_papers": ""
+     
+      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -242,8 +242,8 @@
       "subject_name": "Python Programming Lab",
       "units": [],
       "textbooks": [],
-      "reference_books": [],
-      "previous_papers": ""
+     
+      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -252,8 +252,8 @@
       "subject_name": "Chemistry Lab",
       "units": [],
       "textbooks": [],
-      "reference_books": [],
-      "previous_papers": ""
+     
+      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -262,8 +262,8 @@
       "subject_name": "Data Structures Lab",
       "units": [],
       "textbooks": [],
-      "reference_books": [],
-      "previous_papers": ""
+     
+      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
     }
   }
 ]
