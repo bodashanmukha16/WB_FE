@@ -20,7 +20,7 @@ function SemTemplate() {
     let subject = subjectList.find((obj) => obj[element])[element];
     subject && FullSubjectData.push(subject);
   });
-  console.log(FullSubjectData);
+  // console.log(FullSubjectData);
   return (
     <div>
       <Header></Header>
@@ -79,7 +79,7 @@ function SemTemplate() {
         {/* YEAR CARDS SECTION */}
         {FullSubjectData &&
           FullSubjectData.map((subject, ind) => (
-            <Materials key={ind} subjects={subject} />
+            <Materials key={ind} subjects={subject} sem={sem} />
           ))}
       </div>
       <Footer></Footer>

@@ -3,18 +3,18 @@
     "19A15101": {
       "subject_name": "Linear Algebra And Calculus",
       "units": [
-        { "unit_name": "Unit I - Matrices", "syllabus": "Rank, Echelon form, Inverse, Linear equations.", "notes_drive_link": "" },
-        { "unit_name": "Unit II - Eigen Values", "syllabus": "Eigen values, Eigen vectors, Cayley Hamilton theorem.", "notes_drive_link": "" },
-        { "unit_name": "Unit III - Differential Calculus", "syllabus": "Mean value theorems, Partial derivatives, Taylor series.", "notes_drive_link": "" },
-        { "unit_name": "Unit IV - Multiple Integrals", "syllabus": "Double & Triple integrals, Change of order.", "notes_drive_link": "" },
-        { "unit_name": "Unit V - Vector Calculus", "syllabus": "Gradient, Divergence, Curl, Line & Surface integrals.", "notes_drive_link": "" }
+        { "title": "Unit I - Matrices", "description": "Rank, Echelon form, Inverse, Linear equations.", "link": "" },
+        { "title": "Unit II - Eigen Values", "description": "Eigen values, Eigen vectors, Cayley Hamilton theorem.", "link": "" },
+        { "title": "Unit III - Differential Calculus", "description": "Mean value theorems, Partial derivatives, Taylor series.", "link": "" },
+        { "title": "Unit IV - Multiple Integrals", "description": "Double & Triple integrals, Change of order.", "link": "" },
+        { "title": "Unit V - Vector Calculus", "description": "Gradient, Divergence, Curl, Line & Surface integrals.", "link": "" }
       ],
       "textbooks": [
-        { "title": "Higher Engineering Mathematics", "author": "B.S. Grewal", "link": "" },
-        { "title": "Advanced Engineering Mathematics", "author": "Erwin Kreyszig", "link": "" }
+        { "title": "Higher Engineering Mathematics", "description":"TextBooks/Reference","author": "B.S. Grewal", "link": "" },
+        { "title": "Advanced Engineering Mathematics", "description":"TextBooks/Reference","author": "Erwin Kreyszig", "link": "" }
       ],
      
-      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
+      "previous_papers": [{"title":"Previous Papers","description":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -22,17 +22,17 @@
     "19A15201": {
       "subject_name": "Applied Physics",
       "units": [
-        { "unit_name": "Unit I - Quantum Mechanics", "syllabus": "Wave nature, Schrodinger equation.", "notes_drive_link": "" },
-        { "unit_name": "Unit II - Semiconductors", "syllabus": "Intrinsic & Extrinsic semiconductors, PN junction.", "notes_drive_link": "" },
-        { "unit_name": "Unit III - Lasers", "syllabus": "Laser principle, Types & applications.", "notes_drive_link": "" },
-        { "unit_name": "Unit IV - Fiber Optics", "syllabus": "Optical fiber structure, Numerical aperture.", "notes_drive_link": "" },
-        { "unit_name": "Unit V - Dielectrics & Magnetics", "syllabus": "Polarization, Magnetic materials.", "notes_drive_link": "" }
+        { "title": "Unit I - Quantum Mechanics", "description": "Wave nature, Schrodinger equation.", "link": "" },
+        { "title": "Unit II - Semiconductors", "description": "Intrinsic & Extrinsic semiconductors, PN junction.", "link": "" },
+        { "title": "Unit III - Lasers", "description": "Laser principle, Types & applications.", "link": "" },
+        { "title": "Unit IV - Fiber Optics", "description": "Optical fiber structure, Numerical aperture.", "link": "" },
+        { "title": "Unit V - Dielectrics & Magnetics", "description": "Polarization, Magnetic materials.", "link": "" }
       ],
       "textbooks": [
-        { "title": "Engineering Physics", "author": "K. Thyagarajan", "link": "" }
+        { "title": "Engineering Physics","description":"TextBooks/Reference", "author": "K. Thyagarajan", "link": "" }
       ],
      
-      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
+      "previous_papers": [{"title":"Previous Papers", "description":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -40,17 +40,17 @@
     "19A10501": {
       "subject_name": "Problem Solving & Programming",
       "units": [
-        { "unit_name": "Unit I - Programming Basics", "syllabus": "Algorithms, Flowcharts, C basics.", "notes_drive_link": "" },
-        { "unit_name": "Unit II - Control Structures", "syllabus": "If, Switch, Loops.", "notes_drive_link": "" },
-        { "unit_name": "Unit III - Functions & Arrays", "syllabus": "Functions, Recursion, Arrays.", "notes_drive_link": "" },
-        { "unit_name": "Unit IV - Pointers & Strings", "syllabus": "Pointers, String handling.", "notes_drive_link": "" },
-        { "unit_name": "Unit V - Structures & Files", "syllabus": "Structures, File handling.", "notes_drive_link": "" }
+        { "title": "Unit I - Programming Basics", "description": "Algorithms, Flowcharts, C basics.", "link": "" },
+        { "title": "Unit II - Control Structures", "description": "If, Switch, Loops.", "link": "" },
+        { "title": "Unit III - Functions & Arrays", "description": "Functions, Recursion, Arrays.", "link": "" },
+        { "title": "Unit IV - Pointers & Strings", "description": "Pointers, String handling.", "link": "" },
+        { "title": "Unit V - Structures & Files", "description": "Structures, File handling.", "link": "" }
       ],
       "textbooks": [
-        { "title": "Programming in ANSI C", "author": "E. Balagurusamy", "link": "" }
+        { "title": "Programming in ANSI C", "description":"TextBooks/Reference","author": "E. Balagurusamy", "link": "" }
       ],
      
-      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
+      "previous_papers": [{"title":"Previous Papers","description":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -58,17 +58,17 @@
     "19A15501": {
       "subject_name": "Communicative English I",
       "units": [
-        { "unit_name": "Unit I - Vocabulary", "syllabus": "Word formation, Synonyms.", "notes_drive_link": "" },
-        { "unit_name": "Unit II - Grammar", "syllabus": "Tenses, Articles, Prepositions.", "notes_drive_link": "" },
-        { "unit_name": "Unit III - Reading Skills", "syllabus": "Comprehension, Skimming.", "notes_drive_link": "" },
-        { "unit_name": "Unit IV - Writing Skills", "syllabus": "Paragraph & Letter writing.", "notes_drive_link": "" },
-        { "unit_name": "Unit V - Communication Skills", "syllabus": "Presentation & GD.", "notes_drive_link": "" }
+        { "title": "Unit I - Vocabulary", "description": "Word formation, Synonyms.", "link": "" },
+        { "title": "Unit II - Grammar", "description": "Tenses, Articles, Prepositions.", "link": "" },
+        { "title": "Unit III - Reading Skills", "description": "Comprehension, Skimming.", "link": "" },
+        { "title": "Unit IV - Writing Skills", "description": "Paragraph & Letter writing.", "link": "" },
+        { "title": "Unit V - Communication Skills", "description": "Presentation & GD.", "link": "" }
       ],
       "textbooks": [
-        { "title": "Technical Communication", "author": "Meenakshi Raman", "link": "" }
+        { "title": "Technical Communication", "description":"TextBooks/Reference","author": "Meenakshi Raman", "link": "" }
       ],
      
-      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
+      "previous_papers": [{"title":"Previous Papers","description":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -78,7 +78,7 @@
       "units": [],
       "textbooks": [],
      
-      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
+      "previous_papers": [{"title":"Previous Papers","description":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -88,7 +88,7 @@
       "units": [],
       "textbooks": [],
      
-      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
+      "previous_papers": [{"title":"Previous Papers","description":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -98,7 +98,7 @@
       "units": [],
       "textbooks": [],
      
-      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
+      "previous_papers": [{"title":"Previous Papers","description":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -108,24 +108,24 @@
       "units": [],
       "textbooks": [],
      
-      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
+      "previous_papers": [{"title":"Previous Papers","description":"Previous Papers","link":"https://google.com"}]
     }
   },
   {
     "19A10502": {
       "subject_name": "Python Programming",
       "units": [
-        { "unit_name": "Unit I - Introduction to Python", "syllabus": "Basics, Data types, Operators.", "notes_drive_link": "" },
-        { "unit_name": "Unit II - Control Structures", "syllabus": "Conditional statements, Loops.", "notes_drive_link": "" },
-        { "unit_name": "Unit III - Functions & Modules", "syllabus": "Functions, Recursion, Modules.", "notes_drive_link": "" },
-        { "unit_name": "Unit IV - Data Structures", "syllabus": "Lists, Tuples, Dictionaries, Sets.", "notes_drive_link": "" },
-        { "unit_name": "Unit V - File Handling & OOP", "syllabus": "File operations, Classes & Objects.", "notes_drive_link": "" }
+        { "title": "Unit I - Introduction to Python", "description": "Basics, Data types, Operators.", "link": "" },
+        { "title": "Unit II - Control Structures", "description": "Conditional statements, Loops.", "link": "" },
+        { "title": "Unit III - Functions & Modules", "description": "Functions, Recursion, Modules.", "link": "" },
+        { "title": "Unit IV - Data Structures", "description": "Lists, Tuples, Dictionaries, Sets.", "link": "" },
+        { "title": "Unit V - File Handling & OOP", "description": "File operations, Classes & Objects.", "link": "" }
       ],
       "textbooks": [
-        { "title": "Python Programming", "author": "Reema Thareja", "link": "" }
+        { "title": "Python Programming", "description":"TextBooks/Reference","author": "Reema Thareja", "link": "" }
       ],
      
-      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
+      "previous_papers": [{"title":"Previous Papers","description":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -133,17 +133,17 @@
     "19A15103": {
       "subject_name": "Probability And Statistics",
       "units": [
-        { "unit_name": "Unit I - Probability", "syllabus": "Random variables, Probability distributions.", "notes_drive_link": "" },
-        { "unit_name": "Unit II - Discrete Distributions", "syllabus": "Binomial, Poisson distributions.", "notes_drive_link": "" },
-        { "unit_name": "Unit III - Continuous Distributions", "syllabus": "Normal distribution, Exponential distribution.", "notes_drive_link": "" },
-        { "unit_name": "Unit IV - Sampling Theory", "syllabus": "Sampling distributions, Estimation.", "notes_drive_link": "" },
-        { "unit_name": "Unit V - Hypothesis Testing", "syllabus": "Z-test, t-test, Chi-square test.", "notes_drive_link": "" }
+        { "title": "Unit I - Probability", "description": "Random variables, Probability distributions.", "link": "" },
+        { "title": "Unit II - Discrete Distributions", "description": "Binomial, Poisson distributions.", "link": "" },
+        { "title": "Unit III - Continuous Distributions", "description": "Normal distribution, Exponential distribution.", "link": "" },
+        { "title": "Unit IV - Sampling Theory", "description": "Sampling distributions, Estimation.", "link": "" },
+        { "title": "Unit V - Hypothesis Testing", "description": "Z-test, t-test, Chi-square test.", "link": "" }
       ],
       "textbooks": [
-        { "title": "Probability & Statistics for Engineers", "author": "S.C. Gupta", "link": "" }
+        { "title": "Probability & Statistics for Engineers", "description":"TextBooks/Reference","author": "S.C. Gupta", "link": "" }
       ],
      
-      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
+      "previous_papers": [{"title":"Previous Papers","description":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -151,17 +151,17 @@
     "19A15303": {
       "subject_name": "Chemistry",
       "units": [
-        { "unit_name": "Unit I - Water Technology", "syllabus": "Hardness of water, Treatment methods.", "notes_drive_link": "" },
-        { "unit_name": "Unit II - Corrosion", "syllabus": "Types of corrosion, Prevention methods.", "notes_drive_link": "" },
-        { "unit_name": "Unit III - Polymers", "syllabus": "Polymerization techniques, Plastics.", "notes_drive_link": "" },
-        { "unit_name": "Unit IV - Energy Sources", "syllabus": "Fuels, Batteries, Solar cells.", "notes_drive_link": "" },
-        { "unit_name": "Unit V - Nanomaterials", "syllabus": "Synthesis and applications.", "notes_drive_link": "" }
+        { "title": "Unit I - Water Technology", "description": "Hardness of water, Treatment methods.", "link": "" },
+        { "title": "Unit II - Corrosion", "description": "Types of corrosion, Prevention methods.", "link": "" },
+        { "title": "Unit III - Polymers", "description": "Polymerization techniques, Plastics.", "link": "" },
+        { "title": "Unit IV - Energy Sources", "description": "Fuels, Batteries, Solar cells.", "link": "" },
+        { "title": "Unit V - Nanomaterials", "description": "Synthesis and applications.", "link": "" }
       ],
       "textbooks": [
-        { "title": "Engineering Chemistry", "author": "P.C. Jain & Monica Jain", "link": "" }
+        { "title": "Engineering Chemistry", "description":"TextBooks/Reference","author": "P.C. Jain & Monica Jain", "link": "" }
       ],
      
-      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
+      "previous_papers": [{"title":"Previous Papers","description":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -169,17 +169,17 @@
     "19A10503": {
       "subject_name": "Data Structures",
       "units": [
-        { "unit_name": "Unit I - Introduction", "syllabus": "Time complexity, Arrays, Structures.", "notes_drive_link": "" },
-        { "unit_name": "Unit II - Linked Lists", "syllabus": "Singly, Doubly, Circular lists.", "notes_drive_link": "" },
-        { "unit_name": "Unit III - Stacks & Queues", "syllabus": "Stack operations, Queue types.", "notes_drive_link": "" },
-        { "unit_name": "Unit IV - Trees", "syllabus": "Binary trees, BST, Traversals.", "notes_drive_link": "" },
-        { "unit_name": "Unit V - Graphs", "syllabus": "Graph representation, BFS, DFS.", "notes_drive_link": "" }
+        { "title": "Unit I - Introduction", "description": "Time complexity, Arrays, Structures.", "link": "" },
+        { "title": "Unit II - Linked Lists", "description": "Singly, Doubly, Circular lists.", "link": "" },
+        { "title": "Unit III - Stacks & Queues", "description": "Stack operations, Queue types.", "link": "" },
+        { "title": "Unit IV - Trees", "description": "Binary trees, BST, Traversals.", "link": "" },
+        { "title": "Unit V - Graphs", "description": "Graph representation, BFS, DFS.", "link": "" }
       ],
       "textbooks": [
-        { "title": "Data Structures Using C", "author": "Reema Thareja", "link": "" }
+        { "title": "Data Structures Using C", "description":"TextBooks/Reference","author": "Reema Thareja", "link": "" }
       ],
      
-      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
+      "previous_papers": [{"title":"Previous Papers","description":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -189,7 +189,7 @@
       "units": [],
       "textbooks": [],
      
-      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
+      "previous_papers": [{"title":"Previous Papers","description":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -197,17 +197,17 @@
     "19A10304": {
       "subject_name": "Engineering Graphics",
       "units": [
-        { "unit_name": "Unit I - Introduction", "syllabus": "Drawing instruments, Scales.", "notes_drive_link": "" },
-        { "unit_name": "Unit II - Projections", "syllabus": "Orthographic projections.", "notes_drive_link": "" },
-        { "unit_name": "Unit III - Sections", "syllabus": "Sectional views.", "notes_drive_link": "" },
-        { "unit_name": "Unit IV - Isometric Views", "syllabus": "Isometric projections.", "notes_drive_link": "" },
-        { "unit_name": "Unit V - CAD Basics", "syllabus": "Introduction to AutoCAD.", "notes_drive_link": "" }
+        { "title": "Unit I - Introduction", "description": "Drawing instruments, Scales.", "link": "" },
+        { "title": "Unit II - Projections", "description": "Orthographic projections.", "link": "" },
+        { "title": "Unit III - Sections", "description": "Sectional views.", "link": "" },
+        { "title": "Unit IV - Isometric Views", "description": "Isometric projections.", "link": "" },
+        { "title": "Unit V - CAD Basics", "description": "Introduction to AutoCAD.", "link": "" }
       ],
       "textbooks": [
-        { "title": "Engineering Drawing", "author": "N.D. Bhatt", "link": "" }
+        { "title": "Engineering Drawing","description":"TextBooks/Reference", "author": "N.D. Bhatt", "link": "" }
       ],
      
-      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
+      "previous_papers": [{"title":"Previous Papers","description":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -215,15 +215,15 @@
     "19A10804": {
       "subject_name": "Environmental Science",
       "units": [
-        { "unit_name": "Unit I - Ecosystem", "syllabus": "Structure and function.", "notes_drive_link": "" },
-        { "unit_name": "Unit II - Natural Resources", "syllabus": "Water, Forest, Energy resources.", "notes_drive_link": "" },
-        { "unit_name": "Unit III - Biodiversity", "syllabus": "Conservation methods.", "notes_drive_link": "" },
-        { "unit_name": "Unit IV - Pollution", "syllabus": "Air, Water, Soil pollution.", "notes_drive_link": "" },
-        { "unit_name": "Unit V - Social Issues", "syllabus": "Environmental laws.", "notes_drive_link": "" }
+        { "title": "Unit I - Ecosystem", "description": "Structure and function.", "link": "" },
+        { "title": "Unit II - Natural Resources", "description": "Water, Forest, Energy resources.", "link": "" },
+        { "title": "Unit III - Biodiversity", "description": "Conservation methods.", "link": "" },
+        { "title": "Unit IV - Pollution", "description": "Air, Water, Soil pollution.", "link": "" },
+        { "title": "Unit V - Social Issues", "description": "Environmental laws.", "link": "" }
       ],
       "textbooks": [],
      
-      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
+      "previous_papers": [{"title":"Previous Papers","description":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -233,7 +233,7 @@
       "units": [],
       "textbooks": [],
      
-      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
+      "previous_papers": [{"title":"Previous Papers","description":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -243,7 +243,7 @@
       "units": [],
       "textbooks": [],
      
-      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
+      "previous_papers": [{"title":"Previous Papers","description":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -253,7 +253,7 @@
       "units": [],
       "textbooks": [],
      
-      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
+      "previous_papers": [{"title":"Previous Papers","description":"Previous Papers","link":"https://google.com"}]
     }
   },
 
@@ -263,7 +263,7 @@
       "units": [],
       "textbooks": [],
      
-      "previous_papers": [{"title":"Previous Papers","link":"https://google.com"}]
+      "previous_papers": [{"title":"Previous Papers","description":"Previous Papers","link":"https://google.com"}]
     }
   }
 ]
