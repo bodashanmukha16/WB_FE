@@ -7,7 +7,7 @@ export default function YearTemplate() {
   const navigate = useNavigate();
   const { branch, year } = useParams();
   const [loaded, setLoaded] = useState(false);
-  const [currentRegulation, setcurrentRegulation] = useState(regulations[0])
+  const [currentRegulation, setcurrentRegulation] = useState(JSON.parse(localStorage.getItem('user'))['regulation'] || regulations[0])
   
   useEffect(() => {
     // Set loaded to true once the component mounts

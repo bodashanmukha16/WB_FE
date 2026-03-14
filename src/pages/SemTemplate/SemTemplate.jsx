@@ -12,9 +12,14 @@ function SemTemplate() {
   const { regulation, branch, year, sem } = useParams();
   const fullURL = `${regulation}/${branch}/${year}/${sem}`;
   let FullSubjectData = [];
-  const SubjectMappingResult = SubjectMapping.find((obj) => obj[fullURL])[
-    fullURL
-  ].subjects_included;
+  const matchedObj = SubjectMapping.find((obj) => obj[fullURL]);
+
+if (!matchedObj) {
+  console.error(`No mapping found for: ${fullURL}`);
+  return; // or return some fallback UI
+}
+
+const SubjectMappingResult = matchedObj[fullURL].subjects_included;
   //   console.log(SubjectMappingResult)
   SubjectMappingResult.forEach((element) => {
     let subject = subjectList.find((obj) => obj[element])[element];
