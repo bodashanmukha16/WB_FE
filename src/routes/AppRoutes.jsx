@@ -17,60 +17,85 @@ import ProtectedRoute from './ProtectedRoute'
 function AppRoutes() {
   return (
     <Routes>
-
       {/* Public Routes */}
       <Route path="/" element={<LoginPage />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password/:token" element={<ResetPassword />} />
 
       {/* Protected Routes */}
-      <Route path="/dash" element={
-        <ProtectedRoute>
-          <DashboardHome />
-        </ProtectedRoute>
-      } />
+      <Route
+        path="/dash"
+        element={
+          <ProtectedRoute>
+            <DashboardHome />
+          </ProtectedRoute>
+        }
+      />
 
-      <Route path="/materials" element={
-        <ProtectedRoute>
-          <MaterialsHome />
-        </ProtectedRoute>
-      } />
+      <Route
+        path="/materials"
+        element={
+          <ProtectedRoute>
+            <MaterialsHome />
+          </ProtectedRoute>
+        }
+      />
 
-      <Route path="/materials/:branch/:year" element={
-        <ProtectedRoute>
-          <YearTemplate />
-        </ProtectedRoute>
-      } />
-<Route path="/materials/:regulation/:branch/:year/:sem" element={
-        <ProtectedRoute>
-          <SemTemplate />
-        </ProtectedRoute>
-      } />
-      <Route path="/compilers" element={
-        <ProtectedRoute>
-          <Compiler />
-        </ProtectedRoute>
-      } />
+      <Route
+        path="/materials/:branch/:year"
+        element={
+          <ProtectedRoute>
+            <YearTemplate />
+          </ProtectedRoute>
+        }
+      />
 
- <Route path="/softwares" element={
-        <ProtectedRoute>
-          <Softwares />
-        </ProtectedRoute>
-      } />
+      <Route
+        path="/materials/:regulation/:branch/:year/:sem"
+        element={
+          <ProtectedRoute>
+            <SemTemplate />
+          </ProtectedRoute>
+        }
+      />
 
-       <Route path="/notifications" element={
-        <ProtectedRoute>
-          <Notifications />
-        </ProtectedRoute>
-      } />
+      <Route
+        path="/compilers"
+        element={
+          <ProtectedRoute>
+            <Compiler />
+          </ProtectedRoute>
+        }
+      />
 
-      <Route path="/ai-agent" element={
-        <ProtectedRoute>
-          <AIAgentDashboard />
-        </ProtectedRoute>
-      } />
+      <Route
+        path="/softwares"
+        element={
+          <ProtectedRoute>
+            <Softwares />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/notifications"
+        element={
+          <ProtectedRoute>
+            <Notifications />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/ai-agent"
+        element={
+          <ProtectedRoute>
+            <AIAgentDashboard />
+          </ProtectedRoute>
+        }
+      />
+
       <Route path="*" element={<h1>404 - Page Not Found</h1>} />
-
     </Routes>
   )
 }
