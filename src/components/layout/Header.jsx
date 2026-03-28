@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const navigate = useNavigate();
@@ -29,13 +28,9 @@ export default function Header() {
             <a href="#courses" className="nav-link">Courses</a>
             <a href="#testimonials" className="nav-link">Testimonials</a>
             <button onClick={() => navigate("/ai-agent")} className="nav-link">AI Agent</button>
-            <button
-              className="logout_btn bg-white text-gray-700 rounded-lg text-lg font-semibold hover:shadow-xl border-2 border-gray-200 transform hover:scale-105 transition-all duration-300"
-              id="logout_btn"
-              onClick={doLogout}
-            >
-              Logout
-            </button>
+            <button className="logout_btn bg-white text-gray-700 rounded-lg text-lg font-semibold hover:shadow-xl border-2 border-gray-200 transform hover:scale-105 transition-all duration-300" id="logout_btn" onClick={doLogout}>
+                    Logout
+                </button>
           </div>
 
           <button
@@ -53,13 +48,9 @@ export default function Header() {
             <a href="#courses" className="block">Courses</a>
             <a href="#testimonials" className="block">Testimonials</a>
             <button onClick={() => navigate("/ai-agent")} className="block text-left">AI Agent</button>
-            <button
-              className="logout_btn bg-white text-gray-700 rounded-lg text-lg font-semibold hover:shadow-xl border-2 border-gray-200 transform hover:scale-105 transition-all duration-300"
-              id="logout_btn"
-              onClick={doLogout}
-            >
-              Logout
-            </button>
+            <button className="logout_btn bg-white text-gray-700 rounded-lg text-lg font-semibold hover:shadow-xl border-2 border-gray-200 transform hover:scale-105 transition-all duration-300" id="logout_btn" onClick={doLogout}>
+                    Logout
+                </button>
           </div>
         )}
       </div>
