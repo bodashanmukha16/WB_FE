@@ -11,6 +11,7 @@ import Softwares from '../pages/Compilers/Softwares'
 import ForgotPassword from '../pages/ForgotPassword'
 import ResetPassword from '../pages/ResetPassword'
 import Notifications from '../components/sections/Notifications'
+import AIAgentDashboard from '../pages/AIAgent/AIAgentDashboard'
 import ProtectedRoute from './ProtectedRoute'
 
 function AppRoutes() {
@@ -60,6 +61,12 @@ function AppRoutes() {
        <Route path="/notifications" element={
         <ProtectedRoute>
           <Notifications />
+        </ProtectedRoute>
+      } />
+
+      <Route path="/ai-agent" element={
+        <ProtectedRoute>
+          <AIAgentDashboard />
         </ProtectedRoute>
       } />
       <Route path="*" element={<h1>404 - Page Not Found</h1>} />
