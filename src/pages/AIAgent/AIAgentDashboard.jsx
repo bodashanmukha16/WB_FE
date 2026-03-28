@@ -1,23 +1,44 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
 import {
-  clearPythonAiCourse,
-  generatePythonAiCourse,
-  getPythonAiCourse,
+  generateCourse,
+  getAiLearningState,
+  getCourseStatsForStudent,
+  toggleLessonForStudent,
 } from "../../services/aiCourseService";
 
-export default function AIAgentDashboard() {
-  const [course, setCourse] = useState(getPythonAiCourse());
+const defaultForm = {
+  language: "Python",
+  level: "Beginner",
+  weeks: 4,
+  goal: "Build practical projects and become interview-ready.",
+};
 
-  const onGenerate = () => {
-    const generated = generatePythonAiCourse();
-    setCourse(generated);
+export default function AIAgentDashboard() {
+  const [form, setForm] = useState(defaultForm);
+  const [state, setState] = useState(getAiLearningState());
+  const [selectedStudentId, setSelectedStudentId] = useState(
+    getAiLearningState().students[0]?.id || "",
+  );
+
+  const selectedStudent = useMemo(
+    () => state.students.find((student) => student.id === selectedStudentId),
+    [state.students, selectedStudentId],
+  );
+
+  const createCourse = (event) => {
+    event.preventDefault();
+    if (!form.language.trim() || !form.goal.trim()) return;
+
+    generateCourse(form);
+    setState(getAiLearningState());
   };
 
-  const onReset = () => {
-    clearPythonAiCourse();
-    setCourse(null);
+  const onToggleLesson = (courseId, lessonId) => {
+    if (!selectedStudentId) return;
+    toggleLessonForStudent(selectedStudentId, courseId, lessonId);
+    setState(getAiLearningState());
   };
 
   return (
@@ -25,88 +46,179 @@ export default function AIAgentDashboard() {
       <Header />
       <main className="min-h-screen pt-28 pb-16 bg-gradient-to-br from-slate-50 via-white to-blue-50">
         <section className="container mx-auto px-6">
-          <div className="bg-white border border-slate-100 shadow-md rounded-2xl p-6 md:p-8 mb-6">
-            <h1 className="text-3xl md:text-4xl font-bold text-slate-900">Python AI Course Agent</h1>
+          <div className="mb-10">
+            <h1 className="text-4xl font-bold text-slate-900">AI Course Agent Studio</h1>
             <p className="mt-2 text-slate-600 max-w-3xl">
-              This AI agent generates a complete Python course structure with module-wise topics and a video resource for each topic.
+              Generate language-specific online courses and track completion/pending status for every student.
             </p>
-
-            <div className="mt-5 flex flex-wrap gap-3">
-              <button
-                onClick={onGenerate}
-                className="px-5 py-2.5 rounded-lg font-semibold text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:shadow-lg"
-              >
-                Generate Python Course
-              </button>
-              <button
-                onClick={onReset}
-                className="px-5 py-2.5 rounded-lg font-semibold border border-slate-300 text-slate-700 hover:bg-slate-50"
-              >
-                Reset
-              </button>
-            </div>
           </div>
 
-          {!course ? (
-            <div className="bg-white rounded-2xl border border-dashed border-slate-300 p-10 text-center text-slate-500">
-              Click <span className="font-semibold">Generate Python Course</span> to build the complete course structure and videos.
-            </div>
-          ) : (
-            <>
-              <div className="grid md:grid-cols-4 gap-4 mb-6">
-                <div className="bg-white rounded-xl border border-slate-100 p-4">
-                  <p className="text-xs text-slate-500">Language</p>
-                  <p className="font-semibold text-slate-900">{course.language}</p>
-                </div>
-                <div className="bg-white rounded-xl border border-slate-100 p-4">
-                  <p className="text-xs text-slate-500">Modules</p>
-                  <p className="font-semibold text-slate-900">{course.totalModules}</p>
-                </div>
-                <div className="bg-white rounded-xl border border-slate-100 p-4">
-                  <p className="text-xs text-slate-500">Topics</p>
-                  <p className="font-semibold text-slate-900">{course.totalTopics}</p>
-                </div>
-                <div className="bg-white rounded-xl border border-slate-100 p-4">
-                  <p className="text-xs text-slate-500">Estimated Hours</p>
-                  <p className="font-semibold text-slate-900">{course.estimatedHours} hrs</p>
+          <div className="grid lg:grid-cols-3 gap-6">
+            <form
+              onSubmit={createCourse}
+              className="lg:col-span-1 bg-white rounded-2xl shadow-md border border-slate-100 p-6 space-y-4"
+            >
+              <h2 className="text-xl font-semibold text-slate-900">Generate New Course</h2>
+
+              <label className="block">
+                <span className="text-sm font-medium text-slate-700">Programming Language</span>
+                <input
+                  className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2"
+                  value={form.language}
+                  onChange={(event) => setForm((prev) => ({ ...prev, language: event.target.value }))}
+                  placeholder="Python"
+                />
+              </label>
+
+              <label className="block">
+                <span className="text-sm font-medium text-slate-700">Level</span>
+                <select
+                  className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2"
+                  value={form.level}
+                  onChange={(event) => setForm((prev) => ({ ...prev, level: event.target.value }))}
+                >
+                  <option>Beginner</option>
+                  <option>Intermediate</option>
+                  <option>Advanced</option>
+                </select>
+              </label>
+
+              <label className="block">
+                <span className="text-sm font-medium text-slate-700">Duration (weeks)</span>
+                <input
+                  type="number"
+                  min={2}
+                  max={12}
+                  className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2"
+                  value={form.weeks}
+                  onChange={(event) => setForm((prev) => ({ ...prev, weeks: event.target.value }))}
+                />
+              </label>
+
+              <label className="block">
+                <span className="text-sm font-medium text-slate-700">Learning Goal</span>
+                <textarea
+                  rows={4}
+                  className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2"
+                  value={form.goal}
+                  onChange={(event) => setForm((prev) => ({ ...prev, goal: event.target.value }))}
+                />
+              </label>
+
+              <button
+                type="submit"
+                className="w-full py-2.5 rounded-lg font-semibold text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:shadow-lg"
+              >
+                Generate Course Plan
+              </button>
+            </form>
+
+            <div className="lg:col-span-2 space-y-6">
+              <div className="bg-white rounded-2xl shadow-md border border-slate-100 p-6">
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                  <div>
+                    <h2 className="text-xl font-semibold text-slate-900">Student Progress View</h2>
+                    <p className="text-sm text-slate-500">Track each learner status course-by-course.</p>
+                  </div>
+
+                  <select
+                    className="rounded-lg border border-slate-300 px-3 py-2"
+                    value={selectedStudentId}
+                    onChange={(event) => setSelectedStudentId(event.target.value)}
+                  >
+                    {state.students.map((student) => (
+                      <option key={student.id} value={student.id}>
+                        {student.name} ({student.email})
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
 
-              <div className="space-y-5">
-                {course.modules.map((module) => (
-                  <article key={module.module} className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-                    <div className="px-6 py-4 border-b border-slate-100 bg-slate-50">
-                      <h2 className="text-xl font-bold text-slate-900">{module.module}</h2>
-                    </div>
+              {state.courses.length === 0 ? (
+                <div className="bg-white rounded-2xl shadow-sm border border-dashed border-slate-300 p-8 text-center text-slate-500">
+                  No courses generated yet. Create your first AI-generated programming course.
+                </div>
+              ) : (
+                state.courses.map((course) => {
+                  const stats = getCourseStatsForStudent(selectedStudentId, course.id);
 
-                    <ul className="p-5 space-y-4">
-                      {module.topics.map((topic) => (
-                        <li key={topic.title} className="rounded-lg border border-slate-200 p-4">
-                          <h3 className="font-semibold text-slate-900">{topic.title}</h3>
-                          <p className="text-sm text-slate-600 mt-1">{topic.description}</p>
+                  return (
+                    <article key={course.id} className="bg-white rounded-2xl shadow-md border border-slate-100 overflow-hidden">
+                      <div className="p-6 border-b border-slate-100">
+                        <div className="flex flex-wrap gap-2 mb-2">
+                          <span className="px-3 py-1 text-xs rounded-full bg-blue-100 text-blue-700">{course.language}</span>
+                          <span className="px-3 py-1 text-xs rounded-full bg-purple-100 text-purple-700">{course.level}</span>
+                          <span className="px-3 py-1 text-xs rounded-full bg-emerald-100 text-emerald-700">{course.weeks} weeks</span>
+                        </div>
 
-                          <div className="mt-3 flex flex-col md:flex-row md:items-center md:justify-between gap-2 rounded-md bg-blue-50 px-3 py-2">
-                            <div>
-                              <p className="text-sm font-medium text-blue-900">🎬 {topic.video.title}</p>
-                              <p className="text-xs text-blue-700">Suggested duration: {topic.video.duration}</p>
-                            </div>
-                            <a
-                              href={topic.video.url}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="text-sm font-semibold text-blue-700 hover:text-blue-800"
-                            >
-                              Open Video →
-                            </a>
+                        <h3 className="text-2xl font-bold text-slate-900">{course.language} AI Course Track</h3>
+                        <p className="text-slate-600 mt-1">{course.goal}</p>
+
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
+                          <div className="rounded-lg bg-slate-50 p-3">
+                            <p className="text-xs text-slate-500">Student</p>
+                            <p className="font-semibold text-slate-900">{selectedStudent?.name || "-"}</p>
                           </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </article>
-                ))}
-              </div>
-            </>
-          )}
+                          <div className="rounded-lg bg-slate-50 p-3">
+                            <p className="text-xs text-slate-500">Completed</p>
+                            <p className="font-semibold text-emerald-600">{stats.completed}</p>
+                          </div>
+                          <div className="rounded-lg bg-slate-50 p-3">
+                            <p className="text-xs text-slate-500">Pending</p>
+                            <p className="font-semibold text-orange-600">{stats.pending}</p>
+                          </div>
+                          <div className="rounded-lg bg-slate-50 p-3">
+                            <p className="text-xs text-slate-500">Completion</p>
+                            <p className="font-semibold text-blue-600">{stats.completionPercentage}%</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="p-6 space-y-4">
+                        {course.modules.map((module, moduleIndex) => (
+                          <div key={module.id} className="border border-slate-200 rounded-lg p-4">
+                            <h4 className="font-semibold text-slate-900">
+                              Module {moduleIndex + 1}: {module.title}
+                            </h4>
+                            <ul className="mt-3 space-y-2">
+                              {module.lessons.map((lesson) => {
+                                const isDone = state.progressByStudent?.[selectedStudentId]?.[course.id]?.completedLessonIds?.includes(
+                                  lesson.id,
+                                );
+
+                                return (
+                                  <li
+                                    key={lesson.id}
+                                    className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 rounded-md px-3 py-2 bg-slate-50"
+                                  >
+                                    <div>
+                                      <p className="font-medium text-slate-800">{lesson.title}</p>
+                                      <p className="text-xs text-slate-500">{lesson.durationMinutes} min</p>
+                                    </div>
+                                    <button
+                                      onClick={() => onToggleLesson(course.id, lesson.id)}
+                                      className={`px-3 py-1.5 text-sm rounded-md font-medium ${
+                                        isDone
+                                          ? "bg-emerald-100 text-emerald-700"
+                                          : "bg-amber-100 text-amber-700"
+                                      }`}
+                                    >
+                                      {isDone ? "Completed" : "Pending"}
+                                    </button>
+                                  </li>
+                                );
+                              })}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
+                    </article>
+                  );
+                })
+              )}
+            </div>
+          </div>
         </section>
       </main>
       <Footer />

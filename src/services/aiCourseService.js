@@ -1,296 +1,161 @@
-const STORAGE_KEY = "wb_python_ai_course_v1";
+const STORAGE_KEY = "wb_ai_courses_state_v1";
 
-const pythonCurriculum = [
-  {
-    module: "Module 1: Python Foundations",
-    topics: [
-      {
-        title: "What is Python and Setup",
-        description: "Install Python, understand interpreter, run first script.",
-        video: {
-          title: "Python Setup + First Program",
-          url: "https://www.youtube.com/results?search_query=python+installation+first+program",
-          duration: "20 min",
-        },
-      },
-      {
-        title: "Variables and Data Types",
-        description: "Numbers, strings, booleans, type conversion and formatting.",
-        video: {
-          title: "Python Variables and Data Types",
-          url: "https://www.youtube.com/results?search_query=python+variables+data+types+tutorial",
-          duration: "35 min",
-        },
-      },
-      {
-        title: "Input, Output and Basic Operators",
-        description: "Take user input, print output, arithmetic and logical operators.",
-        video: {
-          title: "Python Input Output Operators",
-          url: "https://www.youtube.com/results?search_query=python+input+output+operators",
-          duration: "30 min",
-        },
-      },
-    ],
-  },
-  {
-    module: "Module 2: Control Flow",
-    topics: [
-      {
-        title: "Conditional Statements",
-        description: "if, elif, else and nested conditions.",
-        video: {
-          title: "Python If Else Tutorial",
-          url: "https://www.youtube.com/results?search_query=python+if+elif+else+tutorial",
-          duration: "28 min",
-        },
-      },
-      {
-        title: "Loops in Python",
-        description: "for and while loops, break, continue, pass.",
-        video: {
-          title: "Python For and While Loops",
-          url: "https://www.youtube.com/results?search_query=python+for+while+loops+break+continue",
-          duration: "40 min",
-        },
-      },
-      {
-        title: "Pattern and Logic Practice",
-        description: "Practice problems for logic-building using loops.",
-        video: {
-          title: "Python Loop Practice Questions",
-          url: "https://www.youtube.com/results?search_query=python+loop+practice+problems",
-          duration: "45 min",
-        },
-      },
-    ],
-  },
-  {
-    module: "Module 3: Functions and Reusability",
-    topics: [
-      {
-        title: "Defining Functions",
-        description: "Parameters, return statements, default arguments.",
-        video: {
-          title: "Python Functions Explained",
-          url: "https://www.youtube.com/results?search_query=python+functions+arguments+return",
-          duration: "35 min",
-        },
-      },
-      {
-        title: "Scope and Lambda",
-        description: "Local/global scope, lambda, map/filter basics.",
-        video: {
-          title: "Python Scope and Lambda",
-          url: "https://www.youtube.com/results?search_query=python+scope+lambda+map+filter",
-          duration: "32 min",
-        },
-      },
-      {
-        title: "Mini Project: Utility Functions",
-        description: "Create reusable utility module for common tasks.",
-        video: {
-          title: "Python Function Project",
-          url: "https://www.youtube.com/results?search_query=python+mini+project+functions",
-          duration: "38 min",
-        },
-      },
-    ],
-  },
-  {
-    module: "Module 4: Data Structures",
-    topics: [
-      {
-        title: "Lists and Tuples",
-        description: "Create, modify, iterate and common methods.",
-        video: {
-          title: "Python Lists and Tuples",
-          url: "https://www.youtube.com/results?search_query=python+lists+tuples+tutorial",
-          duration: "42 min",
-        },
-      },
-      {
-        title: "Sets and Dictionaries",
-        description: "Key-value storage, uniqueness, fast lookups.",
-        video: {
-          title: "Python Dictionary and Set",
-          url: "https://www.youtube.com/results?search_query=python+dictionary+set+tutorial",
-          duration: "39 min",
-        },
-      },
-      {
-        title: "Comprehensions",
-        description: "List, dictionary and set comprehensions.",
-        video: {
-          title: "Python Comprehensions",
-          url: "https://www.youtube.com/results?search_query=python+list+dictionary+comprehension",
-          duration: "25 min",
-        },
-      },
-    ],
-  },
-  {
-    module: "Module 5: File Handling and Error Management",
-    topics: [
-      {
-        title: "Read/Write Files",
-        description: "Work with text files and CSV basics.",
-        video: {
-          title: "Python File Handling",
-          url: "https://www.youtube.com/results?search_query=python+file+handling+read+write",
-          duration: "30 min",
-        },
-      },
-      {
-        title: "Exception Handling",
-        description: "try/except/finally and custom exceptions.",
-        video: {
-          title: "Python Exception Handling",
-          url: "https://www.youtube.com/results?search_query=python+exception+handling+tutorial",
-          duration: "34 min",
-        },
-      },
-      {
-        title: "Logging Basics",
-        description: "Use logging module for debugging and observability.",
-        video: {
-          title: "Python Logging Tutorial",
-          url: "https://www.youtube.com/results?search_query=python+logging+module+tutorial",
-          duration: "22 min",
-        },
-      },
-    ],
-  },
-  {
-    module: "Module 6: Object-Oriented Python",
-    topics: [
-      {
-        title: "Classes and Objects",
-        description: "Create classes, methods, constructors.",
-        video: {
-          title: "Python OOP Basics",
-          url: "https://www.youtube.com/results?search_query=python+classes+objects+oop",
-          duration: "45 min",
-        },
-      },
-      {
-        title: "Inheritance and Polymorphism",
-        description: "Reuse behavior with inheritance and override methods.",
-        video: {
-          title: "Python Inheritance and Polymorphism",
-          url: "https://www.youtube.com/results?search_query=python+inheritance+polymorphism",
-          duration: "36 min",
-        },
-      },
-      {
-        title: "Encapsulation and Dunder Methods",
-        description: "Data hiding and magic methods in real projects.",
-        video: {
-          title: "Python Dunder Methods",
-          url: "https://www.youtube.com/results?search_query=python+dunder+methods+encapsulation",
-          duration: "30 min",
-        },
-      },
-    ],
-  },
-  {
-    module: "Module 7: Intermediate Python Essentials",
-    topics: [
-      {
-        title: "Iterators and Generators",
-        description: "Lazy evaluation patterns for scalable code.",
-        video: {
-          title: "Python Iterators and Generators",
-          url: "https://www.youtube.com/results?search_query=python+iterators+generators",
-          duration: "31 min",
-        },
-      },
-      {
-        title: "Decorators",
-        description: "Wrap and extend function behavior elegantly.",
-        video: {
-          title: "Python Decorators",
-          url: "https://www.youtube.com/results?search_query=python+decorators+tutorial",
-          duration: "33 min",
-        },
-      },
-      {
-        title: "Virtual Environments and Pip",
-        description: "Manage dependencies and isolated project environments.",
-        video: {
-          title: "Python venv and pip",
-          url: "https://www.youtube.com/results?search_query=python+virtual+environment+pip",
-          duration: "24 min",
-        },
-      },
-    ],
-  },
-  {
-    module: "Module 8: Real-World Development",
-    topics: [
-      {
-        title: "API Requests",
-        description: "Consume REST APIs using requests library.",
-        video: {
-          title: "Python REST API Requests",
-          url: "https://www.youtube.com/results?search_query=python+requests+api+tutorial",
-          duration: "30 min",
-        },
-      },
-      {
-        title: "Database Basics with SQLite",
-        description: "Store and query persistent data.",
-        video: {
-          title: "Python SQLite Tutorial",
-          url: "https://www.youtube.com/results?search_query=python+sqlite3+tutorial",
-          duration: "35 min",
-        },
-      },
-      {
-        title: "Capstone Project Blueprint",
-        description: "Plan and implement a complete Python project.",
-        video: {
-          title: "Python Capstone Project Guide",
-          url: "https://www.youtube.com/results?search_query=python+capstone+project+tutorial",
-          duration: "50 min",
-        },
-      },
-    ],
-  },
+const defaultStudents = [
+  { id: "stu-001", name: "Aarav", email: "aarav@student.com" },
+  { id: "stu-002", name: "Diya", email: "diya@student.com" },
+  { id: "stu-003", name: "Rahul", email: "rahul@student.com" },
 ];
 
-function createPythonCourseBlueprint() {
-  const totalTopics = pythonCurriculum.reduce((acc, module) => acc + module.topics.length, 0);
+function buildLesson(moduleIndex, lessonIndex, language) {
+  const topics = [
+    "Syntax Essentials",
+    "Control Flow",
+    "Functions",
+    "Object-Oriented Concepts",
+    "Data Structures",
+    "Testing Basics",
+    "Debugging",
+    "Project Build",
+  ];
+
+  const topic = topics[(moduleIndex * 3 + lessonIndex) % topics.length];
 
   return {
-    id: `python-course-${Date.now()}`,
-    language: "Python",
-    title: "AI-Generated Python Developer Course",
-    level: "Beginner to Intermediate",
-    createdAt: new Date().toISOString(),
-    totalModules: pythonCurriculum.length,
-    totalTopics,
-    estimatedHours: 32,
-    modules: pythonCurriculum,
+    id: `lesson-${moduleIndex + 1}-${lessonIndex + 1}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+    title: `${language} ${topic}`,
+    durationMinutes: 35 + lessonIndex * 10,
   };
 }
 
-export function getPythonAiCourse() {
+function generateModules(language, weeks) {
+  const moduleCount = Math.min(Math.max(Number(weeks) || 4, 2), 12);
+
+  return Array.from({ length: moduleCount }, (_, moduleIndex) => ({
+    id: `module-${moduleIndex + 1}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+    title: `Week ${moduleIndex + 1}: ${language} Mastery Track`,
+    lessons: Array.from({ length: 3 }, (_, lessonIndex) =>
+      buildLesson(moduleIndex, lessonIndex, language),
+    ),
+  }));
+}
+
+function initialState() {
+  return {
+    students: defaultStudents,
+    courses: [],
+    progressByStudent: {},
+  };
+}
+
+function readState() {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
-    if (!saved) return null;
-    return JSON.parse(saved);
+    if (!saved) return initialState();
+
+    const parsed = JSON.parse(saved);
+    return {
+      students: parsed.students?.length ? parsed.students : defaultStudents,
+      courses: parsed.courses || [],
+      progressByStudent: parsed.progressByStudent || {},
+    };
   } catch {
-    return null;
+    return initialState();
   }
 }
 
-export function generatePythonAiCourse() {
-  const blueprint = createPythonCourseBlueprint();
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(blueprint));
-  return blueprint;
+function writeState(state) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  return state;
 }
 
-export function clearPythonAiCourse() {
-  localStorage.removeItem(STORAGE_KEY);
+export function getAiLearningState() {
+  return readState();
+}
+
+export function generateCourse(payload) {
+  const state = readState();
+  const language = payload.language.trim();
+
+  const modules = generateModules(language, payload.weeks);
+
+  const newCourse = {
+    id: `course-${Date.now()}`,
+    language,
+    level: payload.level,
+    weeks: Number(payload.weeks) || 4,
+    goal: payload.goal.trim(),
+    createdAt: new Date().toISOString(),
+    modules,
+  };
+
+  state.courses.unshift(newCourse);
+
+  const allLessonIds = modules.flatMap((module) => module.lessons.map((lesson) => lesson.id));
+
+  for (const student of state.students) {
+    if (!state.progressByStudent[student.id]) {
+      state.progressByStudent[student.id] = {};
+    }
+
+    state.progressByStudent[student.id][newCourse.id] = {
+      completedLessonIds: [],
+      pendingLessonIds: allLessonIds,
+      startedAt: new Date().toISOString(),
+      completedAt: null,
+    };
+  }
+
+  writeState(state);
+  return newCourse;
+}
+
+export function toggleLessonForStudent(studentId, courseId, lessonId) {
+  const state = readState();
+
+  const progress = state.progressByStudent?.[studentId]?.[courseId];
+  if (!progress) return null;
+
+  const set = new Set(progress.completedLessonIds);
+  if (set.has(lessonId)) {
+    set.delete(lessonId);
+  } else {
+    set.add(lessonId);
+  }
+
+  const course = state.courses.find((item) => item.id === courseId);
+  const allLessonIds = (course?.modules || []).flatMap((module) =>
+    module.lessons.map((lesson) => lesson.id),
+  );
+
+  progress.completedLessonIds = Array.from(set);
+  progress.pendingLessonIds = allLessonIds.filter((id) => !set.has(id));
+  progress.completedAt = progress.pendingLessonIds.length === 0 ? new Date().toISOString() : null;
+
+  writeState(state);
+  return progress;
+}
+
+export function getCourseStatsForStudent(studentId, courseId) {
+  const state = readState();
+  const progress = state.progressByStudent?.[studentId]?.[courseId];
+
+  if (!progress) {
+    return {
+      completed: 0,
+      pending: 0,
+      total: 0,
+      completionPercentage: 0,
+    };
+  }
+
+  const completed = progress.completedLessonIds.length;
+  const pending = progress.pendingLessonIds.length;
+  const total = completed + pending;
+
+  return {
+    completed,
+    pending,
+    total,
+    completionPercentage: total ? Math.round((completed / total) * 100) : 0,
+  };
 }

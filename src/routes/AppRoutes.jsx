@@ -59,23 +59,18 @@ function AppRoutes() {
         }
       />
 
-      <Route
-        path="/compilers"
-        element={
-          <ProtectedRoute>
-            <Compiler />
-          </ProtectedRoute>
-        }
-      />
+       <Route path="/notifications" element={
+        <ProtectedRoute>
+          <Notifications />
+        </ProtectedRoute>
+      } />
 
-      <Route
-        path="/softwares"
-        element={
-          <ProtectedRoute>
-            <Softwares />
-          </ProtectedRoute>
-        }
-      />
+      <Route path="/ai-agent" element={
+        <ProtectedRoute>
+          <AIAgentDashboard />
+        </ProtectedRoute>
+      } />
+      <Route path="*" element={<h1>404 - Page Not Found</h1>} />
 
       <Route
         path="/notifications"
