@@ -2,17 +2,18 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const navigate = useNavigate()
-  const doLogout = ()=>{
+  const navigate = useNavigate();
+
+  const doLogout = () => {
     localStorage.clear();
-    navigate("/")
-  }
+    navigate("/");
+  };
+
   return (
     <nav className="fixed w-full top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm transition-all duration-300">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-
-          <div className="flex items-center space-x-2 home-btn-click" onClick={()=>{navigate("/dash")}}>
+          <div className="flex items-center space-x-2 home-btn-click" onClick={() => navigate("/dash")}>
             <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
               <i className="fas fa-graduation-cap text-white text-xl"></i>
             </div>
