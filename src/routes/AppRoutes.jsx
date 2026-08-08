@@ -11,6 +11,8 @@ import Softwares from '../pages/Compilers/Softwares'
 import ForgotPassword from '../pages/ForgotPassword'
 import ResetPassword from '../pages/ResetPassword'
 import Notifications from '../components/sections/Notifications'
+import CoursesPage from '../pages/Courses/CoursesPage'
+import CourseViewer from '../pages/Courses/CourseViewer'
 import ProtectedRoute from './ProtectedRoute'
 
 function AppRoutes() {
@@ -26,6 +28,18 @@ function AppRoutes() {
       <Route path="/dash" element={
         <ProtectedRoute>
           <DashboardHome />
+        </ProtectedRoute>
+      } />
+
+      <Route path="/courses" element={
+        <ProtectedRoute>
+          <CoursesPage />
+        </ProtectedRoute>
+      } />
+
+      <Route path="/courses/:courseId" element={
+        <ProtectedRoute>
+          <CourseViewer />
         </ProtectedRoute>
       } />
 

@@ -1,0 +1,118 @@
+{
+  "id": "web-dev-bootcamp",
+  "title": "Full-Stack Web Development Bootcamp",
+  "category": "Programming",
+  "level": "Beginner to Advanced",
+  "duration": "48 hours",
+  "rating": 4.9,
+  "reviewsCount": 2540,
+  "price": "Free",
+  "instructor": "Sarah Jenkins",
+  "instructorRole": "Senior Frontend Architect",
+  "badge": "Trending",
+  "icon": "fas fa-code",
+  "color": "from-blue-500 to-purple-600",
+  "gradient": "from-blue-600 to-purple-600",
+  "description": "Master modern web development from HTML5/CSS3 to React 19, Node.js, REST APIs, and Cloud Database persistence.",
+  "overview": "This comprehensive course takes you from zero programming experience to a job-ready full-stack web developer. You will build production-grade web applications, master modern JavaScript frameworks, and create clean database integrations.",
+  "learningOutcomes": [
+    "Build dynamic, responsive web interfaces with HTML5, Tailwind CSS, and React 19",
+    "Write modular JavaScript ES6+ code with Async/Await, Fetch API, and Promises",
+    "Develop RESTful APIs using Node.js, Express, and middleware",
+    "Implement Database persistence using MongoDB and PostgreSQL",
+    "Deploy scalable web apps to Vercel, Netlify, and Cloud Servers"
+  ],
+  "modules": [
+    {
+      "id": "mod-1",
+      "title": "Module 1: Web Fundamentals & Modern HTML5/CSS3",
+      "topics": [
+        {
+          "id": "html-semantic",
+          "title": "Semantic HTML5 & Web Accessibility (a11y)",
+          "duration": "25 min",
+          "youtubeId": "kUMe1FH4CHE",
+          "summary": "Learn how semantic markup improves search engine indexing, accessibility, and modern codebase structure.",
+          "cheatSheet": [
+            "Use <main> once per document for primary content.",
+            "Always include alt attributes on <img> tags.",
+            "Use <button> for actions and <a> for navigation links.",
+            "Label forms clearly using <label for='input-id'>."
+          ]
+        },
+        {
+          "id": "css-grid-flexbox",
+          "title": "Modern CSS Grid & Flexbox Layouts",
+          "duration": "35 min",
+          "youtubeId": "rg7Fvvl3taU",
+          "summary": "Design responsive multi-column layouts with CSS Grid and dynamic alignable components with Flexbox.",
+          "cheatSheet": [
+            "Flexbox: display: flex; justify-content: space-between; align-items: center;",
+            "Grid: display: grid; grid-template-columns: repeat(12, 1fr);",
+            "Use gap instead of margin hacks for spacing grid children."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mod-2",
+      "title": "Module 2: JavaScript ES6+ & Async Programming",
+      "topics": [
+        {
+          "id": "js-async-promises",
+          "title": "Async/Await, Promises & Fetch API",
+          "duration": "40 min",
+          "youtubeId": "PoRJizFvM7s",
+          "summary": "Master non-blocking asynchronous JavaScript execution, promise chains, and REST API integration.",
+          "cheatSheet": [
+            "Always wrap await calls inside try...catch blocks.",
+            "Use Promise.all() for independent parallel API requests.",
+            "Check response.ok when using standard fetch()."
+          ]
+        },
+        {
+          "id": "react-fundamentals",
+          "title": "React 19 Hooks, State & Component Architecture",
+          "duration": "45 min",
+          "youtubeId": "SqcY0GlETPk",
+          "summary": "Master useState, useEffect, custom hooks, and component lifecycle management in modern React.",
+          "cheatSheet": [
+            "Never update state directly; always use the setter function.",
+            "Include all variables referenced inside useEffect in its dependency array.",
+            "Return cleanup functions from useEffect to clear timers or listeners."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mod-3",
+      "title": "Module 3: Backend REST APIs & MongoDB Persistence",
+      "topics": [
+        {
+          "id": "node-express-rest",
+          "title": "RESTful API Architecture with Node.js & Express",
+          "duration": "50 min",
+          "youtubeId": "Oe421EPjeBE",
+          "summary": "Build scalable Express HTTP servers with JSON middleware, routing, and controller architectures.",
+          "cheatSheet": [
+            "Use app.use(express.json()) to parse JSON body payloads.",
+            "Map HTTP verbs cleanly: GET (read), POST (create), PUT/PATCH (update), DELETE (remove).",
+            "Always send proper HTTP status codes (200 OK, 201 Created, 400 Bad Request, 404 Not Found, 500 Error)."
+          ]
+        },
+        {
+          "id": "mongodb-mongoose",
+          "title": "MongoDB Schema Design & Mongoose ODM",
+          "duration": "45 min",
+          "youtubeId": "c2M-rlkkT5o",
+          "summary": "Model MongoDB document collections using Mongoose schemas, indexes, and document queries.",
+          "cheatSheet": [
+            "Define unique indexes for fields like email or courseId to prevent duplicates.",
+            "Use Mongoose .populate() to handle relational references between collections.",
+            "Use async/await with Mongoose query promises."
+          ]
+        }
+      ]
+    }
+  ]
+}

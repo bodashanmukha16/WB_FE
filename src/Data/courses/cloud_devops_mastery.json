@@ -1,0 +1,44 @@
+{
+  "id": "cloud-devops-mastery",
+  "title": "Cloud Computing & DevOps Mastery",
+  "category": "Cloud & Security",
+  "level": "Intermediate",
+  "duration": "40 hours",
+  "rating": 4.85,
+  "reviewsCount": 1420,
+  "price": "Free",
+  "instructor": "David Vance",
+  "instructorRole": "Lead Cloud Architect",
+  "badge": "Essential",
+  "icon": "fas fa-cloud",
+  "color": "from-sky-500 to-indigo-600",
+  "gradient": "from-sky-600 to-indigo-600",
+  "description": "Deploy microservices with Docker, Kubernetes, AWS Cloud Services, Terraform, and automated GitHub Actions CI/CD pipelines.",
+  "overview": "Gain hands-on expertise in automated infrastructure deployment, container orchestrations, and cloud system scaling.",
+  "learningOutcomes": [
+    "Containerize applications using Docker multi-stage builds",
+    "Orchestrate resilient microservices clusters with Kubernetes (k8s)",
+    "Provision Infrastructure as Code (IaC) with Terraform and AWS",
+    "Configure automated CI/CD deployment pipelines"
+  ],
+  "modules": [
+    {
+      "id": "devops-mod-1",
+      "title": "Module 1: Docker Containerization & Microservices",
+      "topics": [
+        {
+          "id": "docker-multistage",
+          "title": "Multi-Stage Dockerfiles & Image Optimization",
+          "duration": "30 min",
+          "youtubeId": "gAkwW2tuIqE",
+          "summary": "Minimize production container image sizes and isolate build dependencies using Docker multi-stage builds.",
+          "cheatSheet": [
+            "Use Alpine or Distroless base images to minimize security attack surface.",
+            "Utilize .dockerignore to exclude node_modules and build artifacts.",
+            "Label docker build stages cleanly (AS builder, AS runner)."
+          ]
+        }
+      ]
+    }
+  ]
+}

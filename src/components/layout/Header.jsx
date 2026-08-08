@@ -22,13 +22,13 @@ export default function Header() {
           </div>
 
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#home" className="nav-link">Home</a>
-            <a href="#features" className="nav-link">Features</a>
-            <a href="#courses" className="nav-link">Courses</a>
-            <a href="#testimonials" className="nav-link">Testimonials</a>
-            <button className="logout_btn bg-white text-gray-700 rounded-lg text-lg font-semibold hover:shadow-xl border-2 border-gray-200 transform hover:scale-105 transition-all duration-300" id="logout_btn" onClick={doLogout}>
-                    Logout
-                </button>
+            <button onClick={() => navigate("/dash")} className="nav-link text-gray-700 hover:text-purple-600 font-medium">Home</button>
+            <button onClick={() => navigate("/dash#features")} className="nav-link text-gray-700 hover:text-purple-600 font-medium">Features</button>
+            <button onClick={() => navigate("/courses")} className="nav-link text-gray-700 hover:text-purple-600 font-medium">Courses</button>
+            <button onClick={() => navigate("/materials")} className="nav-link text-gray-700 hover:text-purple-600 font-medium">Materials</button>
+            <button className="logout_btn px-4 py-2 bg-white text-gray-700 rounded-lg font-semibold hover:shadow-xl border border-gray-200 transform hover:scale-105 transition-all duration-300" id="logout_btn" onClick={doLogout}>
+              Logout
+            </button>
           </div>
 
           <button
@@ -41,13 +41,13 @@ export default function Header() {
 
         {mobileOpen && (
           <div className="md:hidden mt-4 pb-4 space-y-3">
-            <a href="#home" className="block">Home</a>
-            <a href="#features" className="block">Features</a>
-            <a href="#courses" className="block">Courses</a>
-            <a href="#testimonials" className="block">Testimonials</a>
-            <button className="logout_btn bg-white text-gray-700 rounded-lg text-lg font-semibold hover:shadow-xl border-2 border-gray-200 transform hover:scale-105 transition-all duration-300" id="logout_btn" onClick={doLogout}>
-                    Logout
-                </button>
+            <button onClick={() => { navigate("/dash"); setMobileOpen(false); }} className="block w-full text-left font-medium text-gray-700">Home</button>
+            <button onClick={() => { navigate("/dash#features"); setMobileOpen(false); }} className="block w-full text-left font-medium text-gray-700">Features</button>
+            <button onClick={() => { navigate("/courses"); setMobileOpen(false); }} className="block w-full text-left font-medium text-gray-700">Courses</button>
+            <button onClick={() => { navigate("/materials"); setMobileOpen(false); }} className="block w-full text-left font-medium text-gray-700">Materials</button>
+            <button className="logout_btn w-full text-left px-4 py-2 bg-white text-gray-700 rounded-lg font-semibold hover:shadow-xl border border-gray-200" id="logout_btn" onClick={doLogout}>
+              Logout
+            </button>
           </div>
         )}
       </div>

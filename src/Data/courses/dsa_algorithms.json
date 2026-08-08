@@ -1,0 +1,44 @@
+{
+  "id": "dsa-algorithms",
+  "title": "Data Structures & Algorithms in Depth",
+  "category": "Programming",
+  "level": "Intermediate to Advanced",
+  "duration": "52 hours",
+  "rating": 4.95,
+  "reviewsCount": 3100,
+  "price": "Free",
+  "instructor": "Michael Chang",
+  "instructorRole": "Principal Systems Engineer",
+  "badge": "Bestseller",
+  "icon": "fas fa-code-branch",
+  "color": "from-purple-600 to-indigo-600",
+  "gradient": "from-purple-600 to-indigo-600",
+  "description": "Crack technical interviews with optimal Big-O complexity solutions in Trees, Graphs, Dynamic Programming & Heaps.",
+  "overview": "Master fundamental data structures and algorithmic paradigms required for top-tier software engineering roles.",
+  "learningOutcomes": [
+    "Analyze time and space complexity using Big-O notation",
+    "Implement Trees, Graphs, Tries, Heaps, and Hash Tables from scratch",
+    "Solve Dynamic Programming problems with memoization & tabulation",
+    "Master Breadth-First Search (BFS) and Depth-First Search (DFS) graph traversals"
+  ],
+  "modules": [
+    {
+      "id": "dsa-mod-1",
+      "title": "Module 1: Binary Trees & Graph Traversals",
+      "topics": [
+        {
+          "id": "bst-traversals",
+          "title": "Binary Tree Traversals (In-order, Pre-order, Post-order)",
+          "duration": "35 min",
+          "youtubeId": "fAAZ2rC234U",
+          "summary": "Learn recursive and iterative tree traversal strategies with time O(N) and space O(H) complexity analysis.",
+          "cheatSheet": [
+            "In-order traversal on a BST yields sorted elements.",
+            "Time Complexity: O(N) where N is the total number of tree nodes.",
+            "Space Complexity: O(H) stack call depth where H is tree height."
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "id": "cyber-security-essentials",
+  "title": "Cyber Security & Ethical Hacking Essentials",
+  "category": "Cloud & Security",
+  "level": "Beginner to Intermediate",
+  "duration": "34 hours",
+  "rating": 4.88,
+  "reviewsCount": 1650,
+  "price": "Free",
+  "instructor": "Amanda Hayes",
+  "instructorRole": "Cyber Security Specialist",
+  "badge": "Hot",
+  "icon": "fas fa-shield-alt",
+  "color": "from-emerald-600 to-cyan-700",
+  "gradient": "from-emerald-600 to-cyan-700",
+  "description": "Protect applications against OWASP Top 10 vulnerabilities, understand network penetration testing, and implement public-key cryptography.",
+  "overview": "Master offensive and defensive web security concepts, penetration testing methodologies, and cryptographic standards.",
+  "learningOutcomes": [
+    "Identify and mitigate OWASP Top 10 web security flaws (XSS, SQLi, CSRF)",
+    "Perform network packet sniffing and security audits",
+    "Implement Public Key Encryption (RSA, AES-256) and JWT authentication",
+    "Audit API security endpoints and authorization headers"
+  ],
+  "modules": [
+    {
+      "id": "sec-mod-1",
+      "title": "Module 1: Web Application Security & OWASP Top 10",
+      "topics": [
+        {
+          "id": "owasp-xss-sqli",
+          "title": "Preventing Cross-Site Scripting (XSS) & SQL Injection",
+          "duration": "32 min",
+          "youtubeId": "EoaDgUgS6QA",
+          "summary": "Learn sanitized query parameterization and Content Security Policies (CSP) to defend web servers.",
+          "cheatSheet": [
+            "Never concatenate user input directly into SQL/NoSQL queries.",
+            "Set Content-Security-Policy (CSP) HTTP headers.",
+            "Use HttpOnly and SameSite flags for authentication cookies."
+          ]
+        }
+      ]
+    }
+  ]
+}

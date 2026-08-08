@@ -1,0 +1,57 @@
+{
+  "id": "machine-learning-fundamentals",
+  "title": "Machine Learning & AI Fundamentals",
+  "category": "AI & ML",
+  "level": "Intermediate",
+  "duration": "36 hours",
+  "rating": 4.8,
+  "reviewsCount": 1820,
+  "price": "Free",
+  "instructor": "Dr. Alex Rivera",
+  "instructorRole": "AI Research Scientist",
+  "badge": "Popular",
+  "icon": "fas fa-brain",
+  "color": "from-green-500 to-teal-600",
+  "gradient": "from-green-600 to-teal-600",
+  "description": "Build neural networks, train supervised models, and deploy computer vision & NLP algorithms with Python.",
+  "overview": "Dive deep into Machine Learning algorithms, mathematical foundations, model evaluation metrics, and PyTorch / Scikit-Learn implementations.",
+  "learningOutcomes": [
+    "Understand Supervised, Unsupervised, and Reinforcement Learning concepts",
+    "Implement Linear Regression, Decision Trees, and Random Forests in Scikit-Learn",
+    "Train Deep Neural Networks with PyTorch and TensorFlow",
+    "Process text data for Sentiment Analysis using NLP Transformers",
+    "Deploy ML models as RESTful API microservices"
+  ],
+  "modules": [
+    {
+      "id": "ml-mod-1",
+      "title": "Module 1: Supervised Machine Learning Algorithms",
+      "topics": [
+        {
+          "id": "linear-regression",
+          "title": "Linear Regression & Gradient Descent Optimization",
+          "duration": "30 min",
+          "youtubeId": "nk2CQITm_eo",
+          "summary": "Learn mathematical principles of gradient descent optimization and continuous target variable prediction.",
+          "cheatSheet": [
+            "Mean Squared Error (MSE): Measures average squared difference between predictions and actual targets.",
+            "Learning Rate (α): Too large leads to divergence; too small leads to slow convergence.",
+            "Feature Scaling (StandardScaler): Crucial for gradient descent convergence speed."
+          ]
+        },
+        {
+          "id": "logistic-regression",
+          "title": "Logistic Regression & Binary Classification",
+          "duration": "35 min",
+          "youtubeId": "yIYKR4sgzI8",
+          "summary": "Understand sigmoid probability mapping, binary cross-entropy loss, and classification metrics.",
+          "cheatSheet": [
+            "Sigmoid outputs values strictly bounded between 0 and 1.",
+            "Decision Threshold is usually set at 0.5 for binary classification.",
+            "Use Confusion Matrix (Precision, Recall, F1-Score) to evaluate imbalanced datasets."
+          ]
+        }
+      ]
+    }
+  ]
+}

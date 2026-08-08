@@ -1,0 +1,44 @@
+{
+  "id": "uiux-design-masterclass",
+  "title": "UI/UX Design & Prototyping Masterclass",
+  "category": "Design",
+  "level": "All Levels",
+  "duration": "22 hours",
+  "rating": 4.7,
+  "reviewsCount": 940,
+  "price": "Free",
+  "instructor": "Elena Rostova",
+  "instructorRole": "Product Design Lead",
+  "badge": "New",
+  "icon": "fas fa-paint-brush",
+  "color": "from-orange-500 to-red-500",
+  "gradient": "from-orange-600 to-red-600",
+  "description": "Design interactive visual interfaces, build design systems in Figma, and master wireframing & UX research.",
+  "overview": "Learn modern user experience (UX) research strategies and high-fidelity user interface (UI) visual design using industry standards.",
+  "learningOutcomes": [
+    "Conduct user research, personas, and journey mapping",
+    "Create interactive Figma prototypes with smooth micro-animations",
+    "Establish atomic design tokens (Typography, Colors, Spacing grids)",
+    "Design accessible web and mobile application layouts"
+  ],
+  "modules": [
+    {
+      "id": "ui-mod-1",
+      "title": "Module 1: User Experience Foundations & Wireframing",
+      "topics": [
+        {
+          "id": "design-thinking",
+          "title": "Design Thinking Framework & Persona Creation",
+          "duration": "20 min",
+          "youtubeId": "c9444B_d4f8",
+          "summary": "Understand the 5 stages of Design Thinking: Empathize, Define, Ideate, Prototype, and Test.",
+          "cheatSheet": [
+            "Base persona goals on empirical user research, not assumptions.",
+            "Use wireframes to test layout structure BEFORE adding visual color details.",
+            "Ensure minimum tap targets of 44x44px for mobile interfaces."
+          ]
+        }
+      ]
+    }
+  ]
+}
