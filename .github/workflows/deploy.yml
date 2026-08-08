@@ -3,7 +3,7 @@ name: Deploy Application to Render
 on:
   push:
     branches:
-      - master
+      - Develop_New
 
 jobs:
   deploy:
