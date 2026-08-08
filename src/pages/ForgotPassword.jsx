@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import axios from "axios";
+import { API_ENDPOINTS } from "../config/apiConfig";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -11,60 +11,61 @@ export default function ForgotPassword() {
     e.preventDefault();
     try {
       setLoading(true);
-      await axios.post("https://wb-be-q2u6.onrender.com/api/auth/forgot-password", { email });
+      await axios.post(`${API_ENDPOINTS.AUTH}/forgot-password`, { email });
       setSuccess(true);
     } catch (err) {
-      alert("Something went wrong",err);
+      alert("Something went wrong with the password reset request.", err);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 px-6">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 px-6 font-sans">
 
       <div className="backdrop-blur-xl bg-white/40 border border-white/40 shadow-2xl rounded-3xl p-10 w-full max-w-md transition-all duration-500">
 
         {!success ? (
           <>
-            <div style={{"text-align":"center", "margin-bottom":"20px;"}}>
-                  <img src="https://res.cloudinary.com/dja3u3qwa/image/upload/v1771704478/logo_new_grbbdt.png" width="150" style={{"display":"flex", "margin-left":"auto","margin-right":"auto"}}/>
-                </div>
+            <div className="text-center mb-6">
+              <img
+                src="https://res.cloudinary.com/dja3u3qwa/image/upload/v1771704478/logo_new_grbbdt.png"
+                alt="Logo"
+                width="150"
+                className="mx-auto"
+              />
+            </div>
+
             <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">
               Forgot Password
             </h2>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="space-y-4">
               <input
                 type="email"
                 required
-                placeholder="Enter your email"
-                className="w-full p-4 rounded-xl border border-gray-300 mb-6 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                placeholder="Enter your registered email"
+                value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                className="w-full p-4 rounded-xl border border-gray-300 focus:outline-none focus:border-purple-600 bg-white/80 text-gray-800"
               />
 
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold hover:shadow-lg transition-all duration-300"
+                className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold hover:shadow-lg transition-all duration-300"
               >
-                {loading ? "Sending..." : "Send Reset Link"}
+                {loading ? "Sending link..." : "Send Reset Link"}
               </button>
             </form>
-
-            <div className="text-center mt-4">
-              <Link to="/" className="text-sm text-blue-600 hover:underline">
-                Back to Login
-              </Link>
-            </div>
           </>
         ) : (
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-green-600 mb-4">
-              Email Sent Successfully 🎉
+          <div className="text-center space-y-4">
+            <h2 className="text-2xl font-bold text-green-600">
+              Reset Link Sent! 🎉
             </h2>
-            <p className="text-gray-600">
-              Please check your email to reset your password.
+            <p className="text-gray-600 text-sm">
+              Please check your inbox for instructions to reset your password.
             </p>
           </div>
         )}

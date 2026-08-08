@@ -1,8 +1,8 @@
 import axios from "axios";
+import { API_ENDPOINTS } from "../config/apiConfig";
 
-// Mongoose Backend API endpoints (Primary live production backend + fallback local server)
-const PRIMARY_API = "https://wb-be-q2u6.onrender.com/api/enrollments";
-const LOCAL_API = "http://localhost:5000/api/enrollments";
+// Base API endpoint derived from environment configuration
+const ENROLLMENTS_API = API_ENDPOINTS.ENROLLMENTS;
 
 // In-memory cache for ultra-responsive UI state management
 let memoryEnrollmentsCache = {};
@@ -44,19 +44,12 @@ export const enrollStudentInCourse = async (course) => {
   let record = null;
 
   try {
-    const res = await axios.post(`${LOCAL_API}/enroll`, payload);
+    const res = await axios.post(`${ENROLLMENTS_API}/enroll`, payload);
     if (res.data && res.data.enrollment) {
       record = res.data.enrollment;
     }
-  } catch (err1) {
-    try {
-      const resLocal = await axios.post(`${LOCAL_API}/enroll`, payload);
-      if (resLocal.data && resLocal.data.enrollment) {
-        record = resLocal.data.enrollment;
-      }
-    } catch (err2) {
-      console.warn("Mongoose backend API call failed:", err2.message);
-    }
+  } catch (err) {
+    console.warn("Mongoose backend API call failed:", err.message);
   }
 
   // Fallback in memory if server response payload format differs
@@ -116,19 +109,12 @@ export const updateCourseTopicProgress = async (courseId, completedTopics, total
   let updatedRecord = null;
 
   try {
-    const res = await axios.post(`${LOCAL_API}/progress`, payload);
+    const res = await axios.post(`${ENROLLMENTS_API}/progress`, payload);
     if (res.data && res.data.enrollment) {
       updatedRecord = res.data.enrollment;
     }
-  } catch (err1) {
-    try {
-      const resLocal = await axios.post(`${LOCAL_API}/progress`, payload);
-      if (resLocal.data && resLocal.data.enrollment) {
-        updatedRecord = resLocal.data.enrollment;
-      }
-    } catch (err2) {
-      console.warn("Mongoose progress sync failed:", err2.message);
-    }
+  } catch (err) {
+    console.warn("Mongoose progress sync failed:", err.message);
   }
 
   if (!updatedRecord) {
@@ -154,25 +140,15 @@ export const fetchAllUserEnrollments = async () => {
   const studentEmail = student.email;
 
   try {
-    const res = await axios.get(`${LOCAL_API}/user/${studentEmail}`);
+    const res = await axios.get(`${ENROLLMENTS_API}/user/${studentEmail}`);
     if (res.data && Array.isArray(res.data.enrollments)) {
       res.data.enrollments.forEach((record) => {
         memoryEnrollmentsCache[`${record.studentEmail}_${record.courseId}`] = record;
       });
       return res.data.enrollments;
     }
-  } catch (err1) {
-    try {
-      const resLocal = await axios.get(`${LOCAL_API}/user/${studentEmail}`);
-      if (resLocal.data && Array.isArray(resLocal.data.enrollments)) {
-        resLocal.data.enrollments.forEach((record) => {
-          memoryEnrollmentsCache[`${record.studentEmail}_${record.courseId}`] = record;
-        });
-        return resLocal.data.enrollments;
-      }
-    } catch (err2) {
-      console.warn("Failed to fetch Mongoose enrollments:", err2.message);
-    }
+  } catch (err) {
+    console.warn("Failed to fetch Mongoose enrollments:", err.message);
   }
 
   return Object.values(memoryEnrollmentsCache).filter((r) => r.studentEmail === studentEmail);

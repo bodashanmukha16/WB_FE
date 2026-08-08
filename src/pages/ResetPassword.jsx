@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { API_ENDPOINTS } from "../config/apiConfig";
 
 export default function ResetPassword() {
   const { token } = useParams();
@@ -24,7 +25,7 @@ export default function ResetPassword() {
   useEffect(() => {
     const verifyToken = async () => {
       try {
-        await axios.get(`http://localhost:5000/api/auth/verify-reset-token/${token}`);
+        await axios.get(`${API_ENDPOINTS.AUTH}/verify-reset-token/${token}`);
       } catch {
         setValidToken(false);
       }
@@ -42,7 +43,7 @@ export default function ResetPassword() {
 
     try {
       setLoading(true);
-      await axios.post(`https://wb-be-q2u6.onrender.com/api/auth/reset-password/${token}`, {
+      await axios.post(`${API_ENDPOINTS.AUTH}/reset-password/${token}`, {
         newPassword: password,
       });
       setSuccess(true);
@@ -60,19 +61,19 @@ export default function ResetPassword() {
 
   if (!validToken) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-red-50">
+      <div className="min-h-screen flex items-center justify-center bg-red-50 font-sans">
         <div className="bg-white p-10 rounded-2xl shadow-xl text-center">
           <h2 className="text-2xl font-bold text-red-600 mb-4">
             Token Expired or Invalid
           </h2>
-          <p>Please request a new reset link.</p>
+          <p className="text-gray-600 text-sm">Please request a new reset link from the forgot password page.</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 px-6">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 px-6 font-sans">
 
       <div className="backdrop-blur-xl bg-white/40 border border-white/40 shadow-2xl rounded-3xl p-10 w-full max-w-md transition-all duration-500">
 
@@ -88,7 +89,7 @@ export default function ResetPassword() {
                 type="password"
                 required
                 placeholder="New Password"
-                className="w-full p-4 rounded-xl border border-gray-300 mb-2"
+                className="w-full p-4 rounded-xl border border-gray-300 mb-2 focus:outline-none focus:border-purple-600 bg-white/80 text-gray-800"
                 onChange={(e) => {
                   setPassword(e.target.value);
                   setStrength(checkStrength(e.target.value));
@@ -107,7 +108,7 @@ export default function ResetPassword() {
                 type="password"
                 required
                 placeholder="Confirm Password"
-                className="w-full p-4 rounded-xl border border-gray-300 mb-6"
+                className="w-full p-4 rounded-xl border border-gray-300 mb-6 focus:outline-none focus:border-purple-600 bg-white/80 text-gray-800"
                 onChange={(e) => setConfirm(e.target.value)}
               />
 
@@ -125,7 +126,7 @@ export default function ResetPassword() {
             <h2 className="text-2xl font-bold text-green-600 mb-4">
               Password Updated Successfully 🎉
             </h2>
-            <p className="text-gray-600">
+            <p className="text-gray-600 text-sm">
               Redirecting to login...
             </p>
           </div>

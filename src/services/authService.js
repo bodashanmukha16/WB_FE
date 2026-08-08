@@ -1,8 +1,7 @@
 import axios from "axios";
-
-const API = "https://wb-be-q2u6.onrender.com/api/auth";
+import { API_ENDPOINTS } from "../config/apiConfig";
 
 export const loginUser = async (data) => {
-  const response = await axios.post(`${API}/login`, data);
+  const response = await axios.post(`${API_ENDPOINTS.AUTH}/login`, data);
   return response.data;
 };
