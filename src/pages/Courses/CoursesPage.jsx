@@ -143,19 +143,19 @@ export default function CoursesPage() {
         </div>
       </section>
 
-      {/* Filters Toolbar */}
-      <section className="py-6 bg-white border-b border-gray-200 sticky top-16 z-30 shadow-sm">
-        <div className="container mx-auto px-6 flex flex-wrap items-center justify-between gap-6">
+      {/* Filters Toolbar - Fully Responsive Mobile & Tablet Layout */}
+      <section className="py-4 lg:py-5 bg-white border-b border-gray-200 sticky top-16 z-30 shadow-sm transition-all duration-300">
+        <div className="container mx-auto px-4 md:px-6 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
           
-          {/* Category Chips */}
-          <div className="flex flex-wrap items-center gap-2">
+          {/* Category Chips - Touch-friendly Smooth Horizontal Scroll on Mobile & Tablet */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 lg:pb-0 scrollbar-none touch-pan-x -mx-4 px-4 lg:mx-0 lg:px-0">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-xl text-xs md:text-sm font-semibold transition ${
+                className={`px-4 py-2 rounded-xl text-xs md:text-sm font-semibold whitespace-nowrap transition-all duration-200 shrink-0 ${
                   selectedCategory === cat
-                    ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow'
+                    ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-md'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
               >
@@ -164,15 +164,16 @@ export default function CoursesPage() {
             ))}
           </div>
 
-          {/* Dropdown Filters & Sorting */}
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2 text-xs font-medium text-gray-500">
-              <i className="fas fa-filter"></i>
-              <span>Level:</span>
+          {/* Dropdown Filters & Sorting - Balanced Layout on Mobile & Tablet */}
+          <div className="flex items-center justify-between sm:justify-start gap-3 w-full lg:w-auto pt-3 lg:pt-0 border-t lg:border-t-0 border-gray-100">
+            
+            <div className="flex items-center gap-2 text-xs font-semibold text-gray-600 flex-1 sm:flex-none">
+              <i className="fas fa-filter text-purple-600 text-xs"></i>
+              <span className="hidden sm:inline text-xs">Level:</span>
               <select
                 value={selectedLevel}
                 onChange={(e) => setSelectedLevel(e.target.value)}
-                className="bg-gray-100 text-gray-700 text-xs px-3 py-2 rounded-xl border border-gray-200 focus:outline-none"
+                className="w-full sm:w-auto bg-gray-100 hover:bg-gray-200 text-gray-800 text-xs px-3 py-2 rounded-xl border border-gray-200 focus:outline-none focus:border-purple-500 font-medium transition cursor-pointer"
               >
                 <option value="All">All Levels</option>
                 <option value="Beginner">Beginner</option>
@@ -181,19 +182,20 @@ export default function CoursesPage() {
               </select>
             </div>
 
-            <div className="flex items-center gap-2 text-xs font-medium text-gray-500">
-              <i className="fas fa-sort"></i>
-              <span>Sort By:</span>
+            <div className="flex items-center gap-2 text-xs font-semibold text-gray-600 flex-1 sm:flex-none">
+              <i className="fas fa-sort text-purple-600 text-xs"></i>
+              <span className="hidden sm:inline text-xs">Sort:</span>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="bg-gray-100 text-gray-700 text-xs px-3 py-2 rounded-xl border border-gray-200 focus:outline-none"
+                className="w-full sm:w-auto bg-gray-100 hover:bg-gray-200 text-gray-800 text-xs px-3 py-2 rounded-xl border border-gray-200 focus:outline-none focus:border-purple-500 font-medium transition cursor-pointer"
               >
                 <option value="popular">Most Popular</option>
                 <option value="rating">Highest Rated</option>
                 <option value="reviews">Most Reviewed</option>
               </select>
             </div>
+
           </div>
 
         </div>

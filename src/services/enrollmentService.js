@@ -11,31 +11,67 @@ let memoryEnrollmentsCache = {};
 export const getCurrentStudent = () => {
   try {
     const userStr = localStorage.getItem("user");
-    if (!userStr) return { userId: "guest_student", email: "student@workbench.edu", fullname: "Student User" };
+    if (!userStr) {
+      return {
+        userId: "guest_student",
+        username: "guest_student",
+        email: "student@workbench.edu",
+        fullname: "Student User",
+        orgId: "jntuk"
+      };
+    }
     const user = JSON.parse(userStr);
+    const rollNumber = user.username || user._id || user.id || "guest_student";
+    const userEmail = user.email || `${rollNumber}@workbench.edu`;
     return {
-      userId: user._id || user.id || user.email || "guest_student",
-      email: user.email || user.username || "student@workbench.edu",
-      fullname: user.fullname || user.name || user.username || "Student User"
+      userId: rollNumber,
+      username: rollNumber,
+      email: userEmail,
+      fullname: user.name || user.fullname || rollNumber,
+      orgId: user.orgId || "jntuk"
     };
   } catch (e) {
     return {
       userId: "guest_student",
+      username: "guest_student",
       email: "student@workbench.edu",
-      fullname: "Student User"
+      fullname: "Student User",
+      orgId: "jntuk"
     };
   }
 };
 
-// Enroll student directly into Mongoose MongoDB collection
+// Helper for local storage persistent caching per student
+const getStorageKey = () => {
+  const student = getCurrentStudent();
+  return `wb_enrollments_${student.username}`;
+};
+
+const getPersistentEnrollmentsMap = () => {
+  try {
+    const key = getStorageKey();
+    const saved = localStorage.getItem(key);
+    if (saved) return JSON.parse(saved);
+  } catch (e) {}
+  return {};
+};
+
+const savePersistentEnrollmentsMap = (map) => {
+  try {
+    const key = getStorageKey();
+    localStorage.setItem(key, JSON.stringify(map));
+  } catch (e) {}
+};
+
+// Enroll student directly into Mongoose MongoDB collection & LocalStorage
 export const enrollStudentInCourse = async (course) => {
   const student = getCurrentStudent();
-  const studentEmail = student.email;
+  const rollNumber = student.username;
   const courseId = course.id;
 
   const payload = {
-    userId: student.userId,
-    studentEmail,
+    userId: rollNumber,
+    studentEmail: student.email,
     studentName: student.fullname,
     courseId,
     courseTitle: course.title
@@ -52,11 +88,11 @@ export const enrollStudentInCourse = async (course) => {
     console.warn("Mongoose backend API call failed:", err.message);
   }
 
-  // Fallback in memory if server response payload format differs
+  // Fallback record if API call format differs
   if (!record) {
     record = {
-      userId: student.userId,
-      studentEmail,
+      userId: rollNumber,
+      studentEmail: student.email,
       studentName: student.fullname,
       courseId,
       courseTitle: course.title,
@@ -68,39 +104,51 @@ export const enrollStudentInCourse = async (course) => {
     };
   }
 
-  memoryEnrollmentsCache[`${studentEmail}_${courseId}`] = record;
+  // Update memory cache
+  memoryEnrollmentsCache[`${rollNumber}_${courseId}`] = record;
+  memoryEnrollmentsCache[`${student.email}_${courseId}`] = record;
+
+  // Save to persistent localStorage
+  const localMap = getPersistentEnrollmentsMap();
+  localMap[courseId] = record;
+  savePersistentEnrollmentsMap(localMap);
+
   return record;
 };
 
-// Check if student is enrolled by querying Mongoose cache/API
+// Check if student is enrolled by querying MongoDB state
 export const isStudentEnrolled = (courseId) => {
   const student = getCurrentStudent();
   if (!student) return false;
-  return !!memoryEnrollmentsCache[`${student.email}_${courseId}`];
+
+  const localMap = getPersistentEnrollmentsMap();
+  if (localMap[courseId]) return true;
+
+  return !!(memoryEnrollmentsCache[`${student.username}_${courseId}`] || memoryEnrollmentsCache[`${student.email}_${courseId}`]);
 };
 
-// Get single course enrollment details from Mongoose record
+// Get single course enrollment details directly from Mongoose database record
 export const getStudentCourseProgress = async (courseId) => {
   const student = getCurrentStudent();
   if (!student) return null;
-  
-  const key = `${student.email}_${courseId}`;
-  if (memoryEnrollmentsCache[key]) {
-    return memoryEnrollmentsCache[key];
-  }
 
-  // Fetch directly from Mongoose database API
+  // Fetch fresh state directly from Mongoose database API
   const allUserRecords = await fetchAllUserEnrollments();
-  return memoryEnrollmentsCache[key] || allUserRecords.find((r) => r.courseId === courseId) || null;
+  const found = allUserRecords.find((r) => r.courseId === courseId);
+  if (found) return found;
+
+  const localMap = getPersistentEnrollmentsMap();
+  return localMap[courseId] || null;
 };
 
 // Update topic progress and completion in Mongoose MongoDB database
 export const updateCourseTopicProgress = async (courseId, completedTopics, totalTopics) => {
   const student = getCurrentStudent();
-  const studentEmail = student.email;
+  const rollNumber = student.username;
 
   const payload = {
-    studentEmail,
+    userId: rollNumber,
+    studentEmail: student.email,
     courseId,
     completedTopics,
     totalTopics
@@ -121,7 +169,8 @@ export const updateCourseTopicProgress = async (courseId, completedTopics, total
     const total = Math.max(totalTopics, 1);
     const progress = Math.min(100, Math.round((completedTopics.length / total) * 100));
     updatedRecord = {
-      studentEmail,
+      userId: rollNumber,
+      studentEmail: student.email,
       courseId,
       completedTopics,
       progressPercentage: progress,
@@ -130,26 +179,43 @@ export const updateCourseTopicProgress = async (courseId, completedTopics, total
     };
   }
 
-  memoryEnrollmentsCache[`${studentEmail}_${courseId}`] = updatedRecord;
+  memoryEnrollmentsCache[`${rollNumber}_${courseId}`] = updatedRecord;
+  memoryEnrollmentsCache[`${student.email}_${courseId}`] = updatedRecord;
+
+  // Save to persistent localStorage
+  const localMap = getPersistentEnrollmentsMap();
+  localMap[courseId] = updatedRecord;
+  savePersistentEnrollmentsMap(localMap);
+
   return updatedRecord;
 };
 
-// Fetch all course enrollments directly from Mongoose MongoDB API
+// Fetch all course enrollments directly from Mongoose MongoDB API (SINGLE SOURCE OF TRUTH)
 export const fetchAllUserEnrollments = async () => {
   const student = getCurrentStudent();
-  const studentEmail = student.email;
+  const rollNumber = student.username;
 
   try {
-    const res = await axios.get(`${ENROLLMENTS_API}/user/${studentEmail}`);
+    const res = await axios.get(`${ENROLLMENTS_API}/user/${rollNumber}`);
     if (res.data && Array.isArray(res.data.enrollments)) {
+      // Overwrite local memory & localStorage strictly with fresh database records
+      const freshMap = {};
+      memoryEnrollmentsCache = {};
+      
       res.data.enrollments.forEach((record) => {
+        freshMap[record.courseId] = record;
+        memoryEnrollmentsCache[`${rollNumber}_${record.courseId}`] = record;
         memoryEnrollmentsCache[`${record.studentEmail}_${record.courseId}`] = record;
       });
+
+      // Synchronize persistent localStorage strictly with database state
+      savePersistentEnrollmentsMap(freshMap);
       return res.data.enrollments;
     }
   } catch (err) {
-    console.warn("Failed to fetch Mongoose enrollments:", err.message);
+    console.warn("Failed to fetch Mongoose enrollments from backend:", err.message);
   }
 
-  return Object.values(memoryEnrollmentsCache).filter((r) => r.studentEmail === studentEmail);
+  // Fallback to offline localStorage cache ONLY if network request fails
+  return Object.values(getPersistentEnrollmentsMap());
 };
