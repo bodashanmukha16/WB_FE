@@ -40,12 +40,13 @@
   },
   {
     "id": 5,
-    "title": "Results & Performance",
-    "description": "View internal marks, semester results, and CGPA analysis in one centralized dashboard.",
-    "icon": "fa-chart-line",
-    "gradientFrom": "from-pink-500",
-    "gradientTo": "to-pink-600",
-    "hoverBorder": "hover:border-pink-500"
+    "title": "Secure Examination Portal",
+    "description": "Take proctored online examinations, mid-terms, and placement mocks in a secure locked-down environment with full screen enforcement.",
+    "icon": "fa-user-shield",
+    "gradientFrom": "from-purple-500",
+    "gradientTo": "to-indigo-600",
+    "hoverBorder": "hover:border-purple-500",
+    "click_then": "/examinations"
   },
   {
     "id": 6,

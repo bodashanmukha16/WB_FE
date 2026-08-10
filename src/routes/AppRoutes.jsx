@@ -13,6 +13,8 @@ import ResetPassword from '../pages/ResetPassword'
 import Notifications from '../components/sections/Notifications'
 import CoursesPage from '../pages/Courses/CoursesPage'
 import CourseViewer from '../pages/Courses/CourseViewer'
+import ExaminationHome from '../pages/Examinations/ExaminationHome'
+import SecureExamViewer from '../pages/Examinations/SecureExamViewer'
 import ProtectedRoute from './ProtectedRoute'
 
 function AppRoutes() {
@@ -43,11 +45,24 @@ function AppRoutes() {
         </ProtectedRoute>
       } />
 
+      <Route path="/examinations" element={
+        <ProtectedRoute>
+          <ExaminationHome />
+        </ProtectedRoute>
+      } />
+
+      <Route path="/examinations/take/:examId" element={
+        <ProtectedRoute>
+          <SecureExamViewer />
+        </ProtectedRoute>
+      } />
+
       <Route path="/materials" element={
         <ProtectedRoute>
           <MaterialsHome />
         </ProtectedRoute>
       } />
+
 
       <Route path="/materials/:branch/:year" element={
         <ProtectedRoute>

@@ -77,6 +77,13 @@ export default function Header() {
             >
               Materials
             </button>
+            <button
+              onClick={() => navigate("/examinations")}
+              className="text-base font-bold text-purple-700 hover:text-purple-900 px-4 py-2 rounded-xl bg-purple-50 hover:bg-purple-100/80 transition-all duration-200 flex items-center gap-1.5"
+            >
+              <i className="fas fa-shield-alt text-xs"></i>
+              Examinations
+            </button>
             
             <button
               className="ml-3 px-5 py-2.5 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white text-xs font-extrabold rounded-xl shadow-md transform hover:scale-105 transition-all duration-300 tracking-wide uppercase"
@@ -134,6 +141,13 @@ export default function Header() {
               className="block w-full text-left font-bold text-base text-gray-800 hover:text-purple-600 py-2 px-3 rounded-lg hover:bg-purple-50"
             >
               Materials
+            </button>
+            <button
+              onClick={() => { navigate("/examinations"); setMobileOpen(false); }}
+              className="block w-full text-left font-bold text-base text-purple-700 bg-purple-50 py-2 px-3 rounded-lg flex items-center gap-2"
+            >
+              <i className="fas fa-shield-alt text-xs"></i>
+              Examinations
             </button>
             <button
               className="logout_btn w-full text-center mt-2 px-5 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-extrabold rounded-xl shadow-md text-xs uppercase tracking-wider"
