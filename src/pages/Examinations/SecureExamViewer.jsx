@@ -30,6 +30,7 @@ export default function SecureExamViewer() {
   const [showViolationModal, setShowViolationModal] = useState(false);
   const [violationMessage, setViolationMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [showConfirmSubmitModal, setShowConfirmSubmitModal] = useState(false);
 
   // Post-Exam Result State
@@ -57,11 +58,11 @@ export default function SecureExamViewer() {
     fetchExam();
   }, [examId]);
 
-  // 2. Fullscreen Request on Mount & Event Listeners
+  // 2. Fullscreen Request on Mount (runs once on mount if exam active)
   useEffect(() => {
     const enterFullscreen = async () => {
       try {
-        if (!document.fullscreenElement) {
+        if (!document.fullscreenElement && !submittedRef.current && !isSubmitted && !examResult) {
           if (document.documentElement.requestFullscreen) {
             await document.documentElement.requestFullscreen();
           } else if (document.documentElement.webkitRequestFullscreen) {
@@ -74,32 +75,42 @@ export default function SecureExamViewer() {
     };
 
     enterFullscreen();
+  }, []);
+
+  // 3. Security & Proctoring Lockdown Event Listeners
+  useEffect(() => {
+    // DO NOT attach security listeners if test is completed, submitting, or submitted
+    if (isSubmitted || submittedRef.current || examResult || isSubmitting) {
+      return;
+    }
 
     // Fullscreen change listener
     const handleFullscreenChange = () => {
       const activeFS = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement);
       setIsFullscreen(activeFS);
 
-      if (!activeFS && !submittedRef.current && !examResult) {
+      if (!activeFS && !submittedRef.current && !isSubmitted && !examResult && !isSubmitting) {
         registerViolation("FULLSCREEN EXIT DETECTED: You exited full-screen lockdown mode!");
       }
     };
 
     // Tab focus / Window blur listener
     const handleVisibilityChange = () => {
-      if (document.hidden && !submittedRef.current && !examResult) {
+      if (document.hidden && !submittedRef.current && !isSubmitted && !examResult && !isSubmitting) {
         registerViolation("TAB SWITCH DETECTED: Navigating away from test screen is prohibited!");
       }
     };
 
     const handleWindowBlur = () => {
-      if (!submittedRef.current && !examResult) {
+      if (!submittedRef.current && !isSubmitted && !examResult && !isSubmitting) {
         registerViolation("WINDOW FOCUS LOST: Moving cursor/focus outside test window is recorded!");
       }
     };
 
     // Prevent keyboard shortcuts (F12, DevTools, Reload, Alt+Tab)
     const handleKeyDown = (e) => {
+      if (submittedRef.current || isSubmitted || examResult || isSubmitting) return;
+
       // Prevent F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
       if (
         e.key === "F12" ||
@@ -114,7 +125,7 @@ export default function SecureExamViewer() {
       }
 
       // Keyboard option selection shortcuts (1, 2, 3, 4 or A, B, C, D)
-      if (!submittedRef.current && !examResult && exam && exam.questions[currentQIndex]) {
+      if (exam && exam.questions[currentQIndex]) {
         const currentQ = exam.questions[currentQIndex];
         if (["1", "2", "3", "4"].includes(e.key)) {
           const optIdx = parseInt(e.key) - 1;
@@ -133,7 +144,7 @@ export default function SecureExamViewer() {
 
     // Prevent page reload / navigation prompt
     const handleBeforeUnload = (e) => {
-      if (!submittedRef.current && !examResult) {
+      if (!submittedRef.current && !isSubmitted && !examResult && !isSubmitting) {
         e.preventDefault();
         e.returnValue = "Warning: Examination in progress! Leaving will submit your test.";
         return e.returnValue;
@@ -155,11 +166,11 @@ export default function SecureExamViewer() {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
-  }, [exam, currentQIndex, examResult]);
+  }, [exam, currentQIndex, examResult, isSubmitting, isSubmitted]);
 
-  // 3. Register Security Violation
+  // 4. Register Security Violation
   const registerViolation = (reason) => {
-    if (submittedRef.current || examResult) return;
+    if (submittedRef.current || isSubmitted || examResult || isSubmitting) return;
 
     setViolationsCount((prev) => {
       const nextCount = prev + 1;
@@ -176,9 +187,9 @@ export default function SecureExamViewer() {
     });
   };
 
-  // 4. Live Countdown & Time Tracking Timer
+  // 5. Live Countdown & Time Tracking Timer
   useEffect(() => {
-    if (loading || !exam || examResult) return;
+    if (loading || !exam || examResult || isSubmitted) return;
 
     const interval = setInterval(() => {
       setTimeSpentSeconds((prev) => prev + 1);
@@ -194,7 +205,7 @@ export default function SecureExamViewer() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [loading, exam, examResult]);
+  }, [loading, exam, examResult, isSubmitted]);
 
   // Helper formatting for timer
   const formatTime = (secs) => {
@@ -246,27 +257,31 @@ export default function SecureExamViewer() {
     }
   };
 
-  // Exit fullscreen whenever result scorecard is loaded
+  // Clear violation overlays when submitting, and exit fullscreen ONLY after scorecard is loaded
   useEffect(() => {
+    if (examResult || isSubmitting || submittedRef.current || isSubmitted) {
+      setShowViolationModal(false);
+      setShowConfirmSubmitModal(false);
+    }
     if (examResult) {
       exitFullscreenLock();
     }
-  }, [examResult]);
+  }, [examResult, isSubmitting, isSubmitted]);
 
   // Final Exam Submission Handler
   const handleFinalSubmit = async (isAutoSubmit = false) => {
-    if (submittedRef.current) return;
+    if (submittedRef.current || isSubmitted) return;
     submittedRef.current = true;
+    setIsSubmitted(true);
     setIsSubmitting(true);
     setShowConfirmSubmitModal(false);
     setShowViolationModal(false);
 
-    // Force exit fullscreen lockdown mode cleanly
-    await exitFullscreenLock();
-
+    // Maintain full screen lockdown mode while submitting responses to backend
     const studentUser = JSON.parse(localStorage.getItem("user") || "{}");
 
     const payload = {
+      exam,
       userId: studentUser.username || studentUser._id || "student_user",
       studentEmail: studentUser.email || "student@workbench.edu",
       studentName: studentUser.fullname || studentUser.username || "Student",
@@ -278,8 +293,12 @@ export default function SecureExamViewer() {
     const result = await submitExamPayload(examId, payload);
     setExamResult(result);
     setIsSubmitting(false);
-    // Call exit fullscreen again after state update
-    await exitFullscreenLock();
+    setShowViolationModal(false);
+
+    // Cleanly exit fullscreen mode AFTER exam is successfully submitted and scorecard is set
+    setTimeout(async () => {
+      await exitFullscreenLock();
+    }, 200);
   };
 
   const reenterFullscreen = async () => {
@@ -372,11 +391,19 @@ export default function SecureExamViewer() {
           {/* Result Header */}
           <div className="text-center mb-8">
             <div className={`w-20 h-20 mx-auto rounded-3xl flex items-center justify-center text-3xl shadow-xl mb-4 border ${
-              examResult.passed
+              examResult.violationsCount >= 3
+                ? "bg-rose-500/20 text-rose-400 border-rose-500/40 shadow-rose-900/40"
+                : examResult.passed
                 ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/40 shadow-emerald-900/40"
-                : "bg-rose-500/20 text-rose-400 border-rose-500/40 shadow-rose-900/40"
+                : "bg-blue-500/20 text-blue-400 border-blue-500/40 shadow-blue-900/40"
             }`}>
-              <i className={`fas ${examResult.passed ? "fa-trophy" : "fa-exclamation-triangle"}`}></i>
+              <i className={`fas ${
+                examResult.violationsCount >= 3
+                  ? "fa-ban text-rose-400"
+                  : examResult.passed
+                  ? "fa-trophy text-emerald-400"
+                  : "fa-graduation-cap text-blue-400"
+              }`}></i>
             </div>
 
             <span className="bg-purple-500/20 text-purple-300 text-xs font-black uppercase tracking-widest px-4 py-1.5 rounded-full border border-purple-500/30">
@@ -384,7 +411,9 @@ export default function SecureExamViewer() {
             </span>
 
             <h1 className="text-2xl sm:text-4xl font-extrabold text-white mt-3">
-              {examResult.passed ? "Examination Completed Successfully!" : "Examination Terminated / Under Evaluation"}
+              {examResult.violationsCount >= 3
+                ? "Examination Terminated (Security Lockdown Violation)"
+                : "Examination Submitted Successfully!"}
             </h1>
             <p className="text-gray-400 text-sm mt-1">
               {exam.title} ({exam.code})
@@ -755,7 +784,7 @@ export default function SecureExamViewer() {
       </div>
 
       {/* SECURITY VIOLATION LOCKDOWN MODAL ALERT */}
-      {showViolationModal && (
+      {showViolationModal && !submittedRef.current && !isSubmitted && !examResult && !isSubmitting && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-lg animate-pulse">
           <div className="bg-slate-900 border-2 border-rose-500/60 rounded-3xl max-w-md w-full p-6 text-center shadow-2xl">
             <div className="w-16 h-16 bg-rose-500/20 text-rose-400 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4 border border-rose-500/40">

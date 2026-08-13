@@ -3,12 +3,12 @@ import { getStudentOrgId } from "../config/tenantConfig";
 
 const getApiEndpoints = () => {
   const urls = [];
-  // Try local running backend server first if running locally
-  urls.push("https://wb-be-q2u6.onrender.com/api");
   if (import.meta.env.VITE_API_URL) {
     urls.push(import.meta.env.VITE_API_URL);
   }
-  urls.push("https://wb-be-q2u6.onrender.com/api");
+  urls.push("http://localhost:5000/api");
+  // urls.push("http://localhost:5001/api");
+  // urls.push("https://wb-be-q2u6.onrender.com/api");
   return [...new Set(urls)];
 };
 
@@ -96,7 +96,57 @@ export const submitExamPayload = async (examId, submissionPayload) => {
     }
   }
 
-  return null;
+  // Fallback local submission calculation if backend unreachable
+  const exam = submissionPayload.exam || {};
+  const questions = exam.questions || [];
+  let score = 0;
+  const totalMarks = exam.totalMarks || (questions.length * 2) || 10;
+  const answers = submissionPayload.answers || {};
+
+  questions.forEach((q) => {
+    const qId = q.id || q._id;
+    const selectedOpt = answers[qId] !== undefined ? answers[qId] : answers[q.id];
+    if (selectedOpt !== undefined && Number(selectedOpt) === Number(q.correctOptionIndex)) {
+      score += (q.marks || 2);
+    }
+  });
+
+  const percentage = totalMarks > 0 ? Math.round((score / totalMarks) * 100) : 0;
+  const passed = percentage >= (exam.passPercentage || 40);
+
+  let grade = "F";
+  if (percentage >= 90) grade = "S (Outstanding)";
+  else if (percentage >= 80) grade = "A+ (Excellent)";
+  else if (percentage >= 70) grade = "A (Very Good)";
+  else if (percentage >= 60) grade = "B (Good)";
+  else if (percentage >= 50) grade = "C (Satisfactory)";
+  else if (percentage >= 40) grade = "D (Pass)";
+
+  const fallbackSub = {
+    examId,
+    examTitle: exam.title || "Examination",
+    userId: submissionPayload.userId,
+    studentEmail: submissionPayload.studentEmail,
+    studentName: submissionPayload.studentName,
+    score,
+    totalMarks,
+    percentage,
+    grade,
+    passed,
+    violationsCount: submissionPayload.violationsCount || 0,
+    timeSpentSeconds: submissionPayload.timeSpentSeconds || 0,
+    submittedAt: new Date().toISOString()
+  };
+
+  try {
+    const existing = JSON.parse(localStorage.getItem("exam_history") || "[]");
+    if (!existing.some((item) => item.examId === examId)) {
+      existing.unshift(fallbackSub);
+      localStorage.setItem("exam_history", JSON.stringify(existing));
+    }
+  } catch (e) {}
+
+  return fallbackSub;
 };
 
 /**
