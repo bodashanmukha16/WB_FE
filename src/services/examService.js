@@ -6,9 +6,9 @@ const getApiEndpoints = () => {
   if (import.meta.env.VITE_API_URL) {
     urls.push(import.meta.env.VITE_API_URL);
   }
-  urls.push("http://localhost:5000/api");
+  // urls.push("http://localhost:5000/api");
   // urls.push("http://localhost:5001/api");
-  // urls.push("https://wb-be-q2u6.onrender.com/api");
+  urls.push("https://wb-be-q2u6.onrender.com/api");
   return [...new Set(urls)];
 };
 
