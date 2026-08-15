@@ -1,7 +1,8 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_ENDPOINTS } from "../config/apiConfig";
+import { Lock, Eye, EyeOff, CheckCircle2, ShieldAlert, ArrowRight, ShieldCheck, ArrowLeft } from "lucide-react";
 
 export default function ResetPassword() {
   const { token } = useParams();
@@ -9,16 +10,15 @@ export default function ResetPassword() {
 
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [validToken, setValidToken] = useState(true);
   const [success, setSuccess] = useState(false);
   const [strength, setStrength] = useState("");
 
-  // Check password strength
   const checkStrength = (value) => {
-    if (value.length < 6) return "Weak";
-    if (/[A-Z]/.test(value) && /[0-9]/.test(value))
-      return "Strong";
+    if (!value || value.length < 6) return "Weak";
+    if (/[A-Z]/.test(value) && /[0-9]/.test(value)) return "Strong";
     return "Medium";
   };
 
@@ -51,7 +51,6 @@ export default function ResetPassword() {
       setTimeout(() => {
         navigate("/");
       }, 3000);
-
     } catch {
       setValidToken(false);
     } finally {
@@ -61,76 +60,127 @@ export default function ResetPassword() {
 
   if (!validToken) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-red-50 font-sans">
-        <div className="bg-white p-10 rounded-2xl shadow-xl text-center">
-          <h2 className="text-2xl font-bold text-red-600 mb-4">
+      <div className="login-background">
+        <div className="login-card-compact text-center">
+          <div className="icon-badge warning-badge">
+            <ShieldAlert className="badge-icon-lg warning-icon" />
+          </div>
+          <h2 style={{ fontSize: "1.5rem", fontWeight: 800, color: "#0f172a", marginBottom: "8px" }}>
             Token Expired or Invalid
           </h2>
-          <p className="text-gray-600 text-sm">Please request a new reset link from the forgot password page.</p>
+          <p style={{ fontSize: "0.875rem", color: "#64748b", marginBottom: "24px" }}>
+            The password reset token is invalid or has expired. Please request a new reset link.
+          </p>
+          <button
+            type="button"
+            onClick={() => navigate("/forgot-password")}
+            className="login_btn"
+            style={{ width: "100%" }}
+          >
+            Request New Reset Link
+          </button>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 px-6 font-sans">
+    <div className="login-background">
+      <div className="login-card-compact">
 
-      <div className="backdrop-blur-xl bg-white/40 border border-white/40 shadow-2xl rounded-3xl p-10 w-full max-w-md transition-all duration-500">
+        <div className="compact-header">
+          <div className="icon-badge">
+            <ShieldCheck className="badge-icon-lg" />
+          </div>
+
+          <h2>Create New Password</h2>
+          <p className="subtext">
+            Enter and confirm your new account password below
+          </p>
+        </div>
 
         {!success ? (
-          <>
-            <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">
-              Reset Password
-            </h2>
+          <form onSubmit={handleSubmit} className="login-form">
+            
+            {/* NEW PASSWORD */}
+            <div className="input-group">
+              <label htmlFor="new-password">New Password</label>
+              <div className="input-field-wrapper">
+                <Lock className="field-icon" />
+                <input
+                  id="new-password"
+                  type={showPassword ? "text" : "password"}
+                  required
+                  placeholder="Enter new password"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    setStrength(checkStrength(e.target.value));
+                  }}
+                />
+                <button
+                  type="button"
+                  className="toggle-password-btn"
+                  onClick={() => setShowPassword(!showPassword)}
+                  tabIndex="-1"
+                >
+                  {showPassword ? <EyeOff className="eye-icon" /> : <Eye className="eye-icon" />}
+                </button>
+              </div>
+              {password && (
+                <div className="strength-meter">
+                  <span className="strength-label">Password Strength:</span>
+                  <span className={`strength-badge strength-${strength.toLowerCase()}`}>
+                    {strength}
+                  </span>
+                </div>
+              )}
+            </div>
 
-            <form onSubmit={handleSubmit}>
+            {/* CONFIRM PASSWORD */}
+            <div className="input-group">
+              <label htmlFor="confirm-password">Confirm New Password</label>
+              <div className="input-field-wrapper">
+                <Lock className="field-icon" />
+                <input
+                  id="confirm-password"
+                  type={showPassword ? "text" : "password"}
+                  required
+                  placeholder="Confirm new password"
+                  value={confirm}
+                  onChange={(e) => setConfirm(e.target.value)}
+                />
+              </div>
+            </div>
 
-              <input
-                type="password"
-                required
-                placeholder="New Password"
-                className="w-full p-4 rounded-xl border border-gray-300 mb-2 focus:outline-none focus:border-purple-600 bg-white/80 text-gray-800"
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                  setStrength(checkStrength(e.target.value));
-                }}
-              />
-
-              <p className={`text-sm mb-4 ${
-                strength === "Strong" ? "text-green-600" :
-                strength === "Medium" ? "text-yellow-600" :
-                "text-red-600"
-              }`}>
-                Strength: {strength}
-              </p>
-
-              <input
-                type="password"
-                required
-                placeholder="Confirm Password"
-                className="w-full p-4 rounded-xl border border-gray-300 mb-6 focus:outline-none focus:border-purple-600 bg-white/80 text-gray-800"
-                onChange={(e) => setConfirm(e.target.value)}
-              />
-
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold hover:shadow-lg transition-all duration-300"
-              >
-                {loading ? "Updating..." : "Update Password"}
-              </button>
-            </form>
-          </>
+            <button type="submit" className="login_btn" disabled={loading}>
+              {loading ? (
+                <span className="loading-state">
+                  <span className="spinner"></span>
+                  <span>Updating Password...</span>
+                </span>
+              ) : (
+                <span className="btn-content">
+                  <span>Update Password</span>
+                  <ArrowRight className="arrow-icon" />
+                </span>
+              )}
+            </button>
+          </form>
         ) : (
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-green-600 mb-4">
-              Password Updated Successfully 🎉
-            </h2>
-            <p className="text-gray-600 text-sm">
-              Redirecting to login...
-            </p>
+          <div className="success-card">
+            <CheckCircle2 className="success-icon" />
+            <h3>Password Updated! 🎉</h3>
+            <p>Your password has been changed successfully. Redirecting you to sign in...</p>
           </div>
         )}
+
+        <div className="back-link-wrapper">
+          <button type="button" onClick={() => navigate("/")} className="back-btn">
+            <ArrowLeft className="back-icon" />
+            <span>Back to Sign In</span>
+          </button>
+        </div>
 
       </div>
     </div>

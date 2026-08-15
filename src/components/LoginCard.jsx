@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
 import LogoImage from "../assets/logo.png";
-import { Await, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { loginUser } from "../services/authService";
+import { User, Lock, Eye, EyeOff, Sparkles, ShieldAlert, ArrowRight, GraduationCap } from "lucide-react";
+
 export default function LoginCard() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -38,61 +42,124 @@ export default function LoginCard() {
     if (prev_id) {
       navigate("/dash");
     }
-  }, [navigate])
-  //Redirect if already Logged in
+  }, [navigate]);
 
   return (
     <div className="login-card">
-      {/* LEFT SIDE */}
+      
+      {/* LEFT PANEL */}
       <div className="left-panel">
-        <div className="circle"></div>
-        <img src={LogoImage} alt="illustration" className="illustration" />
-        {/* <p>
-          Centralized academic portal for students.
-          Access everything in one place.
-        </p> */}
+        <div className="circle circle-1"></div>
+        <div className="circle circle-2"></div>
+        
+        <div className="left-content">
+          <div className="platform-badge">
+            <GraduationCap className="badge-icon" />
+            <span>Academic Portal</span>
+          </div>
+
+          <div className="illustration-wrapper">
+            <img src="https://res-console.cloudinary.com/dja3u3qwa/thumbnails/v1/image/upload/v1771704478/bG9nb19uZXdfZ3JiYmR0/drilldown" alt="Workbench Logo" className="illustration" />
+          </div>
+
+          <div className="left-text">
+            <h3>Centralized Student Portal</h3>
+            <p>Access your academic records, enrollments, and live schedules in one secure platform.</p>
+          </div>
+        </div>
       </div>
 
-      {/* RIGHT SIDE */}
+      {/* RIGHT PANEL */}
       <div className="right-panel">
-        <div className="welcome-badge">Welcome back</div>
+        <div className="welcome-badge">
+          <Sparkles className="sparkle-icon" />
+          <span>Welcome Back</span>
+        </div>
 
-        <h2>Login your account</h2>
+        <div className="form-header">
+          <h2>Sign In To Your Account</h2>
+          <p className="subtext">Enter your college roll number and password to continue</p>
+        </div>
 
-        <form onSubmit={handleSubmit}>
+        {error && (
+          <div className="error-alert">
+            <ShieldAlert className="error-icon" />
+            <span>{error}</span>
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="login-form">
+          
+          {/* USERNAME INPUT */}
           <div className="input-group">
-            <label>Username</label>
-            <input
-              type="text"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              required
-            />
+            <label htmlFor="username">Roll Number / Username</label>
+            <div className="input-field-wrapper">
+              <User className="field-icon" />
+              <input
+                id="username"
+                type="text"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+                placeholder="e.g. 23SVCK0501 or 23SITS1A0501"
+                required
+                autoComplete="username"
+              />
+            </div>
           </div>
 
+          {/* PASSWORD INPUT */}
           <div className="input-group">
-            <label>Password</label>
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
+            <label htmlFor="password">Account Password</label>
+            <div className="input-field-wrapper">
+              <Lock className="field-icon" />
+              <input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="••••••••••••"
+                required
+                autoComplete="current-password"
+              />
+              <button
+                type="button"
+                className="toggle-password-btn"
+                onClick={() => setShowPassword(!showPassword)}
+                tabIndex="-1"
+                title={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? <EyeOff className="eye-icon" /> : <Eye className="eye-icon" />}
+              </button>
+            </div>
           </div>
 
-          {error && <p style={{ color: "red" }}>{error}</p>}
-
+          {/* SUBMIT BUTTON */}
           <button type="submit" className="login_btn" disabled={loading}>
-            {loading ? "Logging in..." : "Login"}
+            {loading ? (
+              <span className="loading-state">
+                <span className="spinner"></span>
+                <span>Authenticating...</span>
+              </span>
+            ) : (
+              <span className="btn-content">
+                <span>Sign In To Portal</span>
+                <ArrowRight className="arrow-icon" />
+              </span>
+            )}
           </button>
 
+          {/* LINKS */}
           <div className="links">
-            <p onClick={()=>{navigate('/forgot-password')}}>Forgot Password?</p>
+            <p onClick={() => navigate("/forgot-password")} className="forgot-pass-link">
+              Forgot your password?
+            </p>
           </div>
         </form>
+
       </div>
+
     </div>
   );
 }
