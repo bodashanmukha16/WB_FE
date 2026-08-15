@@ -15,5 +15,5 @@ export const API_ENDPOINTS = {
   AUTH: `${BASE_API_URL}/auth`,
   ENROLLMENTS: `${BASE_API_URL}/enrollments`
 };
-
+console.log(BASE_API_URL);
 export default BASE_API_URL;

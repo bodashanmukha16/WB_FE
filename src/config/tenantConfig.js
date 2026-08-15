@@ -29,12 +29,22 @@ export const getOrgDetailsMap = () => {
 // Helper function to resolve college orgId from student roll number or email based strictly on .env
 export const resolveOrgFromUsernameOrEmail = (input = "") => {
   const codeMap = getCollegeCodeMap();
-  const firstConfiguredOrg = Object.values(codeMap)[0] || "svck";
-  if (!input) return firstConfiguredOrg;
+  const defaultOrg = codeMap["SVCK"] || codeMap["SV"] || codeMap["KH"] || "svck";
+  if (!input) return defaultOrg;
 
   const str = input.toString().trim().toUpperCase();
 
-  // 1. Check index 2..3 for roll number college code (e.g. '19KH1A0512' -> 'KH', '23A91A0401' -> 'A9')
+  // 1. Direct text check for SVCK, SV, KH, AITS
+  if (str.includes("SVCK") || str.includes("SV") || str.includes("KH")) return "svck";
+  if (str.includes("AITS") || str.includes("A9")) return "aits";
+
+  // 2. Check 4-char substring (e.g. '23SVCK0542' -> 'SVCK')
+  if (str.length >= 6) {
+    const fourChar = str.substring(2, 6);
+    if (codeMap[fourChar]) return codeMap[fourChar];
+  }
+
+  // 3. Check index 2..3 for roll number college code (e.g. '19KH1A0512' -> 'KH', '23A91A0401' -> 'A9')
   if (str.length >= 4) {
     const codeAtPos = str.substring(2, 4);
     if (codeMap[codeAtPos]) {
@@ -42,12 +52,12 @@ export const resolveOrgFromUsernameOrEmail = (input = "") => {
     }
   }
 
-  // 2. Check for configured code keys in input
+  // 4. Check for configured code keys in input
   for (const [code, orgId] of Object.entries(codeMap)) {
     if (str.includes(code)) return orgId;
   }
 
-  return firstConfiguredOrg;
+  return defaultOrg;
 };
 
 // Get student's logged in college organization ID
