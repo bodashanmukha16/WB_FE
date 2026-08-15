@@ -59,7 +59,7 @@ export default function LoginCard() {
           </div>
 
           <div className="illustration-wrapper">
-            <img src="https://res-console.cloudinary.com/dja3u3qwa/thumbnails/v1/image/upload/v1771704478/bG9nb19uZXdfZ3JiYmR0/drilldown" alt="Workbench Logo" className="illustration" />
+            <img src={LogoImage} alt="Workbench Logo" className="illustration" />
           </div>
 
           <div className="left-text">
