@@ -27,7 +27,8 @@ export default function LoginCard() {
       localStorage.setItem("user", JSON.stringify(data.user));
       navigate("/dash");
     } catch (e) {
-      setError("Invalid username or password", e);
+      const serverMsg = e.response?.data?.message || "Invalid username or password";
+      setError(serverMsg);
       setLoading(false);
     }
   };
