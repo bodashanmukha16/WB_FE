@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
 import { getStudentOrgDetails, getStudentOrgId } from "../../config/tenantConfig";
-import { getActiveExamsForStudent, getLocalExamHistory, isDesktopDevice, resolveStudentBranchFE } from "../../services/examService";
+import { getActiveExamsForStudent, getLocalExamHistory, isDesktopDevice, resolveStudentBranchFE, resolveStudentYearFE } from "../../services/examService";
 
 export default function ExaminationHome() {
   const navigate = useNavigate();
@@ -13,16 +13,18 @@ export default function ExaminationHome() {
   const [activeTab, setActiveTab] = useState("active"); // 'active', 'upcoming', 'history'
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
-  const getStudentBranch = () => {
+  const getStudentProfile = () => {
     try {
       const u = JSON.parse(localStorage.getItem("user") || "{}");
-      return resolveStudentBranchFE(u.branch || u.department || u.username || u.email || "");
+      const branch = resolveStudentBranchFE(u.branch || u.department || u.username || u.email || "");
+      const year = resolveStudentYearFE(u);
+      return { branch, year };
     } catch (e) {
-      return "ece";
+      return { branch: "ece", year: 2 };
     }
   };
 
-  const [studentDepartment, setStudentDepartment] = useState(getStudentBranch);
+  const [studentDepartment, setStudentDepartment] = useState(() => getStudentProfile().branch);
   const [loading, setLoading] = useState(true);
 
   // Pre-exam instruction & system check modal state
@@ -37,9 +39,9 @@ export default function ExaminationHome() {
 
   const loadData = async () => {
     setLoading(true);
-    const branch = getStudentBranch();
+    const { branch, year } = getStudentProfile();
     setStudentDepartment(branch);
-    const examData = await getActiveExamsForStudent(branch);
+    const examData = await getActiveExamsForStudent(branch, year);
     setExams(Array.isArray(examData) ? examData : []);
     const pastHistory = await getLocalExamHistory();
     setHistory(Array.isArray(pastHistory) ? pastHistory : []);
@@ -309,7 +311,7 @@ export default function ExaminationHome() {
                           <div className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Questions</div>
                           <div className="text-xs font-black text-blue-400 mt-0.5 flex items-center justify-center gap-1">
                             <i className="fas fa-list-ol text-[10px]"></i>
-                            {exam.questions ? exam.questions.length : 10} Qs
+                            {exam.questionsCount !== undefined ? exam.questionsCount : (exam.questions ? exam.questions.length : 0)} Qs
                           </div>
                         </div>
                       </div>

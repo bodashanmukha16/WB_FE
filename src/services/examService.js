@@ -35,22 +35,54 @@ export const resolveStudentBranchFE = (input = "") => {
   return "cse";
 };
 
+export const resolveStudentYearFE = (input) => {
+  if (input !== null && input !== undefined && input !== "") {
+    if (typeof input === "number") return input;
+    if (typeof input === "object") {
+      if (input.year !== undefined && input.year !== null && input.year !== "") return Number(input.year);
+      if (input.academicYear !== undefined && input.academicYear !== null) return Number(input.academicYear);
+      return resolveStudentYearFE(input.username || input.email || "");
+    }
+  }
+  const str = (input || "").toString().trim().toUpperCase();
+  if (str === "1" || str.includes("1ST")) return 1;
+  if (str === "2" || str.includes("2ND")) return 2;
+  if (str === "3" || str.includes("3RD")) return 3;
+  if (str === "4" || str.includes("4TH")) return 4;
+
+  if (str.length >= 2) {
+    const prefix = str.substring(0, 2);
+    if (prefix === "23" || prefix === "24") return 2;
+    if (prefix === "22" || prefix === "21" || prefix === "19") return 3;
+    if (prefix === "20") return 4;
+  }
+  return 2;
+};
+
 /**
  * Fetch organization-specific examinations directly from MongoDB.
  */
-export const getActiveExamsForStudent = async (branchFilter = "") => {
+export const getActiveExamsForStudent = async (branchFilter = "", yearFilter = "") => {
   const orgId = getStudentOrgId();
   const endpoints = getApiEndpoints();
   let studentBranch = branchFilter;
+  let studentYear = yearFilter;
 
-  if (!studentBranch || studentBranch === "my_branch") {
-    try {
-      const userStr = localStorage.getItem("user");
-      if (userStr) {
-        const user = JSON.parse(userStr);
+  try {
+    const userStr = localStorage.getItem("user");
+    if (userStr) {
+      const user = JSON.parse(userStr);
+      if (!studentBranch || studentBranch === "my_branch") {
         studentBranch = resolveStudentBranchFE(user.branch || user.department || user.username || user.email || "");
       }
-    } catch (e) {}
+      if (!studentYear || studentYear === "my_year") {
+        studentYear = resolveStudentYearFE(user);
+      }
+    }
+  } catch (e) {}
+
+  if (!studentYear && studentYear !== 0) {
+    studentYear = 2;
   }
 
   for (const baseUrl of endpoints) {
@@ -59,11 +91,15 @@ export const getActiveExamsForStudent = async (branchFilter = "") => {
       if (studentBranch && studentBranch !== "all") {
         params.department = studentBranch;
       }
+      if (studentYear && studentYear !== "all") {
+        params.year = studentYear;
+      }
 
       const response = await axios.get(`${baseUrl}/exams`, {
         headers: { 
           "x-tenant-id": orgId,
-          "x-user-branch": studentBranch
+          "x-user-branch": studentBranch,
+          "x-user-year": studentYear ? String(studentYear) : ""
         },
         params,
         timeout: 3500
@@ -75,14 +111,12 @@ export const getActiveExamsForStudent = async (branchFilter = "") => {
         }));
 
         // Strict Client-Side Branch Filtering for FE_WB:
-        // Ensure exams returned to an ECE student belong exclusively to ECE / all!
         if (studentBranch && studentBranch !== "all") {
           const target = studentBranch.toLowerCase();
           examsList = examsList.filter((e) => {
             const dept = (e.department || "").toLowerCase();
             if (dept === target || dept === "all") return true;
 
-            // If department property was unassigned, check title/code/subject keywords
             const text = `${e.code || ""} ${e.title || ""} ${e.subject || ""}`.toLowerCase();
             if (target === "ece") {
               const isEce = text.includes("ec") || text.includes("vlsi") || text.includes("circuit") || text.includes("electronic");
@@ -95,6 +129,15 @@ export const getActiveExamsForStudent = async (branchFilter = "") => {
               return isCse && !isEce;
             }
             return true;
+          });
+        }
+
+        // Strict Client-Side Year Filtering for FE_WB:
+        if (studentYear && studentYear !== "all") {
+          const targetYear = Number(studentYear);
+          examsList = examsList.filter((e) => {
+            if (!e.year) return true;
+            return Number(e.year) === targetYear;
           });
         }
 
