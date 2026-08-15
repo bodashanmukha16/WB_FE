@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
 import { getStudentOrgDetails, getStudentOrgId } from "../../config/tenantConfig";
-import { getActiveExamsForStudent, getLocalExamHistory, isDesktopDevice } from "../../services/examService";
+import { getActiveExamsForStudent, getLocalExamHistory, isDesktopDevice, resolveStudentBranchFE } from "../../services/examService";
 
 export default function ExaminationHome() {
   const navigate = useNavigate();
@@ -13,6 +13,16 @@ export default function ExaminationHome() {
   const [activeTab, setActiveTab] = useState("active"); // 'active', 'upcoming', 'history'
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
+  const getStudentBranch = () => {
+    try {
+      const u = JSON.parse(localStorage.getItem("user") || "{}");
+      return resolveStudentBranchFE(u.branch || u.department || u.username || u.email || "");
+    } catch (e) {
+      return "ece";
+    }
+  };
+
+  const [studentDepartment, setStudentDepartment] = useState(getStudentBranch);
   const [loading, setLoading] = useState(true);
 
   // Pre-exam instruction & system check modal state
@@ -25,19 +35,20 @@ export default function ExaminationHome() {
     camera: true
   });
 
+  const loadData = async () => {
+    setLoading(true);
+    const branch = getStudentBranch();
+    setStudentDepartment(branch);
+    const examData = await getActiveExamsForStudent(branch);
+    setExams(Array.isArray(examData) ? examData : []);
+    const pastHistory = await getLocalExamHistory();
+    setHistory(Array.isArray(pastHistory) ? pastHistory : []);
+    setLoading(false);
+  };
+
   useEffect(() => {
     const org = getStudentOrgDetails();
     setOrgDetails(org);
-
-    const loadData = async () => {
-      setLoading(true);
-      const examData = await getActiveExamsForStudent();
-      setExams(Array.isArray(examData) ? examData : []);
-      const pastHistory = await getLocalExamHistory();
-      setHistory(Array.isArray(pastHistory) ? pastHistory : []);
-      setLoading(false);
-    };
-
     loadData();
   }, []);
 
@@ -216,6 +227,8 @@ export default function ExaminationHome() {
           )}
         </div>
 
+
+
         {/* ACTIVE EXAMINATIONS / UPCOMING EXAMINATIONS LIST */}
         {activeTab !== "history" && (
           <div>
@@ -246,9 +259,14 @@ export default function ExaminationHome() {
                     <div>
                       {/* Top Badges */}
                       <div className="flex items-center justify-between gap-2 mb-4">
-                        <span className="bg-purple-500/20 text-purple-300 text-[11px] font-extrabold uppercase px-3 py-1 rounded-full border border-purple-500/30">
-                          {exam.subject}
-                        </span>
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <span className="bg-purple-500/20 text-purple-300 text-[11px] font-extrabold uppercase px-3 py-1 rounded-full border border-purple-500/30">
+                            {exam.subject}
+                          </span>
+                          <span className="bg-blue-500/20 text-blue-300 text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full border border-blue-500/30">
+                            {exam.department?.toUpperCase() || "CSE"}
+                          </span>
+                        </div>
                         
                         <span className={`text-[11px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1.5 ${
                           exam.status === "active"

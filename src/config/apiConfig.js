@@ -6,7 +6,7 @@ const getBaseApiUrl = () => {
     return envUrl.replace(/\/+$/, "");
   }
   // Fallback default
-  return "https://wb-be-q2u6.onrender.com/api";
+  return "http://localhost:5000/api";
 };
 
 export const BASE_API_URL = getBaseApiUrl();

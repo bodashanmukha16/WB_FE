@@ -17,7 +17,7 @@ export const getCurrentStudent = () => {
         username: "guest_student",
         email: "student@workbench.edu",
         fullname: "Student User",
-        orgId: "jntuk"
+        orgId: "svck"
       };
     }
     const user = JSON.parse(userStr);
@@ -28,7 +28,7 @@ export const getCurrentStudent = () => {
       username: rollNumber,
       email: userEmail,
       fullname: user.name || user.fullname || rollNumber,
-      orgId: user.orgId || "jntuk"
+      orgId: user.orgId || "svck"
     };
   } catch (e) {
     return {
@@ -36,7 +36,7 @@ export const getCurrentStudent = () => {
       username: "guest_student",
       email: "student@workbench.edu",
       fullname: "Student User",
-      orgId: "jntuk"
+      orgId: "svck"
     };
   }
 };

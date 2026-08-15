@@ -28,9 +28,11 @@ export const getOrgDetailsMap = () => {
 
 // Helper function to resolve college orgId from student roll number or email based strictly on .env
 export const resolveOrgFromUsernameOrEmail = (input = "") => {
-  if (!input) return "jntuk";
-  const str = input.toString().trim().toUpperCase();
   const codeMap = getCollegeCodeMap();
+  const firstConfiguredOrg = Object.values(codeMap)[0] || "svck";
+  if (!input) return firstConfiguredOrg;
+
+  const str = input.toString().trim().toUpperCase();
 
   // 1. Check index 2..3 for roll number college code (e.g. '19KH1A0512' -> 'KH', '23A91A0401' -> 'A9')
   if (str.length >= 4) {
@@ -45,8 +47,7 @@ export const resolveOrgFromUsernameOrEmail = (input = "") => {
     if (str.includes(code)) return orgId;
   }
 
-  const firstConfiguredOrg = Object.values(codeMap)[0];
-  return firstConfiguredOrg || "jntuk";
+  return firstConfiguredOrg;
 };
 
 // Get student's logged in college organization ID
@@ -70,7 +71,7 @@ export const getStudentOrgId = () => {
     // ignore parsing errors
   }
   const firstOrg = Object.values(getCollegeCodeMap())[0];
-  return firstOrg || "jntuk";
+  return firstOrg || "svck";
 };
 
 // Get student's Organization details (name, logo, code) sourced strictly from .env
@@ -83,9 +84,9 @@ export const getStudentOrgDetails = () => {
   }
 
   return {
-    name: "JNTUK College of Engineering",
-    code: "JNTUK",
-    logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAueod_gGwwOzhA-qe_7XumPbthYQtZuvSFJ8mODayPu6kfWgXvWvQb0Fm&s=10"
+    name: "SV College of Engineering",
+    code: "SVCK",
+    logo: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=150&auto=format&fit=crop&q=80"
   };
 };
 

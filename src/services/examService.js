@@ -6,30 +6,99 @@ const getApiEndpoints = () => {
   if (import.meta.env.VITE_API_URL) {
     urls.push(import.meta.env.VITE_API_URL);
   }
-  // urls.push("http://localhost:5000/api");
-  // urls.push("http://localhost:5001/api");
+  urls.push("http://localhost:5000/api");
+  urls.push("http://localhost:5001/api");
   urls.push("https://wb-be-q2u6.onrender.com/api");
   return [...new Set(urls)];
+};
+
+export const resolveStudentBranchFE = (input = "") => {
+  if (!input) return "cse";
+  const str = input.toString().trim().toUpperCase();
+  if (str.includes("ECE") || str.includes("ELECTRONIC")) return "ece";
+  if (str.includes("CSE") || str.includes("COMPUTER")) return "cse";
+  if (str.includes("EEE") || str.includes("ELECTRICAL")) return "eee";
+  if (str.includes("MECH") || str.includes("MECHANICAL")) return "mech";
+  if (str.includes("CIVIL") || str.includes("STRUCTURAL")) return "civil";
+
+  if (str.length >= 8) {
+    const branchCode = str.substring(6, 8);
+    switch (branchCode) {
+      case "04": return "ece";
+      case "05": return "cse";
+      case "03": return "eee";
+      case "02": return "mech";
+      case "01": return "civil";
+      default: break;
+    }
+  }
+  return "cse";
 };
 
 /**
  * Fetch organization-specific examinations directly from MongoDB.
  */
-export const getActiveExamsForStudent = async () => {
+export const getActiveExamsForStudent = async (branchFilter = "") => {
   const orgId = getStudentOrgId();
   const endpoints = getApiEndpoints();
+  let studentBranch = branchFilter;
+
+  if (!studentBranch || studentBranch === "my_branch") {
+    try {
+      const userStr = localStorage.getItem("user");
+      if (userStr) {
+        const user = JSON.parse(userStr);
+        studentBranch = resolveStudentBranchFE(user.branch || user.department || user.username || user.email || "");
+      }
+    } catch (e) {}
+  }
 
   for (const baseUrl of endpoints) {
     try {
+      const params = {};
+      if (studentBranch && studentBranch !== "all") {
+        params.department = studentBranch;
+      }
+
       const response = await axios.get(`${baseUrl}/exams`, {
-        headers: { "x-tenant-id": orgId },
+        headers: { 
+          "x-tenant-id": orgId,
+          "x-user-branch": studentBranch
+        },
+        params,
         timeout: 3500
       });
       if (response.data && response.data.success && Array.isArray(response.data.exams)) {
-        return response.data.exams.map((e) => ({
+        let examsList = response.data.exams.map((e) => ({
           ...e,
           id: e._id ? e._id.toString() : (e.id || e.code)
         }));
+
+        // Strict Client-Side Branch Filtering for FE_WB:
+        // Ensure exams returned to an ECE student belong exclusively to ECE / all!
+        if (studentBranch && studentBranch !== "all") {
+          const target = studentBranch.toLowerCase();
+          examsList = examsList.filter((e) => {
+            const dept = (e.department || "").toLowerCase();
+            if (dept === target || dept === "all") return true;
+
+            // If department property was unassigned, check title/code/subject keywords
+            const text = `${e.code || ""} ${e.title || ""} ${e.subject || ""}`.toLowerCase();
+            if (target === "ece") {
+              const isEce = text.includes("ec") || text.includes("vlsi") || text.includes("circuit") || text.includes("electronic");
+              const isCse = text.includes("cs") || text.includes("java") || text.includes("data structure");
+              return isEce && !isCse;
+            }
+            if (target === "cse") {
+              const isCse = text.includes("cs") || text.includes("java") || text.includes("data structure");
+              const isEce = text.includes("ec") || text.includes("vlsi");
+              return isCse && !isEce;
+            }
+            return true;
+          });
+        }
+
+        return examsList;
       }
     } catch (error) {
       // try next endpoint

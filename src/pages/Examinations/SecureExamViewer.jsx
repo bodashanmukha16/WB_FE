@@ -285,6 +285,7 @@ export default function SecureExamViewer() {
       userId: studentUser.username || studentUser._id || "student_user",
       studentEmail: studentUser.email || "student@workbench.edu",
       studentName: studentUser.fullname || studentUser.username || "Student",
+      branch: studentUser.branch || studentUser.department || exam?.department || "ece",
       answers,
       violationsCount: isAutoSubmit ? Math.max(violationsCount, 3) : violationsCount,
       timeSpentSeconds
