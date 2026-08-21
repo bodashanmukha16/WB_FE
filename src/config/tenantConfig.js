@@ -1,30 +1,45 @@
 import axios from "axios";
 
-// Dynamically parse VITE_COLLEGE_CODES from frontend environment (.env)
-export const getCollegeCodeMap = () => {
-  try {
-    const envCodes = import.meta.env.VITE_COLLEGE_CODES;
-    if (envCodes) {
-      return JSON.parse(envCodes);
-    }
-  } catch (e) {
-    console.error("Error parsing VITE_COLLEGE_CODES from .env:", e.message);
-  }
-  return {};
+// Default fallback mappings if backend API is initializing
+let cachedCollegeCodes = { KH: "svck", A9: "aits", SITS: "s", JN: "jntu" };
+let cachedOrgDetails = {
+  aits: { name: "AITS Rajampet", code: "AITS", logo: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=150&auto=format&fit=crop&q=80" },
+  svck: { name: "SV College of Engineering", code: "SVCK", logo: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=150&auto=format&fit=crop&q=80" }
 };
 
-// Dynamically parse VITE_ORG_DETAILS from frontend environment (.env)
-export const getOrgDetailsMap = () => {
+// Try loading cached values from localStorage for instant synchronous startup
+try {
+  const localCodes = localStorage.getItem("public_college_codes");
+  const localDetails = localStorage.getItem("public_org_details");
+  if (localCodes) cachedCollegeCodes = JSON.parse(localCodes);
+  if (localDetails) cachedOrgDetails = JSON.parse(localDetails);
+} catch (e) {}
+
+// Asynchronously fetch live org data from backend API
+export const fetchPublicOrganizations = async () => {
   try {
-    const envOrgDetails = import.meta.env.VITE_ORG_DETAILS;
-    if (envOrgDetails) {
-      return JSON.parse(envOrgDetails);
+    const apiBase = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+    const res = await axios.get(`${apiBase}/superadmin/public/organizations`);
+    if (res.data && res.data.success) {
+      if (res.data.collegeCodes) {
+        cachedCollegeCodes = res.data.collegeCodes;
+        localStorage.setItem("public_college_codes", JSON.stringify(res.data.collegeCodes));
+      }
+      if (res.data.organizations) {
+        cachedOrgDetails = res.data.organizations;
+        localStorage.setItem("public_org_details", JSON.stringify(res.data.organizations));
+      }
     }
   } catch (e) {
-    console.error("Error parsing VITE_ORG_DETAILS from .env:", e.message);
+    // Retain fallback
   }
-  return {};
 };
+
+// Automatically fetch on bundle load
+fetchPublicOrganizations();
+
+export const getCollegeCodeMap = () => cachedCollegeCodes;
+export const getOrgDetailsMap = () => cachedOrgDetails;
 
 // Helper function to resolve college orgId from student roll number or email based strictly on .env
 export const resolveOrgFromUsernameOrEmail = (input = "") => {
