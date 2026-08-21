@@ -90,16 +90,12 @@ export default function ExaminationHome() {
         });
       }
     } catch (err) {
-      if (err.response && err.response.data && err.response.data.accessGranted === false) {
-        setIpVerification({
-          loading: false,
-          accessGranted: false,
-          ip: err.response.data.ip || '',
-          message: err.response.data.message || 'Unauthorized system IP address.'
-        });
-      } else {
-        setIpVerification({ loading: false, accessGranted: true, ip: '127.0.0.1', message: 'Verified' });
-      }
+      setIpVerification({
+        loading: false,
+        accessGranted: false,
+        ip: err.response?.data?.ip || '',
+        message: err.response?.data?.message || 'Unauthorized system IP address.'
+      });
     }
   };
 
