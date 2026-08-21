@@ -78,7 +78,9 @@ export default function ExaminationHome() {
       const examId = exam.id || exam._id;
       const apiBase = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
       const tenantId = getStudentOrgId();
-      const res = await axios.post(`${apiBase}/exams/${examId}/verify-ip`, {}, {
+      const res = await axios.post(`${apiBase}/exams/${examId}/verify-ip`, {
+        clientIp: window.location.hostname || ""
+      }, {
         headers: { "x-tenant-id": tenantId }
       });
       if (res.data) {
