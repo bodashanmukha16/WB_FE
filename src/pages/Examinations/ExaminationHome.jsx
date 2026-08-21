@@ -88,6 +88,8 @@ export default function ExaminationHome() {
           loading: false,
           accessGranted: res.data.accessGranted !== false,
           ip: res.data.ip || '',
+          candidateIps: res.data.candidateIps || [],
+          dbIpList: res.data.dbIpList || [],
           message: res.data.message || 'Verified College Lab System'
         });
       }
@@ -96,6 +98,8 @@ export default function ExaminationHome() {
         loading: false,
         accessGranted: false,
         ip: err.response?.data?.ip || '',
+        candidateIps: err.response?.data?.candidateIps || [],
+        dbIpList: err.response?.data?.dbIpList || [],
         message: err.response?.data?.message || 'Unauthorized system IP address.'
       });
     }
@@ -531,17 +535,57 @@ export default function ExaminationHome() {
                 </div>
               </div>
 
+              {!ipVerification.loading && ipVerification.accessGranted && (
+                <div className="bg-emerald-950/80 border-2 border-emerald-500/60 p-4 rounded-2xl text-emerald-200 text-xs shadow-xl space-y-2">
+                  <div className="flex items-center gap-2 font-extrabold text-emerald-300 text-sm uppercase">
+                    <i className="fas fa-shield-alt text-emerald-400"></i>
+                    🛡️ Verified College Lab Computer Access
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2 text-[11px] font-mono bg-slate-900/90 p-3 rounded-xl border border-slate-700/80 mt-1">
+                    <div>
+                      <span className="text-gray-400 block text-[10px] uppercase font-sans font-bold mb-0.5">Your System IPv4:</span>
+                      <span className="text-emerald-400 font-bold">{ipVerification.ip || '127.0.0.1'}</span>
+                    </div>
+                    <div>
+                      <span className="text-gray-400 block text-[10px] uppercase font-sans font-bold mb-0.5">MongoDB Registered Pool:</span>
+                      <span className="text-purple-300 font-bold">
+                        {ipVerification.dbIpList && ipVerification.dbIpList.length > 0
+                          ? ipVerification.dbIpList.join(', ')
+                          : 'Whitelisted'}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               {!ipVerification.loading && !ipVerification.accessGranted && (
                 <div className="bg-rose-950/80 border-2 border-rose-500/60 p-4 rounded-2xl text-rose-200 text-xs font-semibold flex items-start gap-3 shadow-xl">
                   <i className="fas fa-user-shield text-3xl text-rose-400 shrink-0 mt-0.5"></i>
-                  <div>
+                  <div className="w-full">
                     <strong className="block text-rose-200 font-extrabold text-sm mb-1 uppercase tracking-wide">
                       🚫 Unauthorized Examination Location
                     </strong>
-                    <p className="leading-relaxed">
-                      Your system IP address (<code className="bg-rose-900/80 px-1.5 py-0.5 rounded font-mono text-white">{ipVerification.ip}</code>) is <strong>not registered</strong> in the college's Whitelisted Lab IP Pool.
+                    <p className="leading-relaxed text-xs">
+                      Your system IPv4 address (<code className="bg-rose-900/80 px-1.5 py-0.5 rounded font-mono text-white font-bold">{ipVerification.ip || '127.0.0.1'}</code>) is <strong>not registered</strong> in <strong>{orgDetails.name}</strong>'s Whitelisted Lab IP Pool in MongoDB.
                     </p>
-                    <p className="mt-1.5 text-rose-300 font-bold">
+
+                    <div className="grid grid-cols-2 gap-2 text-[11px] font-mono bg-slate-900/90 p-3 rounded-xl border border-slate-700/80 mt-3">
+                      <div>
+                        <span className="text-gray-400 block text-[10px] uppercase font-sans font-bold mb-0.5">Your System IPv4:</span>
+                        <span className="text-rose-400 font-bold">{ipVerification.ip || '127.0.0.1'}</span>
+                      </div>
+                      <div>
+                        <span className="text-gray-400 block text-[10px] uppercase font-sans font-bold mb-0.5">MongoDB Registered Pool:</span>
+                        <span className="text-amber-300 font-bold">
+                          {ipVerification.dbIpList && ipVerification.dbIpList.length > 0
+                            ? ipVerification.dbIpList.join(', ')
+                            : 'No IPs Registered'}
+                        </span>
+                      </div>
+                    </div>
+
+                    <p className="mt-2 text-rose-300 font-bold text-xs">
                       Please attempt this examination from an authorized campus computer lab.
                     </p>
                   </div>
