@@ -72,14 +72,22 @@ export default function ExaminationHome() {
   const handleStartExamClick = async (exam) => {
     setSelectedExamModal(exam);
     setAgreedTerms(false);
-    setIpVerification({ loading: true, accessGranted: true, ip: '', message: '' });
+    setIpVerification({ loading: true, accessGranted: true, ip: '', candidateIps: [], dbIpList: [], message: '' });
 
     try {
+      // 1. Fetch public client IPv4 if available
+      let browserIp = '';
+      try {
+        const ipRes = await fetch("https://api.ipify.org?format=json");
+        const ipData = await ipRes.json();
+        if (ipData && ipData.ip) browserIp = ipData.ip;
+      } catch (e) {}
+
       const examId = exam.id || exam._id;
       const apiBase = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
       const tenantId = getStudentOrgId();
       const res = await axios.post(`${apiBase}/exams/${examId}/verify-ip`, {
-        clientIp: window.location.hostname || ""
+        clientIp: browserIp || window.location.hostname || ""
       }, {
         headers: { "x-tenant-id": tenantId }
       });
@@ -87,7 +95,7 @@ export default function ExaminationHome() {
         setIpVerification({
           loading: false,
           accessGranted: res.data.accessGranted !== false,
-          ip: res.data.ip || '',
+          ip: res.data.ip || browserIp || '127.0.0.1',
           candidateIps: res.data.candidateIps || [],
           dbIpList: res.data.dbIpList || [],
           message: res.data.message || 'Verified College Lab System'
