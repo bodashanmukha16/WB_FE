@@ -30,11 +30,11 @@ export default function ExaminationHome() {
   // Pre-exam instruction & system check modal state
   const [selectedExamModal, setSelectedExamModal] = useState(null);
   const [agreedTerms, setAgreedTerms] = useState(false);
-  const [systemCheck, setSystemCheck] = useState({
-    fullscreen: true,
-    browser: true,
-    connection: true,
-    camera: true
+  const [ipVerification, setIpVerification] = useState({
+    loading: false,
+    accessGranted: true,
+    ip: '',
+    message: ''
   });
 
   const loadData = async () => {
@@ -69,9 +69,38 @@ export default function ExaminationHome() {
     return matchesSearch && matchesCategory;
   });
 
-  const handleStartExamClick = (exam) => {
+  const handleStartExamClick = async (exam) => {
     setSelectedExamModal(exam);
     setAgreedTerms(false);
+    setIpVerification({ loading: true, accessGranted: true, ip: '', message: '' });
+
+    try {
+      const examId = exam.id || exam._id;
+      const apiBase = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+      const tenantId = getStudentOrgId();
+      const res = await axios.post(`${apiBase}/exams/${examId}/verify-ip`, {}, {
+        headers: { "x-tenant-id": tenantId }
+      });
+      if (res.data) {
+        setIpVerification({
+          loading: false,
+          accessGranted: res.data.accessGranted !== false,
+          ip: res.data.ip || '',
+          message: res.data.message || 'Verified College Lab System'
+        });
+      }
+    } catch (err) {
+      if (err.response && err.response.data && err.response.data.accessGranted === false) {
+        setIpVerification({
+          loading: false,
+          accessGranted: false,
+          ip: err.response.data.ip || '',
+          message: err.response.data.message || 'Unauthorized system IP address.'
+        });
+      } else {
+        setIpVerification({ loading: false, accessGranted: true, ip: '127.0.0.1', message: 'Verified' });
+      }
+    }
   };
 
   const handleLaunchExam = async () => {
@@ -457,6 +486,23 @@ export default function ExaminationHome() {
                     )}
                   </div>
 
+                  <div className="bg-slate-900/60 p-2.5 rounded-xl border border-slate-700/50 flex items-center justify-between col-span-2">
+                    <span className="text-gray-300">College Lab IP Whitelist Check</span>
+                    {ipVerification.loading ? (
+                      <span className="text-purple-400 font-bold flex items-center gap-1">
+                        <i className="fas fa-circle-notch animate-spin"></i> Checking Lab IP...
+                      </span>
+                    ) : ipVerification.accessGranted ? (
+                      <span className="text-emerald-400 font-bold flex items-center gap-1">
+                        <i className="fas fa-network-wired"></i> Verified ({ipVerification.ip || '127.0.0.1'})
+                      </span>
+                    ) : (
+                      <span className="text-rose-400 font-bold flex items-center gap-1">
+                        <i className="fas fa-ban"></i> Unauthorized IP ({ipVerification.ip})
+                      </span>
+                    )}
+                  </div>
+
                   <div className="bg-slate-900/60 p-2.5 rounded-xl border border-slate-700/50 flex items-center justify-between">
                     <span className="text-gray-300">Browser Fullscreen API</span>
                     <span className="text-emerald-400 font-bold flex items-center gap-1">
@@ -486,6 +532,23 @@ export default function ExaminationHome() {
                   </div>
                 </div>
               </div>
+
+              {!ipVerification.loading && !ipVerification.accessGranted && (
+                <div className="bg-rose-950/80 border-2 border-rose-500/60 p-4 rounded-2xl text-rose-200 text-xs font-semibold flex items-start gap-3 shadow-xl">
+                  <i className="fas fa-user-shield text-3xl text-rose-400 shrink-0 mt-0.5"></i>
+                  <div>
+                    <strong className="block text-rose-200 font-extrabold text-sm mb-1 uppercase tracking-wide">
+                      🚫 Unauthorized Examination Location
+                    </strong>
+                    <p className="leading-relaxed">
+                      Your system IP address (<code className="bg-rose-900/80 px-1.5 py-0.5 rounded font-mono text-white">{ipVerification.ip}</code>) is <strong>not registered</strong> in the college's Whitelisted Lab IP Pool.
+                    </p>
+                    <p className="mt-1.5 text-rose-300 font-bold">
+                      Please attempt this examination from an authorized campus computer lab.
+                    </p>
+                  </div>
+                </div>
+              )}
 
               {!isDesktopDevice() && (
                 <div className="bg-rose-950/50 border border-rose-500/40 p-4 rounded-2xl text-rose-200 text-xs font-semibold flex items-center gap-3">
@@ -545,16 +608,22 @@ export default function ExaminationHome() {
               </button>
 
               <button
-                disabled={!agreedTerms || !isDesktopDevice()}
+                disabled={!agreedTerms || !isDesktopDevice() || !ipVerification.accessGranted || ipVerification.loading}
                 onClick={handleLaunchExam}
                 className={`px-6 py-3 rounded-xl text-xs font-extrabold uppercase tracking-wider flex items-center gap-2 shadow-lg transition-all ${
-                  agreedTerms && isDesktopDevice()
+                  agreedTerms && isDesktopDevice() && ipVerification.accessGranted && !ipVerification.loading
                     ? "bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-emerald-600/30 transform active:scale-95"
                     : "bg-slate-800 text-gray-500 border border-slate-700 cursor-not-allowed"
                 }`}
               >
                 <i className="fas fa-desktop text-sm"></i>
-                {isDesktopDevice() ? "Launch Fullscreen Exam" : "Desktop Device Required"}
+                {ipVerification.loading
+                  ? "Verifying System IP..."
+                  : !ipVerification.accessGranted
+                  ? "Unauthorized Location IP"
+                  : isDesktopDevice()
+                  ? "Launch Fullscreen Exam"
+                  : "Desktop Device Required"}
               </button>
             </div>
 
