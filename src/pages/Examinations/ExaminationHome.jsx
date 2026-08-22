@@ -4,7 +4,7 @@ import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
 import { getStudentOrgDetails, getStudentOrgId } from "../../config/tenantConfig";
 import { getActiveExamsForStudent, getLocalExamHistory, isDesktopDevice, resolveStudentBranchFE, resolveStudentYearFE } from "../../services/examService";
-
+import axios from "axios";
 export default function ExaminationHome() {
   const navigate = useNavigate();
   const [orgDetails, setOrgDetails] = useState(getStudentOrgDetails());
@@ -75,37 +75,31 @@ export default function ExaminationHome() {
     setIpVerification({ loading: true, accessGranted: true, ip: '', candidateIps: [], dbIpList: [], message: '' });
 
     try {
-      // 1. Fetch public client IPv4 if available
-      let browserIp = '';
-      try {
-        const ipRes = await fetch("https://api.ipify.org?format=json");
-        const ipData = await ipRes.json();
-        if (ipData && ipData.ip) browserIp = ipData.ip;
-      } catch (e) {}
-
       const examId = exam.id || exam._id;
       const apiBase = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
       const tenantId = getStudentOrgId();
-      const res = await axios.post(`${apiBase}/exams/${examId}/verify-ip`, {
-        clientIp: browserIp || window.location.hostname || ""
-      }, {
+      // console.log(tenantId)
+      // console.log(`${apiBase}/exams/${examId}/verify-ip`)
+      const res = await axios.post(`${apiBase}/exams/${examId}/verify-ip`, {}, {
         headers: { "x-tenant-id": tenantId }
       });
+      // console.log(res.data)
       if (res.data) {
         setIpVerification({
           loading: false,
           accessGranted: res.data.accessGranted !== false,
-          ip: res.data.ip || browserIp || '127.0.0.1',
+          ip: res.data.ip,
           candidateIps: res.data.candidateIps || [],
           dbIpList: res.data.dbIpList || [],
           message: res.data.message || 'Verified College Lab System'
         });
       }
+      
     } catch (err) {
       setIpVerification({
         loading: false,
         accessGranted: false,
-        ip: err.response?.data?.ip || '',
+        ip: err.response?.data?.ip,
         candidateIps: err.response?.data?.candidateIps || [],
         dbIpList: err.response?.data?.dbIpList || [],
         message: err.response?.data?.message || 'Unauthorized system IP address.'
@@ -504,11 +498,11 @@ export default function ExaminationHome() {
                       </span>
                     ) : ipVerification.accessGranted ? (
                       <span className="text-emerald-400 font-bold flex items-center gap-1">
-                        <i className="fas fa-network-wired"></i> Verified ({ipVerification.ip || '127.0.0.1'})
+                        <i className="fas fa-network-wired"></i> Verified
                       </span>
                     ) : (
                       <span className="text-rose-400 font-bold flex items-center gap-1">
-                        <i className="fas fa-ban"></i> Unauthorized IP ({ipVerification.ip})
+                        <i className="fas fa-ban"></i> Unauthorized IP
                       </span>
                     )}
                   </div>
@@ -553,13 +547,13 @@ export default function ExaminationHome() {
                   <div className="grid grid-cols-2 gap-2 text-[11px] font-mono bg-slate-900/90 p-3 rounded-xl border border-slate-700/80 mt-1">
                     <div>
                       <span className="text-gray-400 block text-[10px] uppercase font-sans font-bold mb-0.5">Your System IPv4:</span>
-                      <span className="text-emerald-400 font-bold">{ipVerification.ip || '127.0.0.1'}</span>
+                      {/* <span className="text-emerald-400 font-bold">{ipVerification.ip}</span> */}
                     </div>
                     <div>
                       <span className="text-gray-400 block text-[10px] uppercase font-sans font-bold mb-0.5">MongoDB Registered Pool:</span>
                       <span className="text-purple-300 font-bold">
                         {ipVerification.dbIpList && ipVerification.dbIpList.length > 0
-                          ? ipVerification.dbIpList.join(', ')
+                          ? 'Fetched'
                           : 'Whitelisted'}
                       </span>
                     </div>
@@ -575,26 +569,28 @@ export default function ExaminationHome() {
                       🚫 Unauthorized Examination Location
                     </strong>
                     <p className="leading-relaxed text-xs">
-                      Your system IPv4 address (<code className="bg-rose-900/80 px-1.5 py-0.5 rounded font-mono text-white font-bold">{ipVerification.ip || '127.0.0.1'}</code>) is <strong>not registered</strong> in <strong>{orgDetails.name}</strong>'s Whitelisted Lab IP Pool in MongoDB.
+                      Your system IPv4 address (<code className="bg-rose-900/80 px-1.5 py-0.5 rounded font-mono text-white font-bold">{ipVerification.ip }</code>) is <strong>not registered</strong> in <strong>{orgDetails.name}</strong>'s Whitelisted Lab IP Pool in MongoDB.
                     </p>
 
                     <div className="grid grid-cols-2 gap-2 text-[11px] font-mono bg-slate-900/90 p-3 rounded-xl border border-slate-700/80 mt-3">
                       <div>
                         <span className="text-gray-400 block text-[10px] uppercase font-sans font-bold mb-0.5">Your System IPv4:</span>
-                        <span className="text-rose-400 font-bold">{ipVerification.ip || '127.0.0.1'}</span>
+                        {/* <span className="text-rose-400 font-bold">{ipVerification.ip}</span> */}
                       </div>
                       <div>
                         <span className="text-gray-400 block text-[10px] uppercase font-sans font-bold mb-0.5">MongoDB Registered Pool:</span>
                         <span className="text-amber-300 font-bold">
                           {ipVerification.dbIpList && ipVerification.dbIpList.length > 0
-                            ? ipVerification.dbIpList.join(', ')
+                            ? 'Fetched'
                             : 'No IPs Registered'}
                         </span>
                       </div>
                     </div>
 
                     <p className="mt-2 text-rose-300 font-bold text-xs">
-                      Please attempt this examination from an authorized campus computer lab.
+                      {ipVerification.dbIpList && ipVerification.dbIpList.length > 0
+                        ? "Please attempt this examination from an authorized campus computer lab."
+                        : "⚠️ Setup Required: No IPs are added to MongoDB yet. Open Super Admin Portal -> Click IP Pool -> Click 'Add This Computer'."}
                     </p>
                   </div>
                 </div>
