@@ -1,5 +1,5 @@
-import { useParams, useNavigate } from "react";
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API_ENDPOINTS } from "../config/apiConfig";
 import { Lock, Eye, EyeOff, CheckCircle2, ShieldAlert, ArrowRight, ShieldCheck, ArrowLeft } from "lucide-react";

@@ -2,25 +2,36 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { API_ENDPOINTS } from "../config/apiConfig";
-import LogoImage from "../assets/logo.png";
-import { Mail, ArrowLeft, ArrowRight, KeyRound, CheckCircle2, AlertTriangle, Sparkles } from "lucide-react";
+import { UserCheck, ArrowLeft, ArrowRight, KeyRound, CheckCircle2, AlertTriangle, Sparkles } from "lucide-react";
 
 export default function ForgotPassword() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const [rollNumber, setRollNumber] = useState("");
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const [successMsg, setSuccessMsg] = useState("");
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setSuccessMsg("");
+
+    const clean = rollNumber.trim();
+    if (!clean) {
+      setError("Please enter your Student Roll Number.");
+      return;
+    }
+
     try {
       setLoading(true);
-      await axios.post(`${API_ENDPOINTS.AUTH}/forgot-password`, { email });
-      setSuccess(true);
+      const res = await axios.post(`${API_ENDPOINTS.AUTH}/forgot-password`, {
+        rollNumber: clean,
+        email: clean // Fallback in case user inputs email
+      });
+      
+      setSuccessMsg(res.data?.message || `Password reset link sent to your registered email address.`);
     } catch (err) {
-      setError(err.response?.data?.message || "Something went wrong with the password reset request.");
+      setError(err.response?.data?.message || "Failed to process password reset. Please check your roll number.");
     } finally {
       setLoading(false);
     }
@@ -43,7 +54,7 @@ export default function ForgotPassword() {
 
           <h2>Forgot Password?</h2>
           <p className="subtext">
-            Enter your registered email address below and we'll send you instructions to reset your password.
+            Enter your Student Roll Number below. The system will automatically resolve your college organization and send reset instructions to your registered email.
           </p>
         </div>
 
@@ -54,20 +65,21 @@ export default function ForgotPassword() {
           </div>
         )}
 
-        {!success ? (
+        {!successMsg ? (
           <form onSubmit={handleSubmit} className="login-form">
             <div className="input-group">
-              <label htmlFor="email">Registered Email Address</label>
+              <label htmlFor="rollNumber">Student Roll Number</label>
               <div className="input-field-wrapper">
-                <Mail className="field-icon" />
+                <UserCheck className="field-icon" />
                 <input
-                  id="email"
-                  type="email"
+                  id="rollNumber"
+                  type="text"
                   required
-                  placeholder="e.g. student@svck.edu.in"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  autoComplete="email"
+                  placeholder="e.g. 19KH1A0512 or 23SVCK0531"
+                  value={rollNumber}
+                  onChange={(e) => setRollNumber(e.target.value.toUpperCase())}
+                  autoComplete="off"
+                  style={{ textTransform: "uppercase" }}
                 />
               </div>
             </div>
@@ -76,7 +88,7 @@ export default function ForgotPassword() {
               {loading ? (
                 <span className="loading-state">
                   <span className="spinner"></span>
-                  <span>Sending Link...</span>
+                  <span>Resolving & Sending...</span>
                 </span>
               ) : (
                 <span className="btn-content">
@@ -89,9 +101,9 @@ export default function ForgotPassword() {
         ) : (
           <div className="success-card">
             <CheckCircle2 className="success-icon" />
-            <h3>Reset Link Sent! 🎉</h3>
-            <p>
-              We have dispatched password reset instructions to <strong>{email}</strong>. Please check your inbox.
+            <h3>Reset Link Dispatched! 🎉</h3>
+            <p style={{ marginTop: "10px", lineHeight: "1.6", color: "#334155" }}>
+              {successMsg}
             </p>
           </div>
         )}
