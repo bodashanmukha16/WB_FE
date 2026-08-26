@@ -110,12 +110,15 @@ export const getActiveExamsForStudent = async (branchFilter = "", yearFilter = "
           id: e._id ? e._id.toString() : (e.id || e.code)
         }));
 
-        // Strict Client-Side Branch Filtering for FE_WB:
+        // Multi-Branch Client-Side Branch Filtering for FE_WB:
         if (studentBranch && studentBranch !== "all") {
           const target = studentBranch.toLowerCase();
           examsList = examsList.filter((e) => {
             const dept = (e.department || "").toLowerCase();
-            if (dept === target || dept === "all") return true;
+            const deptsArray = Array.isArray(e.departments) ? e.departments.map((d) => d.toLowerCase().trim()) : [];
+            if (dept === target || dept === "all" || deptsArray.includes(target) || deptsArray.includes("all")) {
+              return true;
+            }
 
             const text = `${e.code || ""} ${e.title || ""} ${e.subject || ""}`.toLowerCase();
             if (target === "ece") {
@@ -306,4 +309,43 @@ export const isDesktopDevice = () => {
   const isMobileOrTabletUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|Tablet|Android/i.test(userAgent);
   const isSmallScreen = window.innerWidth < 1024;
   return !isMobileOrTabletUA && !isSmallScreen;
+};
+
+/**
+ * WebRTC Client System IPv4 Auto-Detection for Student System
+ */
+export const detectClientSystemIp = () => {
+  return new Promise((resolve) => {
+    try {
+      const pc = new RTCPeerConnection({ iceServers: [{ urls: "stun:stun.l.google.com:19302" }] });
+      pc.createDataChannel("");
+      pc.createOffer().then((offer) => pc.setLocalDescription(offer)).catch(() => {});
+
+      let resolved = false;
+      pc.onicecandidate = (ice) => {
+        if (!ice || !ice.candidate || !ice.candidate.candidate) return;
+        const candidate = ice.candidate.candidate;
+        const match = /([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})/.exec(candidate);
+        if (match && match[1]) {
+          const ip = match[1];
+          if (ip !== "127.0.0.1" && !ip.startsWith("0.") && !ip.startsWith("169.254.")) {
+            if (!resolved) {
+              resolved = true;
+              try { pc.close(); } catch (e) {}
+              resolve(ip);
+            }
+          }
+        }
+      };
+
+      setTimeout(() => {
+        if (!resolved) {
+          try { pc.close(); } catch (e) {}
+          resolve(null);
+        }
+      }, 1500);
+    } catch (e) {
+      resolve(null);
+    }
+  });
 };

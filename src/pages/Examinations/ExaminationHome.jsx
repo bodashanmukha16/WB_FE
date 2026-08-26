@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
 import { getStudentOrgDetails, getStudentOrgId } from "../../config/tenantConfig";
-import { getActiveExamsForStudent, getLocalExamHistory, isDesktopDevice, resolveStudentBranchFE, resolveStudentYearFE } from "../../services/examService";
+import { getActiveExamsForStudent, getLocalExamHistory, isDesktopDevice, resolveStudentBranchFE, resolveStudentYearFE, detectClientSystemIp } from "../../services/examService";
 import axios from "axios";
 export default function ExaminationHome() {
   const navigate = useNavigate();
@@ -78,9 +78,8 @@ export default function ExaminationHome() {
       const examId = exam.id || exam._id;
       const apiBase = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
       const tenantId = getStudentOrgId();
-      // console.log(tenantId)
-      // console.log(`${apiBase}/exams/${examId}/verify-ip`)
-      const res = await axios.post(`${apiBase}/exams/${examId}/verify-ip`, {}, {
+      const clientIp = await detectClientSystemIp();
+      const res = await axios.post(`${apiBase}/exams/${examId}/verify-ip`, { clientIp }, {
         headers: { "x-tenant-id": tenantId }
       });
       // console.log(res.data)
