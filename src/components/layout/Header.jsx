@@ -78,6 +78,13 @@ export default function Header() {
               Materials
             </button>
             <button
+              onClick={() => navigate("/notifications")}
+              className="text-base font-bold text-gray-800 hover:text-purple-600 px-4 py-2 rounded-xl hover:bg-purple-50/80 transition-all duration-200 flex items-center gap-1.5"
+            >
+              <i className="fas fa-bullhorn text-xs text-purple-600"></i>
+              Notices
+            </button>
+            <button
               onClick={() => navigate("/examinations")}
               className="text-base font-bold text-purple-700 hover:text-purple-900 px-4 py-2 rounded-xl bg-purple-50 hover:bg-purple-100/80 transition-all duration-200 flex items-center gap-1.5"
             >
@@ -141,6 +148,13 @@ export default function Header() {
               className="block w-full text-left font-bold text-base text-gray-800 hover:text-purple-600 py-2 px-3 rounded-lg hover:bg-purple-50"
             >
               Materials
+            </button>
+            <button
+              onClick={() => { navigate("/notifications"); setMobileOpen(false); }}
+              className="block w-full text-left font-bold text-base text-gray-800 hover:text-purple-600 py-2 px-3 rounded-lg hover:bg-purple-50 flex items-center gap-2"
+            >
+              <i className="fas fa-bullhorn text-xs text-purple-600"></i>
+              Notices
             </button>
             <button
               onClick={() => { navigate("/examinations"); setMobileOpen(false); }}

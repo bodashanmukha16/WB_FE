@@ -14,8 +14,34 @@ export default function Notifications() {
   const getStudentProfile = () => {
     try {
       const u = JSON.parse(localStorage.getItem("user") || "{}");
-      const branch = (u.branch || u.department || "all").toLowerCase();
-      const year = u.year || "all";
+      const branchVal = (u.branch || u.department || u.username || u.email || "").toString();
+      let branch = "all";
+      const upper = branchVal.toUpperCase();
+      if (upper.includes("ECE")) branch = "ece";
+      else if (upper.includes("CSE")) branch = "cse";
+      else if (upper.includes("EEE")) branch = "eee";
+      else if (upper.includes("MECH")) branch = "mech";
+      else if (upper.includes("CIVIL")) branch = "civil";
+      else if (upper.includes("IT")) branch = "it";
+      else if (upper.includes("AIML")) branch = "aiml";
+      else if (upper.length >= 8) {
+        const code = upper.substring(6, 8);
+        if (code === "05") branch = "cse";
+        else if (code === "04") branch = "ece";
+        else if (code === "03") branch = "eee";
+        else if (code === "02") branch = "mech";
+        else if (code === "01") branch = "civil";
+      }
+
+      let year = "all";
+      if (u.year) {
+        year = String(u.year).replace(/[^0-9]/g, "") || "all";
+      } else if (upper.length >= 2) {
+        const prefix = upper.substring(0, 2);
+        if (prefix === "23" || prefix === "24") year = "2";
+        else if (prefix === "22" || prefix === "21" || prefix === "19") year = "3";
+        else if (prefix === "20") year = "4";
+      }
       return { branch, year };
     } catch (e) {
       return { branch: "all", year: "all" };
@@ -29,13 +55,34 @@ export default function Notifications() {
       const apiBase = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
       const { branch, year } = getStudentProfile();
 
-      const response = await axios.get(`${apiBase}/notifications`, {
-        headers: { "x-tenant-id": orgId },
-        params: { department: branch, year }
-      });
+      const endpoints = [
+        `${apiBase}/notifications`,
+        `${apiBase}/admin/notifications`,
+        `http://localhost:5000/api/notifications`,
+        `http://localhost:5000/api/admin/notifications`,
+        `https://wb-be-q2u6.onrender.com/api/notifications`,
+        `https://wb-be-q2u6.onrender.com/api/admin/notifications`
+      ];
+      const uniqueEndpoints = [...new Set(endpoints)];
 
-      if (response.data && response.data.success && Array.isArray(response.data.notifications)) {
-        setNotifications(response.data.notifications);
+      let loadedData = null;
+      for (const ep of uniqueEndpoints) {
+        try {
+          const res = await axios.get(ep, {
+            headers: { "x-tenant-id": orgId },
+            params: { department: branch, year }
+          });
+          if (res.data && res.data.success && Array.isArray(res.data.notifications)) {
+            loadedData = res.data.notifications;
+            break;
+          }
+        } catch (err) {
+          // Continue to next endpoint
+        }
+      }
+
+      if (loadedData) {
+        setNotifications(loadedData);
       } else {
         setNotifications(notificationsData);
       }
