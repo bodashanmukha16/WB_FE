@@ -3,6 +3,33 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getStudentOrgDetails } from "../../config/tenantConfig";
 import { getExamDetailsById, submitExamPayload, isDesktopDevice } from "../../services/examService";
 
+// Deterministic Seeded Fisher-Yates Shuffle algorithm for per-student question jumbling
+const shuffleQuestionsForStudent = (questionsList, seedKey) => {
+  if (!Array.isArray(questionsList) || questionsList.length <= 1) {
+    return questionsList;
+  }
+
+  // Create numeric 32-bit hash seed from student ID + exam ID
+  let hash = 0;
+  for (let i = 0; i < seedKey.length; i++) {
+    hash = (hash << 5) - hash + seedKey.charCodeAt(i);
+    hash |= 0;
+  }
+
+  // Pseudo-random generator function (LCG)
+  const prng = () => {
+    hash = (hash * 9301 + 49297) % 233280;
+    return Math.abs(hash) / 233280;
+  };
+
+  const shuffled = [...questionsList];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(prng() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+};
+
 export default function SecureExamViewer() {
   const { examId } = useParams();
   const navigate = useNavigate();
@@ -42,12 +69,20 @@ export default function SecureExamViewer() {
   // Ref to prevent double submission
   const submittedRef = useRef(false);
 
-  // 1. Load Examination Details
+  // 1. Load Examination Details with Per-Student Question Jumbling
   useEffect(() => {
     const fetchExam = async () => {
       setLoading(true);
       const data = await getExamDetailsById(examId);
       if (data) {
+        const studentUser = JSON.parse(localStorage.getItem("user") || "{}");
+        const studentId = studentUser.username || studentUser.rollNumber || studentUser._id || "student";
+        const seedKey = `${studentId}_${data.code || examId}`;
+
+        if (data.questions && Array.isArray(data.questions)) {
+          data.questions = shuffleQuestionsForStudent(data.questions, seedKey);
+        }
+
         setExam(data);
         const durationSec = (data.durationMinutes || 30) * 60;
         setSecondsRemaining(durationSec);
