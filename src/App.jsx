@@ -3,7 +3,7 @@ function App() {
 
   return (
     <>
-      <AppRoutes></AppRoutes>
+      <AppRoute></AppRoutes>
     </>
   )
 }
