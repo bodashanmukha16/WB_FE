@@ -236,14 +236,18 @@ export default function CoursesPage() {
         }
       });
 
-      if (res.data.success && Array.isArray(res.data.courses) && res.data.courses.length > 0) {
-        const formatted = res.data.courses.map((c, idx) => enrichCourseData(c, idx));
-        setCoursesList(formatted);
+      if (res.data.success && Array.isArray(res.data.courses)) {
+        if (res.data.courses.length > 0) {
+          const formatted = res.data.courses.map((c, idx) => enrichCourseData(c, idx));
+          setCoursesList(formatted);
+        } else {
+          setCoursesList([]);
+        }
       } else {
-        setCoursesList(defaultPopularCourses);
+        setCoursesList([]);
       }
     } catch (err) {
-      setCoursesList(defaultPopularCourses);
+      setCoursesList([]);
     } finally {
       setLoadingCourses(false);
     }
@@ -280,7 +284,7 @@ export default function CoursesPage() {
     }
   };
 
-  const displayCourses = coursesList.length > 0 ? coursesList : defaultPopularCourses;
+  const displayCourses = coursesList;
 
   // Filter logic
   let filteredCourses = displayCourses.filter((course) => {

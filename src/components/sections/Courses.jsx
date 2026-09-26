@@ -144,34 +144,38 @@ export default function Courses() {
         }
       });
 
-      if (res.data.success && Array.isArray(res.data.courses) && res.data.courses.length > 0) {
-        const formatted = res.data.courses.map((c, idx) => {
-          const fallback = defaultPopularCourses[idx % defaultPopularCourses.length];
-          return {
-            id: c.courseId || c._id,
-            title: c.title,
-            category: c.category || fallback.category,
-            level: c.level || fallback.level,
-            duration: c.duration || fallback.duration,
-            rating: c.rating || fallback.rating,
-            reviewsCount: c.reviewsCount || fallback.reviewsCount,
-            enrolledCount: c.enrolledCount || fallback.enrolledCount,
-            price: c.price || 'Free',
-            badge: c.badge || fallback.badge,
-            badgeColor: fallback.badgeColor,
-            bgGradient: fallback.bgGradient,
-            description: c.description || fallback.description,
-            tags: c.tags || fallback.tags,
-            cardType: fallback.cardType,
-            modules: c.modules || fallback.modules
-          };
-        });
-        setCoursesList(formatted);
+      if (res.data.success && Array.isArray(res.data.courses)) {
+        if (res.data.courses.length > 0) {
+          const formatted = res.data.courses.map((c, idx) => {
+            const fallback = defaultPopularCourses[idx % defaultPopularCourses.length];
+            return {
+              id: c.courseId || c._id,
+              title: c.title,
+              category: c.category || fallback.category,
+              level: c.level || fallback.level,
+              duration: c.duration || fallback.duration,
+              rating: c.rating || fallback.rating,
+              reviewsCount: c.reviewsCount || fallback.reviewsCount,
+              enrolledCount: c.enrolledCount || fallback.enrolledCount,
+              price: c.price || 'Free',
+              badge: c.badge || fallback.badge,
+              badgeColor: fallback.badgeColor,
+              bgGradient: fallback.bgGradient,
+              description: c.description || fallback.description,
+              tags: c.tags || fallback.tags,
+              cardType: fallback.cardType,
+              modules: c.modules || fallback.modules
+            };
+          });
+          setCoursesList(formatted);
+        } else {
+          setCoursesList([]);
+        }
       } else {
-        setCoursesList(defaultPopularCourses);
+        setCoursesList([]);
       }
     } catch (err) {
-      setCoursesList(defaultPopularCourses);
+      setCoursesList([]);
     } finally {
       setLoading(false);
     }
@@ -208,7 +212,7 @@ export default function Courses() {
     }
   };
 
-  const displayCourses = coursesList.length > 0 ? coursesList : defaultPopularCourses;
+  const displayCourses = coursesList;
 
   const filteredCourses = displayCourses.filter((course) => {
     const matchesCat = selectedCategory === 'All' || course.category === selectedCategory;
