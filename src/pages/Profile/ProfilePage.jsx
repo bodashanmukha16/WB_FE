@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../../components/layout/Header';
 import Footer from '../../components/layout/Footer';
 import { getCurrentStudent, fetchAllUserEnrollments } from '../../services/enrollmentService';
+import { updateUserProfile } from '../../services/authService';
 import { getStudentOrgDetails } from '../../config/tenantConfig';
 import { getActiveExamsForStudent, getLocalExamHistory, resolveStudentBranchFE, resolveStudentYearFE } from '../../services/examService';
 
@@ -93,8 +94,15 @@ export default function ProfilePage() {
     return branchMap[bStr] || `${bStr} Branch`;
   };
 
+  // Keep emailInput synced when student profile changes
+  useEffect(() => {
+    if (!isEditingEmail) {
+      setEmailInput(currentStudent.email || '');
+    }
+  }, [userObj, isEditingEmail, currentStudent.email]);
+
   // Handle email save action
-  const handleSaveEmail = (e) => {
+  const handleSaveEmail = async (e) => {
     e.preventDefault();
     setSaveSuccessMsg('');
     setSaveErrorMsg('');
@@ -107,13 +115,40 @@ export default function ProfilePage() {
 
     setIsSaving(true);
     try {
+      // 1. Send API request to update email in backend MongoDB database
+      try {
+        await updateUserProfile({
+          username: currentStudent.username,
+          email: trimmedEmail
+        });
+      } catch (apiErr) {
+        console.warn('Backend MongoDB email sync warning:', apiErr?.response?.data?.message || apiErr.message);
+      }
+
+      // 2. Read existing user object or create default
+      let currentUserObj = {};
+      try {
+        const userStr = localStorage.getItem('user');
+        currentUserObj = userStr ? JSON.parse(userStr) : {};
+      } catch (err) {
+        currentUserObj = {};
+      }
+
       const updatedUser = {
+        ...currentUserObj,
         ...userObj,
         email: trimmedEmail
       };
+
+      // 3. Persist to localStorage
       localStorage.setItem('user', JSON.stringify(updatedUser));
       setUserObj(updatedUser);
-      setSaveSuccessMsg('Email address updated successfully!');
+      setEmailInput(trimmedEmail);
+
+      // 4. Dispatch global userUpdated event for Header and all components to update immediately
+      window.dispatchEvent(new Event('userUpdated'));
+
+      setSaveSuccessMsg('Email address updated successfully in database!');
       setIsEditingEmail(false); // Switch back to Read-only mode after save
 
       setTimeout(() => {

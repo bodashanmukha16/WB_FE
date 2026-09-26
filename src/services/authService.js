@@ -5,3 +5,8 @@ export const loginUser = async (data) => {
   const response = await axios.post(`${API_ENDPOINTS.AUTH}/login`, data);
   return response.data;
 };
+
+export const updateUserProfile = async (data) => {
+  const response = await axios.post(`${API_ENDPOINTS.AUTH}/update-profile`, data);
+  return response.data;
+};

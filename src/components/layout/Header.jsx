@@ -12,8 +12,20 @@ export default function Header() {
   const dropdownRef = useRef(null);
 
   useEffect(() => {
-    setOrgDetails(getStudentOrgDetails());
-    setCurrentStudent(getCurrentStudent());
+    const updateStudentInfo = () => {
+      setOrgDetails(getStudentOrgDetails());
+      setCurrentStudent(getCurrentStudent());
+    };
+
+    updateStudentInfo();
+
+    window.addEventListener("userUpdated", updateStudentInfo);
+    window.addEventListener("storage", updateStudentInfo);
+
+    return () => {
+      window.removeEventListener("userUpdated", updateStudentInfo);
+      window.removeEventListener("storage", updateStudentInfo);
+    };
   }, []);
 
   // Close dropdown on click outside
