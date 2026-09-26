@@ -16,6 +16,7 @@ import CourseViewer from '../pages/Courses/CourseViewer'
 import ExaminationHome from '../pages/Examinations/ExaminationHome'
 import SecureExamViewer from '../pages/Examinations/SecureExamViewer'
 import ProtectedRoute from './ProtectedRoute'
+import ProfilePage from '../pages/Profile/ProfilePage'
 
 function AppRoutes() {
   return (
@@ -89,6 +90,12 @@ function AppRoutes() {
        <Route path="/notifications" element={
         <ProtectedRoute>
           <Notifications />
+        </ProtectedRoute>
+      } />
+
+      <Route path="/profile" element={
+        <ProtectedRoute>
+          <ProfilePage />
         </ProtectedRoute>
       } />
       <Route path="*" element={<h1>404 - Page Not Found</h1>} />

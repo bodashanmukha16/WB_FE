@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { BASE_API_URL } from '../../config/apiConfig';
 import { COURSES_DATA } from '../../Data/coursesData';
 import {
   enrollStudentInCourse,
@@ -15,12 +17,12 @@ export default function CourseViewer() {
   const { courseId } = useParams();
   const navigate = useNavigate();
 
-  // Find target course from COURSES_DATA
-  const course = COURSES_DATA.find((c) => c.id === courseId) || COURSES_DATA[0];
+  const [course, setCourse] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [errorMsg, setErrorMsg] = useState(null);
 
   // Selected topic & completion state
-  const firstTopic = course.modules?.[0]?.topics?.[0];
-  const [activeTopic, setActiveTopic] = useState(firstTopic);
+  const [activeTopic, setActiveTopic] = useState(null);
   const [completedTopics, setCompletedTopics] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -28,27 +30,92 @@ export default function CourseViewer() {
 
   const student = getCurrentStudent();
 
-  // Load course enrollment & topic completion state directly from Mongoose DB
+  // Load course details & enrollment status on mount or courseId change
   useEffect(() => {
-    initCourseState();
+    fetchCourseDetails();
   }, [courseId]);
 
-  const initCourseState = async () => {
-    let record = await getStudentCourseProgress(course.id);
+  const fetchCourseDetails = async () => {
+    setLoading(true);
+    setErrorMsg(null);
+    try {
+      const res = await axios.get(`${BASE_API_URL}/superadmin/public/courses/${courseId}`, {
+        headers: {
+          'x-tenant-id': student.orgId,
+          'x-branch': student.branch,
+          'x-year': student.year
+        },
+        params: {
+          orgId: student.orgId,
+          branch: student.branch,
+          year: student.year
+        }
+      });
+
+      if (res.data.success && res.data.course) {
+        const c = res.data.course;
+        const formatted = {
+          id: c.courseId || c._id,
+          title: c.title,
+          category: c.category || 'Programming',
+          level: c.level || 'Beginner to Advanced',
+          duration: c.duration || '40 hours',
+          rating: c.rating || 4.8,
+          reviewsCount: c.reviewsCount || 100,
+          price: c.price || 'Free',
+          instructor: c.instructor || 'Expert Instructor',
+          instructorRole: c.instructorRole || 'Senior Technical Educator',
+          badge: c.badge || 'Featured',
+          icon: c.icon || 'fas fa-graduation-cap',
+          color: c.color || 'from-blue-500 to-indigo-600',
+          gradient: c.gradient || 'from-blue-600 to-indigo-600',
+          description: c.description || '',
+          overview: c.overview || c.description || '',
+          learningOutcomes: c.learningOutcomes || [],
+          modules: (c.modules && c.modules.length > 0) ? c.modules : [
+            {
+              id: 'm1',
+              title: 'Module 1: Foundational Concepts & Getting Started',
+              topics: [{ id: 't1', title: 'Course Orientation & Setup' }]
+            }
+          ]
+        };
+
+        setCourse(formatted);
+        initCourseState(formatted);
+      } else {
+        setErrorMsg('Course not found or not provisioned for your organization.');
+      }
+    } catch (err) {
+      if (err.response && err.response.status === 403) {
+        setErrorMsg(err.response.data?.message || 'Access Denied: This course is not provisioned for your organization, branch, or academic year.');
+      } else {
+        setErrorMsg('Access Denied: Course is not provisioned for your organization, branch, or academic year.');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const initCourseState = async (targetCourse) => {
+    if (!targetCourse) return;
+    let record = await getStudentCourseProgress(targetCourse.id);
     if (!record) {
-      record = await enrollStudentInCourse(course);
+      record = await enrollStudentInCourse(targetCourse);
     }
     setEnrollmentRecord(record);
     if (record && Array.isArray(record.completedTopics)) {
       setCompletedTopics(record.completedTopics);
     }
-    if (course?.modules?.[0]?.topics?.[0]) {
-      setActiveTopic(course.modules[0].topics[0]);
+    if (targetCourse?.modules?.[0]?.topics?.[0]) {
+      setActiveTopic(targetCourse.modules[0].topics[0]);
     }
   };
 
   // Calculate total topics count & progress percentage
-  const totalTopicsCount = course.modules.reduce((acc, m) => acc + m.topics.length, 0);
+  const totalTopicsCount = course && Array.isArray(course.modules)
+    ? course.modules.reduce((acc, m) => acc + (m.topics?.length || 0), 0)
+    : 0;
   const progressPercent = totalTopicsCount > 0
     ? Math.min(100, Math.round((completedTopics.length / totalTopicsCount) * 100))
     : 0;
@@ -56,7 +123,7 @@ export default function CourseViewer() {
   // Mark topic as completed permanently in Mongoose database (no rollback)
   const markTopicAsCompleted = async (topicId, e) => {
     e?.stopPropagation();
-    if (!topicId || completedTopics.includes(topicId)) {
+    if (!topicId || completedTopics.includes(topicId) || !course) {
       return; // Already completed, permanently locked
     }
 
@@ -68,6 +135,49 @@ export default function CourseViewer() {
       setEnrollmentRecord(record);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-slate-900 text-white flex flex-col font-sans">
+        <Header />
+        <div className="flex-1 flex flex-col items-center justify-center py-32">
+          <i className="fas fa-spinner fa-spin text-4xl text-purple-400 mb-4"></i>
+          <p className="text-gray-400 font-medium">Verifying Course Provisioning & Access Permissions...</p>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (errorMsg || !course) {
+    return (
+      <div className="min-h-screen bg-slate-900 text-white flex flex-col font-sans">
+        <Header />
+        <div className="flex-1 flex flex-col items-center justify-center px-6 py-32 text-center max-w-2xl mx-auto">
+          <div className="w-20 h-20 bg-red-500/10 rounded-3xl border border-red-500/30 flex items-center justify-center mb-6">
+            <i className="fas fa-lock text-3xl text-red-400"></i>
+          </div>
+          <span className="px-4 py-1 bg-red-500/20 text-red-300 text-xs font-bold rounded-full border border-red-500/30 uppercase tracking-widest mb-3">
+            Access Restricted by Provision Matrix
+          </span>
+          <h2 className="text-3xl font-extrabold text-white mb-4">
+            Course Access Restricted
+          </h2>
+          <p className="text-gray-300 text-base mb-8 leading-relaxed">
+            {errorMsg || "This course has not been provisioned for your organization, branch, or academic year by Super Admin."}
+          </p>
+          <button
+            onClick={() => navigate('/courses')}
+            className="px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-xl shadow-lg hover:brightness-110 transition flex items-center gap-2"
+          >
+            <i className="fas fa-arrow-left"></i>
+            Return to Available Course Catalog
+          </button>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-slate-900 text-gray-100 flex flex-col font-sans">

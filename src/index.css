@@ -12,3 +12,21 @@
 .reveal {
   animation: slideFadeIn 0.9s ease-out forwards;
 }
+
+/* Ensure all interactive elements consistently show pointer cursor */
+button,
+a,
+[role="button"],
+input[type="submit"],
+input[type="button"],
+input[type="reset"],
+select,
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
+button:disabled,
+input:disabled,
+.cursor-not-allowed {
+  cursor: not-allowed !important;
+}

@@ -11,24 +11,58 @@ let memoryEnrollmentsCache = {};
 export const getCurrentStudent = () => {
   try {
     const userStr = localStorage.getItem("user");
-    if (!userStr) {
-      return {
-        userId: "guest_student",
-        username: "guest_student",
-        email: "student@workbench.edu",
-        fullname: "Student User",
-        orgId: "svck"
-      };
+    let user = {};
+    if (userStr) {
+      try {
+        user = JSON.parse(userStr);
+      } catch (e) {
+        user = {};
+      }
     }
-    const user = JSON.parse(userStr);
-    const rollNumber = user.username || user._id || user.id || "guest_student";
+    const rollNumber = user.username || user.rollNumber || user._id || user.id || "guest_student";
     const userEmail = user.email || `${rollNumber}@workbench.edu`;
+    const orgId = user.orgId || user.tenantId || localStorage.getItem("x-tenant-id") || "svck";
+
+    // Direct fields
+    let branch = user.branch || user.department || user.branchCode || "";
+    let year = user.year || user.academicYear || user.currentYear || "";
+
+    // Roll number fallback parser if direct branch/year not in user object
+    if (!branch || !year) {
+      const cleanRoll = String(rollNumber).toUpperCase().trim();
+
+      // Extract batch year e.g. 24 -> Year 1, 23 -> Year 2, 22 -> Year 3, 21 -> Year 4
+      const yearMatch = cleanRoll.match(/^(21|22|23|24|25|26)/);
+      if (yearMatch && !year) {
+        const batch = parseInt(yearMatch[1], 10);
+        if (batch === 24) year = '1';
+        else if (batch === 23) year = '2';
+        else if (batch === 22) year = '3';
+        else if (batch === 21) year = '4';
+      }
+
+      // Extract Branch from roll number pattern
+      if (!branch) {
+        if (cleanRoll.includes('CSE') || cleanRoll.includes('A05') || cleanRoll.includes('1A05')) branch = 'CSE';
+        else if (cleanRoll.includes('ECE') || cleanRoll.includes('A04') || cleanRoll.includes('1A04')) branch = 'ECE';
+        else if (cleanRoll.includes('EEE') || cleanRoll.includes('A02') || cleanRoll.includes('1A02')) branch = 'EEE';
+        else if (cleanRoll.includes('MECH') || cleanRoll.includes('A03') || cleanRoll.includes('1A03')) branch = 'MECH';
+        else if (cleanRoll.includes('CIVIL') || cleanRoll.includes('A01') || cleanRoll.includes('1A01')) branch = 'CIVIL';
+        else if (cleanRoll.includes('AIML') || cleanRoll.includes('A42') || cleanRoll.includes('1A42')) branch = 'AIML';
+        else if (cleanRoll.includes('AIDS') || cleanRoll.includes('A44') || cleanRoll.includes('1A44')) branch = 'AIDS';
+        else if (cleanRoll.includes('CSM') || cleanRoll.includes('A66') || cleanRoll.includes('1A66')) branch = 'CSM';
+        else if (cleanRoll.includes('IT') || cleanRoll.includes('A12') || cleanRoll.includes('1A12')) branch = 'IT';
+      }
+    }
+
     return {
       userId: rollNumber,
       username: rollNumber,
       email: userEmail,
       fullname: user.name || user.fullname || rollNumber,
-      orgId: user.orgId || "svck"
+      orgId: String(orgId).toLowerCase().trim(),
+      branch: String(branch || 'CSE').toUpperCase().trim(),
+      year: String(year || '1').trim()
     };
   } catch (e) {
     return {
@@ -36,7 +70,9 @@ export const getCurrentStudent = () => {
       username: "guest_student",
       email: "student@workbench.edu",
       fullname: "Student User",
-      orgId: "svck"
+      orgId: "svck",
+      branch: "CSE",
+      year: "1"
     };
   }
 };
