@@ -34,7 +34,7 @@ export default function LoginCard() {
       localStorage.setItem("user", JSON.stringify(data.user));
       navigate("/dash");
     } catch (e) {
-      const serverMsg = e.response?.data?.message || "Invalid username or password";
+      const serverMsg = e.response?.data?.message || "Invalid username / password";
       setError(serverMsg);
       setLoading(false);
     }
