@@ -14,6 +14,8 @@ export default function LoginCard() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const [infoMsg, setInfoMsg] = useState("");
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -24,6 +26,7 @@ export default function LoginCard() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setInfoMsg("");
     try {
       setLoading(true);
       const data = await loginUser(formData);
@@ -41,6 +44,12 @@ export default function LoginCard() {
     const prev_id = localStorage.getItem("token");
     if (prev_id) {
       navigate("/dash");
+    } else {
+      const expiredMsg = sessionStorage.getItem("session_expired_msg");
+      if (expiredMsg) {
+        setInfoMsg(expiredMsg);
+        sessionStorage.removeItem("session_expired_msg");
+      }
     }
   }, [navigate]);
 
@@ -85,6 +94,13 @@ export default function LoginCard() {
           <div className="error-alert">
             <ShieldAlert className="error-icon" />
             <span>{error}</span>
+          </div>
+        )}
+
+        {infoMsg && (
+          <div className="p-3 mb-4 bg-amber-500/10 border border-amber-500/30 rounded-xl flex items-center gap-2.5 text-xs text-amber-300">
+            <ShieldAlert className="w-5 h-5 text-amber-400 shrink-0" />
+            <span>{infoMsg}</span>
           </div>
         )}
 

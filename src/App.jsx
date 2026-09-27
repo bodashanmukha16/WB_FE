@@ -1,9 +1,11 @@
-import AppRoutes  from './routes/AppRoutes'
-function App() {
+import AppRoutes from './routes/AppRoutes'
+import SessionManager from './components/session/SessionManager'
 
+function App() {
   return (
     <>
-      <AppRoutes></AppRoutes>
+      <SessionManager />
+      <AppRoutes />
     </>
   )
 }
