@@ -1,2 +1,2 @@
 // Auto-updated during GitHub Releases
-export const APP_VERSION = "V1.0.4";
+export const APP_VERSION = "V1.1.0";
