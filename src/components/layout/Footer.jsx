@@ -1,4 +1,5 @@
 import React from 'react';
+import { APP_VERSION } from '../../config/version';
 
 export default function Footer() {
   return (
@@ -250,9 +251,13 @@ export default function Footer() {
         {/* ========================================================================= */}
         <div className="border-t border-slate-800/80 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           
-          {/* Copyright */}
-          <div>
-            © 2026 WorkBench. All rights reserved.
+          {/* Copyright & Version Badge */}
+          <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
+            <span>© 2026 WorkBench. All rights reserved.</span>
+            <span className="px-2.5 py-0.5 bg-purple-500/10 border border-purple-500/30 rounded-full text-[11px] font-mono text-purple-300 shadow-sm flex items-center gap-1.5" title="Current Deployment Release Version">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span>{APP_VERSION}</span>
+            </span>
           </div>
 
           {/* Center Cursive Slogan */}

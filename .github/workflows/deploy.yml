@@ -16,7 +16,7 @@ jobs:
       # 🔥 Trigger Render Deploy
       - name: Trigger Render Deploy
         run: |
-          curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
+          curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_DEVELOP }}
 
       # 🔥 Wait for Deployment
       - name: Wait for Render Deployment
@@ -28,8 +28,8 @@ jobs:
           for i in {1..30}
           do
             STATUS=$(curl -s \
-              -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
-              https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys \
+              -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY_DEVELOP }}" \
+              https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID_DEVELOP }}/deploys \
               | jq -r '.[0].deploy.status')
 
             echo "Current status: $STATUS"
