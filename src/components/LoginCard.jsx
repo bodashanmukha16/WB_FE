@@ -72,7 +72,7 @@ export default function LoginCard() {
           </div>
 
           <div className="left-text">
-            <h3>Centralized Student Portal Access</h3>
+            <h3>Centralized Student Portal</h3>
             <p>Access your academic records, enrollments, and live schedules in one secure platform.</p>
           </div>
         </div>
